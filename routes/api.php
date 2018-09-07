@@ -91,3 +91,24 @@ $route->get('role/{roleid}/permission', function ($roleid) {
     
     return ['permission_list'=>$pathList];
 });
+
+
+$route->get('role/{roleid}/button', function ($roleid) {
+    $collection = \App\Models\RolePermission::where('role_id', $roleid)->with(['permission'=>function($query) {
+        $query->where('per_type',3);
+    },'permission.parentPermission'])->get();
+    
+    $pathList = [];
+    $collection->filter(function($item) {
+        return $item->permission !== null;
+    })->map(function(\App\Models\RolePermission $rolePermission) use(&$pathList) {
+        $pathList[ $rolePermission->permission->parentPermission->path ][] = [
+            'path'     => $rolePermission->permission->path,
+            'name'     => $rolePermission->permission->name,
+            'title'    => $rolePermission->permission->description,
+            'per_type' => $rolePermission->permission->per_type
+        ];
+    });
+    
+    return $pathList;
+});
