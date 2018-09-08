@@ -78,7 +78,7 @@ $route->post('role/{roleid}/permission', function (Request $request,$roleid) {
 });
 
 $route->get('/permission', function (Request $request) {
-    return \App\Models\Permission::where('per_type', 2)->pluck('path');
+    return \App\Models\Permission::whereIn('per_type', [2,3])->pluck('path');
 });
 
 $route->get('role/{roleid}/permission', function ($roleid) {
