@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $parent_id 父级ID
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property Permission $parentPermission
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereId($value)
@@ -29,4 +30,10 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     protected $guarded = [];
+    
+    
+    public function parentPermission()
+    {
+        return $this->hasOne(__CLASS__,'id','parent_id');
+    }
 }
