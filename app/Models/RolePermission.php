@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Permission
+ * App\Models\RolePermission
  *
- * @property int $id 自增主键
- * @property int $permission_id 权限ID
+ * @property int $id
  * @property int $role_id 角色ID
- * @property Permission|null $permission 权限model
- * @property \Carbon\Carbon $created_at
+ * @property int $permission_id 权限ID
+ * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereMethod($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission wherePath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission wherePerType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereUpdatedAt($value)
+ * @property-read \App\Models\Permission $permission
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission wherePermissionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission whereRoleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class RolePermission extends Model

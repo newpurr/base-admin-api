@@ -29,8 +29,9 @@ function saveTree($tree, $parantId = 0)
         'path'     => $tree['absolute_path']
     ]);
     
-    $model->name         = $tree['name'];
+    $model->name        = $tree['name'];
     $model->description = $tree['title'];
+    $model->per_type    = $tree['per_type'];
     $model->parent_id   = $parantId;
     $model->save();
     
@@ -81,6 +82,10 @@ $route->get('/permission', function (Request $request) {
     return \App\Models\Permission::whereIn('per_type', [2,3])->pluck('path');
 });
 
+$route->delete('/permission/{id}', function (int $id) {
+    return \App\Models\Permission::where('id', $id)->delete();
+});
+
 $route->get('role/{roleid}/permission', function ($roleid) {
     $collection = \App\Models\RolePermission::where('role_id', $roleid)->with('permission:id,path')->get();
 
@@ -92,6 +97,24 @@ $route->get('role/{roleid}/permission', function ($roleid) {
     return ['permission_list'=>$pathList];
 });
 
+$route->get('/button', function () {
+    $collection = \App\Models\Permission::where('per_type', 3)->with('parentPermission')->get();
+    
+    $pathList = [];
+    $collection->filter(function($item) {
+        return $item->parentPermission !== null;
+    })->map(function(\App\Models\Permission $permission) use(&$pathList) {
+        $pathList[ $permission->parentPermission->path ][] = [
+            'id'       => $permission->id,
+            'path'     => $permission->path,
+            'name'     => $permission->name,
+            'title'    => $permission->description,
+            'per_type' => $permission->per_type
+        ];
+    });
+    
+    return $pathList;
+})->name('button');
 
 $route->get('role/{roleid}/button', function ($roleid) {
     $collection = \App\Models\RolePermission::where('role_id', $roleid)->with(['permission'=>function($query) {
@@ -103,6 +126,7 @@ $route->get('role/{roleid}/button', function ($roleid) {
         return $item->permission !== null;
     })->map(function(\App\Models\RolePermission $rolePermission) use(&$pathList) {
         $pathList[ $rolePermission->permission->parentPermission->path ][] = [
+            'id'     => $rolePermission->permission->id,
             'path'     => $rolePermission->permission->path,
             'name'     => $rolePermission->permission->name,
             'title'    => $rolePermission->permission->description,
@@ -111,4 +135,6 @@ $route->get('role/{roleid}/button', function ($roleid) {
     });
     
     return $pathList;
-});
+})->name('button');
+
+$route->apiResource('roles', 'Rbac\Role\Role');

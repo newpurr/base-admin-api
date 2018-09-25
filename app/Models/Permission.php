@@ -17,15 +17,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property Permission $parentPermission
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereMethod($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission wherePath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission wherePerType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Permission whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission wherePerType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereParentId($value)
  */
 class Permission extends Model
 {
