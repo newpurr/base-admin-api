@@ -72,4 +72,40 @@ class Role extends Controller
     {
         //
     }
+    
+    public function batchDestory(Request $request)
+    {
+        $ids = $request->json('params.ids');
+        if(!$ids) {
+            return [
+                'code' => 'error',
+                'desc' => 'no selected option'
+            ];
+        }
+    
+        $ids = explode(',', $ids);
+        \App\Models\Role::whereIn('id', $ids)->update(['enable'=>0]);
+        return [
+            'code' => 'succeed',
+            'desc' => ''
+        ];
+    }
+    
+    public function batchEnable(Request $request)
+    {
+        $ids = $request->json('params.ids');
+        if(!$ids) {
+            return [
+                'code' => 'error',
+                'desc' => 'no selected option'
+            ];
+        }
+    
+        $ids = explode(',', $ids);
+        \App\Models\Role::whereIn('id', $ids)->update(['enable'=>1]);
+        return [
+            'code' => 'succeed',
+            'desc' => ''
+        ];
+    }
 }

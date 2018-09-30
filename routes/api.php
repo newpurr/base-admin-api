@@ -138,3 +138,6 @@ $route->get('role/{roleid}/button', function ($roleid) {
 })->name('button');
 
 $route->apiResource('roles', 'Rbac\Role\Role');
+
+$route->post('roles/batchDestory', 'Rbac\Role\Role@batchDestory');
+$route->post('roles/batchEnable', 'Rbac\Role\Role@batchEnable');
