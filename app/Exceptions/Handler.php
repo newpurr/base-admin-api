@@ -13,39 +13,25 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        CustomException::class,
     ];
-
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @var array
-     */
-    protected $dontFlash = [
-        'password',
-        'password_confirmation',
-    ];
-
-    /**
-     * Report or log an exception.
-     *
-     * @param  \Exception  $exception
-     * @return void
-     */
-    public function report(Exception $exception)
-    {
-        parent::report($exception);
-    }
-
+    
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception               $exception
+     *
+     * @return mixed
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof CustomException) {
+            info($exception->getMessage(), $request->all());
+            
+            return response()->json(jsonResponse()->formatAsError($exception->getCode(), $exception->getMessage()));
+        }
+        
         return parent::render($request, $exception);
     }
 }

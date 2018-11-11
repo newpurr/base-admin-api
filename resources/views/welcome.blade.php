@@ -78,18 +78,23 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+                <form action="/upload" enctype="multipart/form-data" method="POST" role="form">
+                    <legend>上传图片</legend>
+{{csrf_field()}}
+                    <div class="form-group">
+                        <label for="">label</label>
+                        <input type="file" class="form-control" id="" name="file_data[]">
+                    </div>
+                    <div class="form-group">
+                        <label for="">label</label>
+                        <input type="file" class="form-control" id="" name="file_data[]">
+                    </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                    <div class="form-group">
+                        <input type="submit" class="form-control" id="" value="上传图片">
+                    </div>
+
+                </form>
             </div>
         </div>
     </body>

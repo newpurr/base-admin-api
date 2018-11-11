@@ -2,110 +2,128 @@
 
 namespace App\Http\Controllers\Rbac\Role;
 
+use App\Exceptions\ParamterErrorException;
+use App\Models\Role as RoleModel;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 class Role extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return \Illuminate\Http\Response
+     *
+     * @return array
      */
-    public function index()
+    public function index() : array
     {
-        $paginate = \App\Models\Role::when(\request('name'), function (\Illuminate\Database\Eloquent\Builder $query,$value) {
-            return $query->where('name', 'like','%' . $value . '%');
+        $paginate = RoleModel::when(\request('name'), function (EloquentBuilder $query, $value) {
+            return $query->where('name', 'like', '%' . $value . '%');
         })->paginate((int) \request('limit', 15));
-        return response()->json([
-            'items'    => $paginate->items(),
-            'paginate' => [
-                'total'     => $paginate->total(),
-                'last_page' => $paginate->lastPage(),
-                'per_page'  => $paginate->perPage()
-            ]
-        ]);
+        
+        return jsonResponse()->formatPaginateAsSuccess($paginate);
     }
     
     /**
      * Store a newly created resource in storage.
+     *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     *
+     * @return array
      */
-    public function store(Request $request)
+    public function store(Request $request) : array
     {
-        $roleModel = \App\Models\Role::make();
-        $roleModel->fill($request->only(['name']));
+        $roleModel = RoleModel::make();
+        $roleModel->fill($request->only([ 'name' ]));
         $roleModel->save();
-        return $roleModel;
+        
+        return jsonResponse()->formatAsSuccess($roleModel->toArray());
     }
     
     /**
      * Display the specified resource.
+     *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return array|mixed
      */
     public function show($id)
     {
-        return \App\Models\Role::find($id);
+        $roleModel = RoleModel::find($id);
+        if (!$roleModel) {
+            return response('', Response::HTTP_NOT_FOUND);
+        }
+        
+        return jsonResponse()->formatAsSuccess($roleModel->toArray());
     }
     
     /**
      * Update the specified resource in storage.
+     *
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
-     * @return \Illuminate\Http\Response
+     *
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) : array
     {
-        $roleModel = \App\Models\Role::findOrFail($id);
-        $roleModel->fill($request->only(['name']));
+        $roleModel = RoleModel::findOrFail($id);
+        $roleModel->fill($request->only([ 'name' ]));
         $roleModel->save();
-        return $roleModel;
+        
+        return jsonResponse()->formatAsSuccess($roleModel->toArray());
+    }
+    
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  int $id
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy($id)
+    // {
+    //     //
+    // }
+    
+    /**
+     * 批量禁用角色
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
+     */
+    public function batchDestory(Request $request) : array
+    {
+        $ids = $request->json('params.ids');
+        if (!$ids) {
+            throw new ParamterErrorException('请指定需要批量操作的选项ID');
+        }
+        
+        $ids = explode(',', $ids);
+        RoleModel::whereIn('id', $ids)->update([ 'enable' => 0 ]);
+        
+        return jsonResponse()->formatAsSuccess();
     }
     
     /**
-     * Remove the specified resource from storage.
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * batchEnable
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return array
      */
-    public function destroy($id)
-    {
-        //
-    }
-    
-    public function batchDestory(Request $request)
+    public function batchEnable(Request $request) : array
     {
         $ids = $request->json('params.ids');
-        if(!$ids) {
-            return [
-                'code' => 'error',
-                'desc' => 'no selected option'
-            ];
+        if (!$ids) {
+            return jsonResponse()->format('error', 'no selected option');
         }
-    
+        
         $ids = explode(',', $ids);
-        \App\Models\Role::whereIn('id', $ids)->update(['enable'=>0]);
-        return [
-            'code' => 'succeed',
-            'desc' => ''
-        ];
-    }
-    
-    public function batchEnable(Request $request)
-    {
-        $ids = $request->json('params.ids');
-        if(!$ids) {
-            return [
-                'code' => 'error',
-                'desc' => 'no selected option'
-            ];
-        }
-    
-        $ids = explode(',', $ids);
-        \App\Models\Role::whereIn('id', $ids)->update(['enable'=>1]);
-        return [
-            'code' => 'succeed',
-            'desc' => ''
-        ];
+        RoleModel::whereIn('id', $ids)->update([ 'enable' => 1 ]);
+        
+        return jsonResponse()->format('succeed', '');
     }
 }

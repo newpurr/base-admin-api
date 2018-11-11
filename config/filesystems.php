@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -12,9 +12,9 @@ return [
     | based disks are available to your application. Just store away!
     |
     */
-
+    
     'default' => env('FILESYSTEM_DRIVER', 'local'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Default Cloud Filesystem Disk
@@ -25,9 +25,9 @@ return [
     | will be bound as the Cloud disk implementation in the container.
     |
     */
-
+    
     'cloud' => env('FILESYSTEM_CLOUD', 's3'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
@@ -40,30 +40,39 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3", "rackspace"
     |
     */
-
+    
     'disks' => [
-
+        
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root'   => storage_path('app'),
         ],
-
+        
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
+            'public' => [
+                'driver'     => 'local',
+                'root'       => storage_path('app/public'),
+                'url'        => env('APP_URL') . '/storage',
+                'visibility' => 'public',
+            ],
+            
+            's3'    => [
+                'driver' => 's3',
+                'key'    => env('AWS_ACCESS_KEY_ID'),
+                'secret' => env('AWS_SECRET_ACCESS_KEY'),
+                'region' => env('AWS_DEFAULT_REGION'),
+                'bucket' => env('AWS_BUCKET'),
+                'url'    => env('AWS_URL'),
+            ],
+            'upyun' => [
+                'driver'   => 'upyun',
+                'bucket'   => env('UPYUN_BUCKET'),    // 服务名字
+                'operator' => env('UPYUN_OPERATOR'),  // 操作员的名字
+                'password' => env('UPYUN_PASSWORD'),  // 操作员的密码
+                'domain'   => env('UPYUN_DOMAIN'),    // 服务分配的域名
+                'protocol' => env('UPYUN_PROTOCOL'),  // 服务使用的协议
+            ],
         ],
-
-        's3' => [
-            'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-        ],
-
-    ],
+    ]
 
 ];
