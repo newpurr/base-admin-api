@@ -27,7 +27,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof CustomException) {
-            info($exception->getMessage(), $request->all());
+            logger($exception->getMessage(), $request->all());
             
             return response()->json(jsonResponse()->formatAsError($exception->getCode(), $exception->getMessage()));
         }
