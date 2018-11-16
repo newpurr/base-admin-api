@@ -18,7 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission wherePermissionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission query()
  */
 class RolePermission extends Model
 {

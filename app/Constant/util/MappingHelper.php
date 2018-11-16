@@ -9,7 +9,7 @@ trait MappingHelper
 {
     /**
      * 获取映射名称
-     * @param $field
+     * @param mixed $field
      * @static
      * @return null|string
      */

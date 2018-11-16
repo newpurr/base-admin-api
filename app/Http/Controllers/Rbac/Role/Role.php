@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Rbac\Role;
 
 use App\Exceptions\ParamterErrorException;
-use App\Models\Role as RoleModel;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Role as RoleModel;
+use App\Repository\Criteria\IsDeletedCriteria;
+use App\Repository\Repositories\RoleRepositoryEloquent;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class Role extends Controller
@@ -14,13 +15,18 @@ class Role extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \App\Repository\Repositories\RoleRepositoryEloquent $repository
+     *
      * @return array
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
-    public function index() : array
+    public function index(RoleRepositoryEloquent $repository) : array
     {
-        $paginate = RoleModel::when(\request('name'), function (EloquentBuilder $query, $value) {
-            return $query->where('name', 'like', '%' . $value . '%');
-        })->paginate((int) \request('limit', 15));
+        // $paginate = RoleModel::when(\request('name'), function (EloquentBuilder $query, $value) {
+        //     return $query->where('name', 'like', '%' . $value . '%');
+        // })->paginate((int) \request('limit', 15));
+        $repository->pushCriteria(app(IsDeletedCriteria::class));
+        $paginate = $repository->paginate((int) \request('limit', 15));
         
         return jsonResponse()->formatPaginateAsSuccess($paginate);
     }

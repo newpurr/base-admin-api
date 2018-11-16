@@ -2,11 +2,10 @@
 
 namespace App\Repository\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repository\Contracts\RoleRepository;
 use App\Models\Role;
-use App\Repository\Validators\RoleValidator;
+use App\Repository\Contracts\RoleRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class RoleRepositoryEloquent.
@@ -20,15 +19,15 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
      *
      * @return string
      */
-    public function model()
+    public function model() : string
     {
         return Role::class;
     }
-
     
-
     /**
      * Boot up the repository, pushing criteria
+     *
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      */
     public function boot()
     {

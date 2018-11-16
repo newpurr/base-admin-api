@@ -22,8 +22,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments wherePath( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments wherePerType( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereUpdatedAt( $value )
- * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereParentId( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereMimeType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereOwnerUid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereSrc($value)
  */
 class Attachments extends Model
 {

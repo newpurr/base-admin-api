@@ -25,8 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission wherePath( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission wherePerType( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereUpdatedAt( $value )
- * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereParentId( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
  */
 class Permission extends Model
 {
