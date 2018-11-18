@@ -17,14 +17,37 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property \Carbon\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereEnable( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereName( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role name( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role nameLike( $value )
  * @mixin \Eloquent
  */
 class Role extends BaseModel implements Transformable
 {
     use TransformableTrait;
     
+    /**
+     * 角色名称条件scope
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string                                $name
+     *
+     * @return mixed
+     */
     public function scopeName($query, string $name)
     {
+        return $query->where('name', $name);
+    }
     
+    /**
+     * 角色名称条件scope
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param string                                $name
+     *
+     * @return mixed
+     */
+    public function scopeNameLike($query, string $name)
+    {
+        return $query->where('name', 'like', '%' . $name . '%');
     }
 }

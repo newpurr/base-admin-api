@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Constant\DeletedStateEnum;
-use App\Constant\EnableStateEnum;
+use App\Constant\StateEnum;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -65,7 +65,7 @@ class BaseModel extends Model
      *
      * @return mixed
      */
-    public function scopeState($query, $stateCode = EnableStateEnum::ENABLED)
+    public function scopeState($query, $stateCode = StateEnum::ENABLED)
     {
         $stateCode = !\is_array($stateCode) ? [ $stateCode ] : $stateCode;
         

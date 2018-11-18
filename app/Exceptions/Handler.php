@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Constant\JsonResponseCode;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 class Handler extends ExceptionHandler
 {
@@ -26,12 +28,19 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $jsonResponse = jsonResponse();
         if ($exception instanceof CustomException) {
             logger($exception->getMessage(), $request->all());
             
-            return response()->json(jsonResponse()->formatAsError($exception->getCode(), $exception->getMessage()));
+            return response()->json($jsonResponse->formatAsError($exception->getCode(), $exception->getMessage()));
         }
-        
+    
+        if ($exception instanceof ValidatorException) {
+            return response()->json(
+                $jsonResponse->format(JsonResponseCode::PARAMETER_ERROR, $exception->getMessageBag()->first())
+            );
+        }
+    
         return parent::render($request, $exception);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Services\Rbac\Role;
 
-use App\Models\Role;
+use App\Services\Rbac\Role\Contracts\BaseServiceInterface;
+use App\Services\Rbac\Role\Contracts\BatchOperationServiceInterface;
 
 /**
  * Interface RoleService
@@ -13,14 +14,6 @@ use App\Models\Role;
  * @version 1.0
  * @package App\Services\Rbac\Role
  */
-interface RoleService
+interface RoleService extends BaseServiceInterface, BatchOperationServiceInterface
 {
-    /**
-     * 获取单个角色信息
-     *
-     * @param int $roleId
-     *
-     * @return \App\Models\Role
-     */
-    public function find(int $roleId) : Role;
 }

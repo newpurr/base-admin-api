@@ -40,7 +40,7 @@ class JsonResponseCode
      * @var array
      */
     protected const MAPPING = [
-        self::SUCCESS         => '',
+        self::SUCCESS         => '成功',
         self::SERVER_ERROR    => '服务器繁忙',
         self::PARAMETER_ERROR => '参数错误',
     ];

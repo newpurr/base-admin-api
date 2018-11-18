@@ -4,8 +4,8 @@ namespace App\Repository\Repositories;
 
 use App\Models\Role;
 use App\Repository\Contracts\RoleRepository;
+use App\Repository\Helper\BeatchUpdate;
 use App\Repository\Validators\RoleValidator;
-use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
@@ -15,6 +15,8 @@ use Prettus\Repository\Eloquent\BaseRepository;
  */
 class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 {
+    use BeatchUpdate;
+    
     /**
      * Specify Model class name
      *
@@ -35,13 +37,13 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
         return RoleValidator::class;
     }
     
-    /**
-     * Boot up the repository, pushing criteria
-     *
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
+    // /**
+    //  * Boot up the repository, pushing criteria
+    //  *
+    //  * @throws \Prettus\Repository\Exceptions\RepositoryException
+    //  */
+    // public function boot()
+    // {
+    //     $this->pushCriteria(app(RequestCriteria::class));
+    // }
 }

@@ -1,5 +1,9 @@
 <?php
 
+use App\Providers\CriteriaServiceProvider;
+use App\Providers\RepositoryServiceProvider;
+use App\Providers\ServicesServiceProvider;
+
 return [
 
     /*
@@ -107,7 +111,7 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -161,6 +165,9 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        ServicesServiceProvider::class,
+        RepositoryServiceProvider::class,
+        CriteriaServiceProvider::class
     ],
 
     /*

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Criteria;
+namespace App\Repository\Criteria\Role;
 
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -10,26 +10,24 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repository\Criteria;
  */
-class StateCriteria implements CriteriaInterface
+class RoleNameLikeCriteria implements CriteriaInterface
 {
     /**
      * Apply criteria in query repository
      *
-     * @param \App\Models\BaseModel $model
+     * @param \App\Models\Role $model
      * @param RepositoryInterface   $repository
      *
      * @return mixed
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $stateCode = request('state', null);
+        $name = request('name', null);
         
-        if (null === $stateCode) {
+        if (null === $name) {
             return $model;
         }
         
-        $stateCodeArr = explode(',', $stateCode);
-        
-        return $model->state($stateCodeArr);
+        return $model->nameLike($name);
     }
 }

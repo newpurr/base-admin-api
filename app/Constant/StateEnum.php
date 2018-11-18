@@ -5,7 +5,7 @@ namespace App\Constant;
 use App\Constant\util\MappingHelper;
 
 /**
- * Class EnableStateEnum
+ * Class StateEnum
  *
  * 记录公用状态常量
  *
@@ -13,7 +13,7 @@ use App\Constant\util\MappingHelper;
  * @version 1.0
  * @package App\Constant
  */
-class EnableStateEnum
+class StateEnum
 {
     use MappingHelper;
     
@@ -32,7 +32,7 @@ class EnableStateEnum
     public const ENABLED = 1;
     
     /**
-     * 服务器内部错误
+     * 禁用
      *
      * @var int
      */
@@ -46,6 +46,6 @@ class EnableStateEnum
     protected const MAPPING = [
         self::ENABLED  => '已启用',
         self::DISABLED => '已禁用',
-        self::DEFAULT  => '待处理',
+        self::DEFAULT  => '待审核',
     ];
 }
