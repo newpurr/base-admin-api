@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereMimeType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereOwnerUid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Attachments whereSrc($value)
+ * @mixin \Eloquent
  */
 class Attachments extends Model
 {

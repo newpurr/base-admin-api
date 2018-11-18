@@ -29,6 +29,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
+ * @property int $is_deleted 是否删除:0-未删除 1-已删除
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereIsDeleted($value)
+ * @mixin \Eloquent
  */
 class Permission extends Model
 {

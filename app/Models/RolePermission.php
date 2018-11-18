@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission query()
+ * @mixin \Eloquent
  */
 class RolePermission extends Model
 {

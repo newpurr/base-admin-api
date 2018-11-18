@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Rbac\Role;
 
+use App\Constant\JsonResponseCode;
 use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Models\Role as RoleModel;
 use App\Repository\Criteria\IsDeletedCriteria;
 use App\Repository\Repositories\RoleRepositoryEloquent;
 use Illuminate\Http\Request;
+use Prettus\Validator\Exceptions\ValidatorException;
 use Symfony\Component\HttpFoundation\Response;
 
 class Role extends Controller
@@ -25,24 +27,33 @@ class Role extends Controller
         // $paginate = RoleModel::when(\request('name'), function (EloquentBuilder $query, $value) {
         //     return $query->where('name', 'like', '%' . $value . '%');
         // })->paginate((int) \request('limit', 15));
+        \DB::connection()->enableQueryLog();
         $repository->pushCriteria(app(IsDeletedCriteria::class));
+        // $paginate = $repository->first();
         $paginate = $repository->paginate((int) \request('limit', 15));
         
+        // dd(\DB::connection()->getQueryLog());
         return jsonResponse()->formatPaginateAsSuccess($paginate);
     }
     
     /**
      * Store a newly created resource in storage.
      *
+     * @param RoleRepositoryEloquent    $repository
      * @param  \Illuminate\Http\Request $request
      *
      * @return array
      */
-    public function store(Request $request) : array
+    public function store(RoleRepositoryEloquent $repository, Request $request) : array
     {
-        $roleModel = RoleModel::make();
-        $roleModel->fill($request->only([ 'name' ]));
-        $roleModel->save();
+        // $roleModel = RoleModel::make();
+        // $roleModel->fill($request->only([ 'name' ]));
+        // $roleModel->save();
+        try {
+            $roleModel = $repository->create($request->only([ 'name' ]));
+        } catch (ValidatorException $e) {
+            return jsonResponse()->format(JsonResponseCode::PARAMETER_ERROR, $e->getMessageBag()->first());
+        }
         
         return jsonResponse()->formatAsSuccess($roleModel->toArray());
     }

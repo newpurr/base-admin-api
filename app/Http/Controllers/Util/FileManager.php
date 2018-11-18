@@ -36,7 +36,7 @@ class FileManager extends Controller
             $uploadFile = [ $uploadFile ];
         }
         $path              = '/' . date('Y-m');
-        $filesystemAdapter = Storage::disk('upyun');
+        $filesystemAdapter = Storage::disk('public.upyun');
         $collection        = collect();
         /** @var \Illuminate\Http\UploadedFile $file */
         foreach ($uploadFile as $file) {
@@ -45,7 +45,7 @@ class FileManager extends Controller
             $attachmentsModel->mime_type = $file->getMimeType();
             $attachmentsModel->src       = $filesystemAdapter->put($path, $file);
             $attachmentsModel->save();
-            $attachmentsModel->src = config('filesystems.disks.public.upyun.domain') . $attachmentsModel->src;
+            $attachmentsModel->src = '//'.config('filesystems.disks.public.upyun.domain') .'/'. $attachmentsModel->src;
             $collection->push($attachmentsModel);
         }
         

@@ -17,33 +17,35 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-function saveTree($tree, $parantId = 0)
-{
-    if (empty($tree)) {
+if (!function_exists('saveTree')) {
+    function saveTree($tree, $parantId = 0)
+    {
+        if (empty($tree)) {
+            return true;
+        }
+        
+        /** @var \App\Models\Permission $model */
+        $model = \App\Models\Permission::firstOrNew([
+            'per_type' => 2,
+            'path'     => $tree['absolute_path']
+        ]);
+        
+        $model->name        = $tree['name'];
+        $model->description = $tree['title'];
+        $model->per_type    = $tree['per_type'];
+        $model->parent_id   = $parantId;
+        $model->save();
+        
+        if (empty($tree['children'])) {
+            return true;
+        }
+        
+        foreach ($tree['children'] as $child) {
+            saveTree($child, $model->id);
+        }
+        
         return true;
     }
-    
-    /** @var \App\Models\Permission $model */
-    $model = \App\Models\Permission::firstOrNew([
-        'per_type' => 2,
-        'path'     => $tree['absolute_path']
-    ]);
-    
-    $model->name        = $tree['name'];
-    $model->description = $tree['title'];
-    $model->per_type    = $tree['per_type'];
-    $model->parent_id   = $parantId;
-    $model->save();
-    
-    if (empty($tree['children'])) {
-        return true;
-    }
-    
-    foreach ($tree['children'] as $child) {
-        saveTree($child, $model->id);
-    }
-    
-    return true;
 }
 
 /** @var \Illuminate\Routing\Router $route */

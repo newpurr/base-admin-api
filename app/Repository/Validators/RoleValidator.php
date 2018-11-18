@@ -17,8 +17,11 @@ class RoleValidator extends LaravelValidator
      *
      * @var array
      */
-    protected $rules = [
-        ValidatorInterface::RULE_CREATE => [],
+    protected $rules    = [
+        ValidatorInterface::RULE_CREATE => [
+            // bail在某个属性第一次验证失败后停止运行验证规则
+            'name' => 'bail|required|between:2,10'
+        ],
         ValidatorInterface::RULE_UPDATE => [],
     ];
 }
