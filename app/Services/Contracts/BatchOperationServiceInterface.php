@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Rbac\Role\Contracts;
+namespace App\Services\Contracts;
 
 /**
  * Interface BatchOperationServiceInterface

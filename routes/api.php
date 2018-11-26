@@ -59,29 +59,7 @@ $route->post('/permission', function (Request $request) {
     return $data['menus'];
 });
 
-$route->post('role/{roleid}/permission', function (Request $request, $roleid) {
-    $permissionCollection = collect($request->post('permissionList', []));
-    $pathList             = $permissionCollection->values();
-    
-    $idArr = \App\Models\Permission::whereIn('path', $pathList)->pluck('id');
-    
-    $idCollection = collect($idArr);
-    
-    $insertRolePermissionArr = [];
-    
-    $idCollection->map(function ($item) use (&$insertRolePermissionArr, $roleid) {
-        $insertRolePermissionArr[] = [
-            'permission_id' => $item,
-            'role_id'       => $roleid,
-            'created_at'    => \Carbon\Carbon::now()
-        ];
-    });
-    
-    \App\Models\RolePermission::where('role_id', $roleid)->delete();
-    \App\Models\RolePermission::insert($insertRolePermissionArr);
-    
-    return 1;
-});
+$route->post('role/{roleid}/permission', 'Rbac\RolePermission\RolePermission@store');
 
 $route->get('/permission', function (Request $request) {
     return \App\Models\Permission::whereIn('per_type', [ 2, 3 ])->pluck('path');
@@ -145,7 +123,7 @@ $route->get('role/{roleid}/button', function ($roleid) {
     return $pathList;
 })->name('button');
 
+// 角色相关API
 $route->apiResource('roles', 'Rbac\Role\Role');
-
 $route->post('roles/batchDestory', 'Rbac\Role\Role@batchDestory');
 $route->post('roles/batchEnable', 'Rbac\Role\Role@batchEnable');

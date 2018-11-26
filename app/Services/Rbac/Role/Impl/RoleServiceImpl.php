@@ -120,7 +120,7 @@ class RoleServiceImpl implements RoleService
      *
      * @param int $id
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(int $id) : bool
     {

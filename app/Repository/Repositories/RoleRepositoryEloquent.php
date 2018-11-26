@@ -4,7 +4,7 @@ namespace App\Repository\Repositories;
 
 use App\Models\Role;
 use App\Repository\Contracts\RoleRepository;
-use App\Repository\Helper\BeatchUpdate;
+use App\Repository\Helper\BatchOperation;
 use App\Repository\Validators\RoleValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -15,7 +15,7 @@ use Prettus\Repository\Eloquent\BaseRepository;
  */
 class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 {
-    use BeatchUpdate;
+    use BatchOperation;
     
     /**
      * Specify Model class name

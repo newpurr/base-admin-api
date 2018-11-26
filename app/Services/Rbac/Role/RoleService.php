@@ -2,8 +2,8 @@
 
 namespace App\Services\Rbac\Role;
 
-use App\Services\Rbac\Role\Contracts\BaseServiceInterface;
-use App\Services\Rbac\Role\Contracts\BatchOperationServiceInterface;
+use App\Services\Contracts\BaseServiceInterface;
+use App\Services\Contracts\BatchOperationServiceInterface;
 
 /**
  * Interface RoleService

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Rbac\Role\Contracts;
+namespace App\Services\Contracts;
 
 use App\Models\BaseModel;
 
@@ -58,7 +58,7 @@ interface BaseServiceInterface
      *
      * @param int $id
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(int $id);
 }

@@ -2,7 +2,6 @@
 
 namespace App\Repository\Helper;
 
-use App\Models\Role;
 use Closure;
 
 /**
@@ -14,7 +13,7 @@ use Closure;
  * @version 1.0
  * @package App\Repository\Helper
  */
-trait BeatchUpdate
+trait BatchOperation
 {
     /**
      * Delete multiple entities by given criteria.
@@ -26,6 +25,6 @@ trait BeatchUpdate
      */
     public function updateWhere(array $attributes, Closure $where) : int
     {
-        return Role::where($where)->update($attributes);
+        return $this->model->where($where)->update($attributes);
     }
 }

@@ -12,16 +12,31 @@ use Symfony\Component\HttpFoundation\Response;
 class Role extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 角色service
+     *
+     * @var \App\Services\Rbac\Role\RoleService
+     */
+    private $roleService;
+    
+    /**
+     * Role constructor.
      *
      * @param \App\Services\Rbac\Role\RoleService $roleService
+     */
+    public function __construct(RoleService $roleService)
+    {
+        $this->roleService = $roleService;
+    }
+    
+    /**
+     * Display a listing of the resource.
      *
      * @return array
      */
-    public function index(RoleService $roleService) : array
+    public function index() : array
     {
         
-        $paginate = $roleService->paginate((int) \request('limit', 15));
+        $paginate = $this->roleService->paginate((int) \request('limit', 15));
         
         return $this->success($paginate);
     }
@@ -29,14 +44,13 @@ class Role extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Services\Rbac\Role\RoleService $roleService
-     * @param  \Illuminate\Http\Request           $request
+     * @param  \Illuminate\Http\Request $request
      *
      * @return array
      */
-    public function store(RoleService $roleService, Request $request) : array
+    public function store(Request $request) : array
     {
-        $roleModel = $roleService->create($request->only([ 'name' ]));
+        $roleModel = $this->roleService->create($request->only([ 'name' ]));
         
         return $this->success($roleModel->toArray());
     }
@@ -44,14 +58,13 @@ class Role extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Services\Rbac\Role\RoleService $roleService
-     * @param  int                                $id
+     * @param  int $id
      *
      * @return array|mixed
      */
-    public function show(RoleService $roleService, $id)
+    public function show($id)
     {
-        $roleModel = $roleService->find($id, [ 'id', 'name' ]);
+        $roleModel = $this->roleService->find($id, [ 'id', 'name' ]);
         if (!$roleModel) {
             return response('', Response::HTTP_NOT_FOUND);
         }
@@ -62,15 +75,14 @@ class Role extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Services\Rbac\Role\RoleService $roleService
-     * @param  \Illuminate\Http\Request           $request
-     * @param  int                                $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int                      $id
      *
      * @return array
      */
-    public function update(RoleService $roleService, Request $request, $id) : array
+    public function update(Request $request, $id) : array
     {
-        $roleModel = $roleService->update($request->only([ 'name' ]), $id);
+        $roleModel = $this->roleService->update($request->only([ 'name' ]), $id);
         
         return $this->success($roleModel->toArray());
     }
@@ -78,14 +90,13 @@ class Role extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Services\Rbac\Role\RoleService $roleService
-     * @param  int                                $id
+     * @param  int $id
      *
      * @return array
      */
-    public function destroy(RoleService $roleService, $id) : array
+    public function destroy($id) : array
     {
-        $roleService->delete($id);
+        $this->roleService->delete($id);
         
         return $this->success();
     }
@@ -93,12 +104,11 @@ class Role extends Controller
     /**
      * 批量禁用角色
      *
-     * @param \App\Services\Rbac\Role\RoleService $roleService
-     * @param \Illuminate\Http\Request            $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
-    public function batchDestory(RoleService $roleService, Request $request) : array
+    public function batchDestory(Request $request) : array
     {
         $ids = $request->json('params.ids');
         if (!$ids) {
@@ -106,7 +116,7 @@ class Role extends Controller
         }
         
         $ids          = explode(',', $ids);
-        $affectedRows = $roleService->batchUpdate([ 'state' => StateEnum::DISABLED ], [
+        $affectedRows = $this->roleService->batchUpdate([ 'state' => StateEnum::DISABLED ], [
             'id_arr' => $ids
         ]);
         
@@ -118,12 +128,11 @@ class Role extends Controller
     /**
      * batchEnable
      *
-     * @param \App\Services\Rbac\Role\RoleService $roleService
-     * @param \Illuminate\Http\Request            $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return array
      */
-    public function batchEnable(RoleService $roleService, Request $request) : array
+    public function batchEnable(Request $request) : array
     {
         $ids = $request->json('params.ids');
         if (!$ids) {
@@ -131,7 +140,7 @@ class Role extends Controller
         }
         
         $ids          = explode(',', $ids);
-        $affectedRows = $roleService->batchUpdate([ 'state' => StateEnum::ENABLED ], [
+        $affectedRows = $this->roleService->batchUpdate([ 'state' => StateEnum::ENABLED ], [
             'id_arr' => $ids
         ]);
         
