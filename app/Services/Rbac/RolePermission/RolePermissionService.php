@@ -2,9 +2,6 @@
 
 namespace App\Services\Rbac\RolePermission;
 
-use App\Models\Role;
-use Illuminate\Database\Eloquent\Collection;
-
 /**
  * interface RolePermissionService
  *

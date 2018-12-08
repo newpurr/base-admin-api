@@ -2,7 +2,9 @@
 
 namespace App\Repository\Helper;
 
+use App\Constant\StateEnum;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Trait BeatchUpdate
@@ -18,7 +20,7 @@ trait BatchOperation
     /**
      * Delete multiple entities by given criteria.
      *
-     * @param array $attributes
+     * @param array   $attributes
      * @param Closure $where
      *
      * @return int

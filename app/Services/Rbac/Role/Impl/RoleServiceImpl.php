@@ -8,9 +8,9 @@ use App\Repository\Contracts\RoleRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
 use App\Repository\Criteria\Role\RoleNameLikeCriteria;
 use App\Repository\Criteria\StateCriteria;
+use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class RoleServiceImpl
@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class RoleServiceImpl implements RoleService
 {
+    use BatchChangeState;
+    
     /**
      * role Repository
      *
@@ -38,6 +40,8 @@ class RoleServiceImpl implements RoleService
     public function __construct(RoleRepository $roleRepository)
     {
         $this->roleRepository = $roleRepository;
+    
+        $this->setRepostitory($roleRepository);
     }
     
     /**
@@ -97,32 +101,13 @@ class RoleServiceImpl implements RoleService
     }
     
     /**
-     * 批量更新
-     *
-     * @param array $attributes
-     * @param array $where
-     *
-     * @return int
-     */
-    public function batchUpdate(array $attributes, array $where) : int
-    {
-        if (empty($where) || empty($where['id_arr']) || !\is_array($where['id_arr'])) {
-            throw new \RuntimeException('where参数传递错误');
-        }
-        
-        return $this->roleRepository->updateWhere($attributes, function (Builder $builder) use ($where) {
-            $builder->whereIn('id', $where['id_arr']);
-        });
-    }
-    
-    /**
      * 删除一个模型
      *
      * @param int $id
      *
      * @return bool
      */
-    public function delete(int $id) : bool
+    public function softDelete(int $id) : bool
     {
         return (bool) $this->roleRepository->update([ 'is_deleted' => DeletedStateEnum::IS_DELETED ], $id);
     }

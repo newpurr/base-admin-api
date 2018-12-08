@@ -2,8 +2,8 @@
 
 namespace App\Services\Rbac\Role;
 
-use App\Services\Contracts\BaseServiceInterface;
-use App\Services\Contracts\BatchOperationServiceInterface;
+use App\Services\Contracts\BaseServiceInterface as BaseService;
+use App\Services\Contracts\BatchChangeStateServiceInterface as BatchChangeState;
 
 /**
  * Interface RoleService
@@ -14,6 +14,6 @@ use App\Services\Contracts\BatchOperationServiceInterface;
  * @version 1.0
  * @package App\Services\Rbac\Role
  */
-interface RoleService extends BaseServiceInterface, BatchOperationServiceInterface
+interface RoleService extends BatchChangeState, BaseService
 {
 }

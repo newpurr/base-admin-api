@@ -24,13 +24,13 @@ class FileManager extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
-    public function upload(Request $request) : \Illuminate\Http\JsonResponse
+    public function upload(Request $request) : array
     {
         $uploadFile = $request->file('file_data');
         if (!$uploadFile) {
-            return response()->json(jsonResponse()->formatAsError('error', 'no file'));
+            return $this->error('error', 'no file');
         }
         if ($uploadFile instanceof UploadedFile) {
             $uploadFile = [ $uploadFile ];
@@ -45,10 +45,10 @@ class FileManager extends Controller
             $attachmentsModel->mime_type = $file->getMimeType();
             $attachmentsModel->src       = $filesystemAdapter->put($path, $file);
             $attachmentsModel->save();
-            $attachmentsModel->src = '//'.config('filesystems.disks.public.upyun.domain') .'/'. $attachmentsModel->src;
+            $attachmentsModel->src = resources_path($attachmentsModel->src);
             $collection->push($attachmentsModel);
         }
         
-        return response()->json(jsonResponse()->formatAsSuccess([ 'files' => $collection->toArray() ]));
+        return $this->success([ 'files' => $collection->toArray() ]);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Rbac\RolePermission;
 
-use App\Services\Rbac\RolePermission\RolePermissionService;
 use App\Http\Controllers\Controller;
+use App\Services\Rbac\RolePermission\RolePermissionService;
 use Illuminate\Http\Request;
 
 /**
@@ -20,14 +20,14 @@ class RolePermission extends Controller
     /**
      * 分配角色权限service
      *
-     * @var \App\Services\Rbac\RolePermission\RolePermissionService
+     * @var RolePermissionService
      */
     private $rolePermissionService;
     
     /**
      * RolePermission constructor.
      *
-     * @param \App\Services\Rbac\RolePermission\RolePermissionService $rolePermissionService
+     * @param RolePermissionService $rolePermissionService
      */
     public function __construct(RolePermissionService $rolePermissionService)
     {

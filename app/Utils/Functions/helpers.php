@@ -2,7 +2,7 @@
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-if (!function_exists('paginateToApiData')) {
+if (!function_exists('paginate_to_apidata')) {
     /**
      * paginate对象装换Api数据结构辅助函数
      *
@@ -10,7 +10,7 @@ if (!function_exists('paginateToApiData')) {
      *
      * @return array
      */
-    function paginateToApiData(LengthAwarePaginator $paginate)
+    function paginate_to_apidata(LengthAwarePaginator $paginate)
     {
         return [
             'paginate' => [
@@ -23,14 +23,17 @@ if (!function_exists('paginateToApiData')) {
         ];
     }
 }
-if (!function_exists('jsonResponse')) {
+
+if (!function_exists('absolute_resources_path')) {
     /**
-     * Get the JsonResponseData instance.
+     * 获取资源绝对路径
      *
-     * @return \App\Utils\JsonResponseData
+     * @param string $relativePath
+     *
+     * @return string
      */
-    function jsonResponse()
+    function resources_path(string $relativePath)
     {
-        return app(\App\Utils\JsonResponseData::class);
+        return sprintf('//%s/%s', config('filesystems.disks.public.upyun.domain'), $relativePath);
     }
 }

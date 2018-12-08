@@ -26,6 +26,7 @@ class ConstantHelperTest extends TestCase
      */
     public function testHelperGetNameNotNull() : void
     {
+        env($key);
         $this->assertNotNull(DeletedStateEnum::getName(DeletedStateEnum::IS_DELETED));
         $this->assertSame(DeletedStateEnum::getName(DeletedStateEnum::IS_DELETED), '删除');
     }

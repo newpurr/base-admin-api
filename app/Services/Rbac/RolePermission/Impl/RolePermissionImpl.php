@@ -76,17 +76,18 @@ class RolePermissionImpl implements RolePermissionService
     public function allotFrontendPermission(int $roleId, array $permissionPathArr) : bool
     {
         $idArr = \App\Models\Permission::whereIn('path', $permissionPathArr)->pluck('id');
-
+        
         $insertRolePermissionArr = [];
-        collect($idArr)->map(function ($item) use (&$insertRolePermissionArr, $roleId) {
+        collect($idArr)->each(function ($item) use (&$insertRolePermissionArr, $roleId) {
             $insertRolePermissionArr[] = [
                 'permission_id' => $item,
                 'role_id'       => $roleId,
                 'created_at'    => \Carbon\Carbon::now()
             ];
         });
-
+        
         $this->deleteByRoleId($roleId);
+        
         if ($insertRolePermissionArr) {
             \App\Models\RolePermission::insert($insertRolePermissionArr);
         }

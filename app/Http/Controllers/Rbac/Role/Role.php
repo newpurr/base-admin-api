@@ -13,8 +13,6 @@ class Role extends Controller
 {
     /**
      * 角色service
-     *
-     * @var \App\Services\Rbac\Role\RoleService
      */
     private $roleService;
     
@@ -96,7 +94,7 @@ class Role extends Controller
      */
     public function destroy($id) : array
     {
-        $this->roleService->delete($id);
+        $this->roleService->softDelete($id);
         
         return $this->success();
     }
@@ -115,10 +113,7 @@ class Role extends Controller
             throw new ParamterErrorException('请指定需要批量操作的选项ID');
         }
         
-        $ids          = explode(',', $ids);
-        $affectedRows = $this->roleService->batchUpdate([ 'state' => StateEnum::DISABLED ], [
-            'id_arr' => $ids
-        ]);
+        $affectedRows = $this->roleService->batchDisabled(explode(',', $ids));
         
         return $this->success([
             'affected_rows' => $affectedRows
@@ -138,12 +133,9 @@ class Role extends Controller
         if (!$ids) {
             throw new ParamterErrorException('请指定需要批量操作的选项ID');
         }
-        
-        $ids          = explode(',', $ids);
-        $affectedRows = $this->roleService->batchUpdate([ 'state' => StateEnum::ENABLED ], [
-            'id_arr' => $ids
-        ]);
-        
+    
+        $affectedRows = $this->roleService->batchEnabled(explode(',', $ids));
+    
         return $this->success([
             'affected_rows' => $affectedRows
         ]);

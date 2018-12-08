@@ -22,7 +22,7 @@ trait JsonResponseData
     public function success($response = []) : array
     {
         if ($response instanceof LengthAwarePaginator) {
-            return $this->format(JsonResponseCode::SUCCESS, '', paginateToApiData($response));
+            return $this->format(JsonResponseCode::SUCCESS, '', paginate_to_apidata($response));
         }
         
         return $this->format(JsonResponseCode::SUCCESS, '', $response);

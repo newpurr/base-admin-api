@@ -121,7 +121,7 @@ $route->get('role/{roleid}/button', function ($roleid) {
     });
     
     return $pathList;
-})->name('button');
+});
 
 // 角色相关API
 $route->apiResource('roles', 'Rbac\Role\Role');
