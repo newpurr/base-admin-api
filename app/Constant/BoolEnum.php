@@ -2,7 +2,7 @@
 
 namespace App\Constant;
 
-use App\Constant\util\MappingHelper;
+use App\Constant\Util\MappingHelper;
 
 /**
  * Class BoolEnum

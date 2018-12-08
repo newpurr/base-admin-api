@@ -1,5 +1,5 @@
 <?php
-namespace App\Constant\util;
+namespace App\Constant\Util;
 
 /**
  * Trait MappingHelper 映射获取辅助trait
