@@ -56,7 +56,6 @@ class RoleServiceImpl implements RoleService
     {
         $this->roleRepository->pushCriteria(app(IsDeletedCriteria::class));
         $this->roleRepository->pushCriteria(app(StateCriteria::class));
-        $this->roleRepository->pushCriteria(app(RoleNameLikeCriteria::class));
         
         return $this->roleRepository->paginate($pageSize, $columns);
     }

@@ -20,7 +20,6 @@ Route::get('/', function (Router $router) {
     // $cookieJar = $client->getConfig('cookies');
     //
     // var_dump($r, $cookieJar->toArray());
-    dd($router->getRoutes());
     return view('welcome');
 });
 

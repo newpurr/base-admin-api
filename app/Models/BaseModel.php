@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Constant\DeletedStateEnum;
-use App\Constant\StateEnum;
 use Illuminate\Database\Eloquent\Model;
+use SupperHappysir\Constant\DeletedStateEnum;
+use SupperHappysir\Constant\StateEnum;
 
 /**
  * Class Role.

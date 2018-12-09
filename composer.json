@@ -1,9 +1,7 @@
 {
-  "name": "laravel/laravel",
-  "description": "The Laravel Framework.",
+  "name": "supper-happysir/base-admin",
+  "description": "a basic background management system",
   "keywords": [
-    "framework",
-    "laravel"
   ],
   "license": "MIT",
   "type": "project",
@@ -17,18 +15,21 @@
     "laravel/tinker": "^1.0",
     "predis/predis": "^1.1",
     "prettus/l5-repository": "^2.6",
-    "swooletw/laravel-swoole": "^2.5"
+    "super-happysir/share-package": "^1.0.0",
+    "swooletw/laravel-swoole": "^2.5",
+    "tymon/jwt-auth": "1.*@rc"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.4",
-    "squizlabs/php_codesniffer": "*",
     "filp/whoops": "^2.0",
+    "friendsofphp/php-cs-fixer": "^2.13",
     "fzaninotto/faker": "^1.4",
     "mockery/mockery": "^1.0",
     "nunomaduro/collision": "^2.0",
     "orangehill/iseed": "^2.5",
     "phpunit/phpunit": "^7.0",
     "roave/security-advisories": "dev-master",
+    "squizlabs/php_codesniffer": "*",
     "xethron/migrations-generator": "^2.0"
   },
   "autoload": {

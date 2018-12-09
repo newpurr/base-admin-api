@@ -2,9 +2,9 @@
 
 namespace App\Repository\Criteria;
 
-use App\Constant\DeletedStateEnum;
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
+use SupperHappysir\Constant\DeletedStateEnum;
 
 /**
  * Class IdInCriteriaCriteria.

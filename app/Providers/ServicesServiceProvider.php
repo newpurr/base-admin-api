@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\Rbac\Permission\Impl\PermisssionServiceImpl;
 use App\Services\Rbac\Role\Impl\RoleServiceImpl;
+use App\Services\Rbac\Permission\PermissionService;
 use App\Services\Rbac\Role\RoleService;
 use App\Services\Rbac\RolePermission\Impl\RolePermissionImpl;
 use App\Services\Rbac\RolePermission\RolePermissionService;
@@ -12,6 +14,7 @@ class ServicesServiceProvider extends ServiceProvider
 {
     public $singletons = [
         RoleService::class           => RoleServiceImpl::class,
-        RolePermissionService::class => RolePermissionImpl::class
+        RolePermissionService::class => RolePermissionImpl::class,
+        PermissionService::class     => PermisssionServiceImpl::class,
     ];
 }

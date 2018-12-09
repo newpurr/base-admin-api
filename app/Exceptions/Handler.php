@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Constant\JsonResponseCode;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -32,15 +33,33 @@ class Handler extends ExceptionHandler
         if ($exception instanceof CustomException) {
             logger($exception->getMessage(), $request->all());
             
-            return response()->json($jsonResponse->formatAsError($exception->getCode(), $exception->getMessage()));
+            return $this->json(
+                $jsonResponse->error($exception->getCode(), $exception->getMessage())
+            );
         }
-    
+        
+        if ($exception instanceof AuthenticationException) {
+            return $this->json(
+                $jsonResponse->error(JsonResponseCode::UNAUTHORIZED, $exception->getMessage())
+            );
+        }
+        
         if ($exception instanceof ValidatorException) {
-            return response()->json(
+            return $this->json(
                 $jsonResponse->format(JsonResponseCode::PARAMETER_ERROR, $exception->getMessageBag()->first())
             );
         }
     
         return parent::render($request, $exception);
+    }
+    
+    /**
+     * json
+     * @param $response
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function json($response) : \Illuminate\Http\JsonResponse
+    {
+        return response()->json($response);
     }
 }

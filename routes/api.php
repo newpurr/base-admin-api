@@ -1,75 +1,54 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+/** @var \Illuminate\Routing\Router $router */
+$router = app(Router::class);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/*** JWT 用户认证 ***/
+$router->group([
+    'middleware' => 'api',
+    'prefix'     => 'auth'
+], function (Router $router) {
+    // 登录
+    $router->post('login', 'Auth\AuthController@login');
+    // 退出
+    $router->post('logout', 'Auth\AuthController@logout');
+    // 刷新token
+    $router->post('refresh', 'Auth\AuthController@refresh');
+    // 用户信息
+    $router->get('user', 'Auth\AuthController@user');
 });
 
-if (!function_exists('saveTree')) {
-    function saveTree($tree, $parantId = 0)
-    {
-        if (empty($tree)) {
-            return true;
+
+/*** 权限管理 ***/
+$router->group([
+    'middleware' => 'api',
+    'prefix'     => 'permission'
+], function (Router $router) {
+    // $router->get('/', function () {
+    //     return \App\Models\Permission::whereIn('per_type', [
+    //         2,
+    //     ])->pluck('path');
+    // });
+    $router->get('/', 'Rbac\Permission\Permission@index');
+    $router->post('/', function (Request $request) {
+        $data = $request->toArray();
+        foreach ($data['menus'] as $menu) {
+            saveTree($menu);
         }
         
-        /** @var \App\Models\Permission $model */
-        $model = \App\Models\Permission::firstOrNew([
-            'per_type' => 2,
-            'path'     => $tree['absolute_path']
-        ]);
-        
-        $model->name        = $tree['name'];
-        $model->description = $tree['title'];
-        $model->per_type    = $tree['per_type'];
-        $model->parent_id   = $parantId;
-        $model->save();
-        
-        if (empty($tree['children'])) {
-            return true;
-        }
-        
-        foreach ($tree['children'] as $child) {
-            saveTree($child, $model->id);
-        }
-        
-        return true;
-    }
-}
-
-/** @var \Illuminate\Routing\Router $route */
-$route = app(\Illuminate\Routing\Router::class);
-$route->post('/permission', function (Request $request) {
-    $data = $request->toArray();
-    foreach ($data['menus'] as $menu) {
-        saveTree($menu);
-    }
-    
-    return $data['menus'];
+        return $data['menus'];
+    });
+    $router->delete('/permission/{id}', function (int $id) {
+        return \App\Models\Permission::where('id', $id)->delete();
+    });
 });
 
-$route->post('role/{roleid}/permission', 'Rbac\RolePermission\RolePermission@store');
 
-$route->get('/permission', function (Request $request) {
-    return \App\Models\Permission::whereIn('per_type', [ 2, 3 ])->pluck('path');
-});
-
-$route->delete('/permission/{id}', function (int $id) {
-    return \App\Models\Permission::where('id', $id)->delete();
-});
-
-$route->get('role/{roleid}/permission', function ($roleid) {
+$router->post('role/{roleid}/permission', 'Rbac\RolePermission\RolePermission@store');
+$router->get('role/{roleid}/permission', function ($roleid) {
     $collection = \App\Models\RolePermission::where('role_id', $roleid)->with('permission:id,path')->get();
     
     $pathList = [];
@@ -77,17 +56,18 @@ $route->get('role/{roleid}/permission', function ($roleid) {
         $pathList[] = $rolePermission->permission->path ?? '';
     });
     
-    return [ 'permission_list' => $pathList ];
+    return ['permission_list' => $pathList];
 });
 
-$route->get('/button', function () {
+
+$router->get('/button', function () {
     $collection = \App\Models\Permission::where('per_type', 3)->with('parentPermission')->get();
     
     $pathList = [];
     $collection->filter(function ($item) {
         return $item->parentPermission !== null;
     })->map(function (\App\Models\Permission $permission) use (&$pathList) {
-        $pathList[ $permission->parentPermission->path ][] = [
+        $pathList[$permission->parentPermission->path][] = [
             'id'       => $permission->id,
             'path'     => $permission->path,
             'name'     => $permission->name,
@@ -99,7 +79,7 @@ $route->get('/button', function () {
     return $pathList;
 })->name('button');
 
-$route->get('role/{roleid}/button', function ($roleid) {
+$router->get('role/{roleid}/button', function ($roleid) {
     $collection = \App\Models\RolePermission::where('role_id', $roleid)->with([
         'permission' => function ($query) {
             $query->where('per_type', 3);
@@ -111,7 +91,7 @@ $route->get('role/{roleid}/button', function ($roleid) {
     $collection->filter(function ($item) {
         return $item->permission !== null;
     })->map(function (\App\Models\RolePermission $rolePermission) use (&$pathList) {
-        $pathList[ $rolePermission->permission->parentPermission->path ][] = [
+        $pathList[$rolePermission->permission->parentPermission->path][] = [
             'id'       => $rolePermission->permission->id,
             'path'     => $rolePermission->permission->path,
             'name'     => $rolePermission->permission->name,
@@ -123,7 +103,11 @@ $route->get('role/{roleid}/button', function ($roleid) {
     return $pathList;
 });
 
-// 角色相关API
-$route->apiResource('roles', 'Rbac\Role\Role');
-$route->post('roles/batchDestory', 'Rbac\Role\Role@batchDestory');
-$route->post('roles/batchEnable', 'Rbac\Role\Role@batchEnable');
+// 角色管理API
+$router->apiResource('roles', 'Rbac\Role\Role');
+$router->post('roles/batchEnable', 'Rbac\Role\Role@batchEnable');
+$router->post('roles/batchDestory', 'Rbac\Role\Role@batchDisabled');
+// $router->get('roles/{role}', [
+//     'uses' => 'Rbac\Role\Role@show',
+//     'test' => 'test1'
+// ]);

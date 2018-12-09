@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Rbac\Role;
 
-use App\Constant\StateEnum;
 use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class Role extends Controller
 {
@@ -18,7 +16,6 @@ class Role extends Controller
     
     /**
      * Role constructor.
-     *
      * @param \App\Services\Rbac\Role\RoleService $roleService
      */
     public function __construct(RoleService $roleService)
@@ -28,7 +25,6 @@ class Role extends Controller
     
     /**
      * Display a listing of the resource.
-     *
      * @return array
      */
     public function index() : array
@@ -36,77 +32,71 @@ class Role extends Controller
         
         $paginate = $this->roleService->paginate((int) \request('limit', 15));
         
-        return $this->success($paginate);
+        return json_response()->success($paginate);
     }
     
     /**
      * Store a newly created resource in storage.
-     *
      * @param  \Illuminate\Http\Request $request
-     *
      * @return array
      */
     public function store(Request $request) : array
     {
-        $roleModel = $this->roleService->create($request->only([ 'name' ]));
+        $roleModel = $this->roleService->create($request->only(['name']));
         
-        return $this->success($roleModel->toArray());
+        return json_response()->success($roleModel->toArray());
     }
     
     /**
      * Display the specified resource.
-     *
      * @param  int $id
-     *
      * @return array|mixed
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $roleModel = $this->roleService->find($id, [ 'id', 'name' ]);
+        dd($request->route());
+        $roleModel = $this->roleService->find($id, [
+            'id',
+            'name'
+        ]);
         if (!$roleModel) {
-            return response('', Response::HTTP_NOT_FOUND);
+            throw new ParamterErrorException('无指定资源');
         }
         
-        return $this->success($roleModel->toArray());
+        return json_response()->success($roleModel->toArray());
     }
     
     /**
      * Update the specified resource in storage.
-     *
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
-     *
      * @return array
      */
     public function update(Request $request, $id) : array
     {
-        $roleModel = $this->roleService->update($request->only([ 'name' ]), $id);
+        $roleModel = $this->roleService->update($request->only(['name']), $id);
         
-        return $this->success($roleModel->toArray());
+        return json_response()->success($roleModel->toArray());
     }
     
     /**
      * Remove the specified resource from storage.
-     *
      * @param  int $id
-     *
      * @return array
      */
     public function destroy($id) : array
     {
         $this->roleService->softDelete($id);
         
-        return $this->success();
+        return json_response()->success();
     }
     
     /**
      * 批量禁用角色
-     *
      * @param \Illuminate\Http\Request $request
-     *
      * @return array
      */
-    public function batchDestory(Request $request) : array
+    public function batchDisabled(Request $request) : array
     {
         $ids = $request->json('params.ids');
         if (!$ids) {
@@ -115,16 +105,14 @@ class Role extends Controller
         
         $affectedRows = $this->roleService->batchDisabled(explode(',', $ids));
         
-        return $this->success([
+        return json_response()->success([
             'affected_rows' => $affectedRows
         ]);
     }
     
     /**
      * batchEnable
-     *
      * @param \Illuminate\Http\Request $request
-     *
      * @return array
      */
     public function batchEnable(Request $request) : array
@@ -133,10 +121,10 @@ class Role extends Controller
         if (!$ids) {
             throw new ParamterErrorException('请指定需要批量操作的选项ID');
         }
-    
+        
         $affectedRows = $this->roleService->batchEnabled(explode(',', $ids));
-    
-        return $this->success([
+        
+        return json_response()->success([
             'affected_rows' => $affectedRows
         ]);
     }

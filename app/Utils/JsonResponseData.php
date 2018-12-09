@@ -4,28 +4,34 @@ namespace App\Utils;
 
 use App\Constant\JsonResponseCode;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Support\Arrayable;
 
 /**
  * Trait JsonResponseDataFormat Json信息响应格式化工具类
  *
  * @package App\util
  */
-trait JsonResponseData
+class JsonResponseData
 {
     /**
      * formatSuccess 成功响应数据
-     *
      * @param array|LengthAwarePaginator $response
-     *
+     * @param string                     $message
      * @return array
      */
-    public function success($response = []) : array
+    public function success($response = [], $message = '') : array
     {
+        // 分页对象
         if ($response instanceof LengthAwarePaginator) {
-            return $this->format(JsonResponseCode::SUCCESS, '', paginate_to_apidata($response));
+            $response = paginate_to_apidata($response);
         }
         
-        return $this->format(JsonResponseCode::SUCCESS, '', $response);
+        // 实现Arrayable的对象
+        if ($response instanceof Arrayable) {
+            $response = $response->toArray();
+        }
+        
+        return $this->format(JsonResponseCode::SUCCESS, $message, $response);
     }
     
     /**
