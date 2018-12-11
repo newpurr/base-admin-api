@@ -2,9 +2,9 @@
 
 namespace App\Services\Helper;
 
-use App\Constant\StateEnum;
 use App\Repository\Contracts\BaseRepostitory;
 use Illuminate\Database\Eloquent\Builder;
+use SupperHappysir\Constant\StateEnum;
 
 /**
  * trait BatchChangeState

@@ -52,9 +52,8 @@ class Role extends Controller
      * @param  int $id
      * @return array|mixed
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
-        dd($request->route());
         $roleModel = $this->roleService->find($id, [
             'id',
             'name'

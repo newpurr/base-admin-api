@@ -2,16 +2,20 @@
 
 namespace App\Services\Rbac\Permission\Impl;
 
-use App\Models\BaseModel;
+use App\Models\Permission;
 use App\Repository\Contracts\PermissionRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
 use App\Repository\Criteria\StateCriteria;
 use App\Repository\Criteria\Permission\Type;
+use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use SupperHappysir\Constant\DeletedStateEnum;
 
 class PermisssionServiceImpl implements PermissionService
 {
+    use BatchChangeState;
+    
     /**
      * 权限service
      * @var PermissionRepository
@@ -25,28 +29,8 @@ class PermisssionServiceImpl implements PermissionService
     public function __construct(PermissionRepository $permissionRepository)
     {
         $this->permissionRepository = $permissionRepository;
-    }
     
-    
-    /**
-     * 获取单个角色信息
-     * @param int   $roleId
-     * @param array $columns
-     * @return BaseModel|null
-     */
-    public function find(int $roleId, $columns = ['*'])
-    {
-        // TODO: Implement find() method.
-    }
-    
-    /**
-     * 创建一个模型
-     * @param array $attributes
-     * @return BaseModel
-     */
-    public function create(array $attributes)
-    {
-        // TODO: Implement create() method.
+        $this->setRepostitory($permissionRepository);
     }
     
     /**
@@ -65,43 +49,53 @@ class PermisssionServiceImpl implements PermissionService
     }
     
     /**
-     * 更新一个模型
-     * @param array $attributes
-     * @param int   $id
-     * @return BaseModel
+     * 获取单个角色信息
+     *
+     * @param int   $roleId
+     *
+     * @param array $columns
+     *
+     * @return \App\Models\Permission|null
      */
-    public function update(array $attributes, int $id)
+    public function find(int $roleId, $columns = [ '*' ]) : ?Permission
     {
-        // TODO: Implement update() method.
+        return $this->permissionRepository->find($roleId, $columns);
+    }
+    
+    /**
+     * 创建一个角色
+     *
+     * @param array $permissionAttributes
+     *
+     * @return \App\Models\Permission
+     */
+    public function create(array $permissionAttributes) : Permission
+    {
+        return $this->permissionRepository->create($permissionAttributes);
+    }
+    
+    /**
+     * 更新一个角色
+     *
+     * @param array $permissionAttributes
+     * @param int   $id
+     *
+     * @return Permission
+     */
+    public function update(array $permissionAttributes, int $id) : Permission
+    {
+        return $this->permissionRepository->update($permissionAttributes, $id);
     }
     
     /**
      * 删除一个模型
+     *
      * @param int $id
+     *
      * @return bool
      */
-    public function softDelete(int $id)
+    public function softDelete(int $id) : bool
     {
-        // TODO: Implement softDelete() method.
-    }
-    
-    /**
-     * 批量启用
-     * @param array $idArr
-     * @return int
-     */
-    public function batchEnabled(array $idArr)
-    {
-        // TODO: Implement batchEnabled() method.
-    }
-    
-    /**
-     * 批量禁用
-     * @param array $idArr
-     * @return int
-     */
-    public function batchDisabled(array $idArr)
-    {
-        // TODO: Implement batchDisabled() method.
+        return (bool) $this->permissionRepository->update([ 'is_deleted' => DeletedStateEnum::IS_DELETED ], $id);
     }
 }

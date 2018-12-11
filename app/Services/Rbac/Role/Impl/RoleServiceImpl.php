@@ -2,15 +2,14 @@
 
 namespace App\Services\Rbac\Role\Impl;
 
-use App\Constant\DeletedStateEnum;
 use App\Models\Role;
 use App\Repository\Contracts\RoleRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
-use App\Repository\Criteria\Role\RoleNameLikeCriteria;
 use App\Repository\Criteria\StateCriteria;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use SupperHappysir\Constant\DeletedStateEnum;
 
 /**
  * Class RoleServiceImpl

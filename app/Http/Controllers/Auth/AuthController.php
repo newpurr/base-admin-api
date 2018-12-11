@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Constant\JsonResponseCode;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
@@ -26,7 +27,7 @@ class AuthController extends Controller
             'password'
         ]);
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return json_response()->error(JsonResponseCode::UNAUTHORIZED, 'Unauthorized');
         }
         
         return json_response()->success(
