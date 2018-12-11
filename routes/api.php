@@ -106,9 +106,9 @@ $router->get('role/{roleid}/button', function ($roleid) {
 // 角色管理API
 $router->apiResource('roles', 'Rbac\Role\Role');
 $router->post('roles/_bulk/batchEnable', 'Rbac\Role\Role@batchEnable');
-$router->post('roles/_bulk/batchDestory', 'Rbac\Role\Role@batchDisabled');
+$router->post('roles/_bulk/batchDisabled', 'Rbac\Role\Role@batchDisabled');
 
 // 权限管理API
 $router->apiResource('permission', 'Rbac\Permission\Permission');
 $router->post('permission/_bulk/batchEnable', 'Rbac\Permission\Permission@batchEnable');
-$router->post('permission/_bulk/batchDestory', 'Rbac\Permission\Permission@batchDisabled');
+$router->post('permission/_bulk/batchDisabled', 'Rbac\Permission\Permission@batchDisabled');
