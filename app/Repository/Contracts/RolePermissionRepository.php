@@ -21,4 +21,13 @@ interface RolePermissionRepository extends BaseRepostitory
      * @return int
      */
     public function deletePermissionByRoleId(int $roleId) : int;
+    
+    /**
+     * 根据角色ID获取角色权限path路径
+     *
+     * @param int $roleId
+     *
+     * @return array
+     */
+    public function getFrontendPathByRoleId(int $roleId) : array;
 }

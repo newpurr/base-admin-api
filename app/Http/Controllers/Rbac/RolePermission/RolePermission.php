@@ -32,8 +32,6 @@ class RolePermission extends Controller
     public function __construct(RolePermissionService $rolePermissionService)
     {
         $this->rolePermissionService = $rolePermissionService;
-    
-        $this->middleware('auth:api');
     }
     
     /**
@@ -50,5 +48,20 @@ class RolePermission extends Controller
         $this->rolePermissionService->allotFrontendPermission($roleId, $request->post('permissionList', []));
         
         return json_response()->success();
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @param int $roleId 角色ID
+     *
+     * @return array
+     */
+    public function path($roleId) : array
+    {
+    
+        $array = $this->rolePermissionService->getFrontendPathByRoleId($roleId);
+        
+        return json_response()->success($array);
     }
 }

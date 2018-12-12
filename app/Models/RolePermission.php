@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * App\Models\RolePermission
@@ -23,9 +23,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission query()
  * @mixin \Eloquent
  */
-class RolePermission extends Model
+class RolePermission extends BaseModel
 {
     //
+    
+    protected $table = 'role_permissions';
     
     /**
      * permission

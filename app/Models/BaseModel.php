@@ -45,6 +45,16 @@ class BaseModel extends Model
     public $timestamps = false;
     
     /**
+     * 获取表名称
+     *
+     * @return string
+     */
+    public static function tableName() : string
+    {
+        return (new static)->getTable();
+    }
+    
+    /**
      * 删除条件scope
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

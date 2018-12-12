@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -32,9 +32,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereIsDeleted($value)
  * @mixin \Eloquent
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection $roles
  */
 class Permission extends BaseModel
 {
+    protected $table = 'permissions';
+    
     /**
      * 父权限模型
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -42,5 +46,15 @@ class Permission extends BaseModel
     public function parentPermission() : HasOne
     {
         return $this->hasOne(__CLASS__, 'id', 'parent_id');
+    }
+    
+    /**
+     * roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles() : BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_permissions', 'role_id', 'permission_id');
     }
 }

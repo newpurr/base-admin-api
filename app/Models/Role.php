@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
@@ -20,10 +21,24 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role name( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role nameLike( $value )
  * @mixin \Eloquent
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection $permissions
  */
 class Role extends BaseModel implements Transformable
 {
     use TransformableTrait;
+    
+    protected $table = 'roles';
+    
+    /**
+     * permissions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function permissions() : BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'role_permissions', 'permission_id', 'role_id');
+    }
     
     /**
      * 角色名称条件scope

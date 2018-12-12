@@ -22,8 +22,6 @@ class Permission extends Controller
     public function __construct(PermissionService $permissionService)
     {
         $this->permissionService = $permissionService;
-    
-        $this->middleware('auth:api');
     }
     
     /**

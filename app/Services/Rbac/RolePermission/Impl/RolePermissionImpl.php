@@ -82,4 +82,16 @@ class RolePermissionImpl implements RolePermissionService
         
         return true;
     }
+    
+    /**
+     * 根据角色ID获取角色权限path路径
+     *
+     * @param int $roleId
+     *
+     * @return array
+     */
+    public function getFrontendPathByRoleId(int $roleId) : array
+    {
+        return $this->rolePermissionRepository->getFrontendPathByRoleId($roleId);
+    }
 }

@@ -2,14 +2,21 @@
 
 namespace App\Repository\Repositories;
 
+use App\Constant\Permission\Type;
 use App\Exceptions\ParamterErrorException;
+use App\Models\Permission;
 use App\Models\RolePermission;
 use App\Repository\Contracts\RolePermissionRepository;
 use App\Repository\Helper\BatchOperation;
+use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
+use SupperHappysir\Constant\DeletedStateEnum;
+use SupperHappysir\Constant\StateEnum;
 
 /**
  * Class RolePermissionRepositoryEloquent.
+ *
+ * @property RolePermission $model
  * @package namespace App\Repository\Repositories;
  */
 class RolePermissionRepositoryEloquent extends BaseRepository implements RolePermissionRepository
@@ -18,6 +25,7 @@ class RolePermissionRepositoryEloquent extends BaseRepository implements RolePer
     
     /**
      * Specify Model class name
+     *
      * @return string
      */
     public function model() : string
@@ -27,7 +35,9 @@ class RolePermissionRepositoryEloquent extends BaseRepository implements RolePer
     
     /**
      * 删除角色ID上的权限
+     *
      * @param int $roleId
+     *
      * @return int
      */
     public function deletePermissionByRoleId(int $roleId) : int
@@ -39,5 +49,30 @@ class RolePermissionRepositoryEloquent extends BaseRepository implements RolePer
         return $this->deleteWhere([
             'role_id' => $roleId
         ]);
+    }
+    
+    /**
+     * 根据角色ID获取角色权限path路径
+     *
+     * @param int $roleId
+     *
+     * @return array
+     */
+    public function getFrontendPathByRoleId(int $roleId) : array
+    {
+        return DB::table(RolePermission::tableName() . ' as rp')
+                 ->leftJoin(
+                     Permission::tableName() . ' as p',
+                     'rp.permission_id',
+                     '=',
+                     'p.id'
+                 )
+                 ->where('p.per_type', Type::MENU)
+                 ->where('p.state', StateEnum::ENABLED)
+                 ->where('p.is_deleted', DeletedStateEnum::NORMAL)
+                 ->pluck('p.path', 'p.id')->toArray();
+        // return $this->model->whereHas('permission', function ($query) {
+        //     $query->where('per_type', Type::MENU);
+        // })->with('permission')->select(['id', 'permission_id'])->get()->toArray();
     }
 }
