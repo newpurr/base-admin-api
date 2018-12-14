@@ -16,4 +16,10 @@ use App\Services\Contracts\BatchChangeStateServiceInterface as BatchChangeState;
  */
 interface PermissionService extends BatchChangeState, BaseService
 {
+    /**
+     * 获取所有前端路径path
+     *
+     * @return array
+     */
+    public function getTheFrontEndPath() : array;
 }

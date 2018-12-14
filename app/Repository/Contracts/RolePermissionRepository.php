@@ -29,5 +29,5 @@ interface RolePermissionRepository extends BaseRepostitory
      *
      * @return array
      */
-    public function getFrontendPathByRoleId(int $roleId) : array;
+    public function getPermissionIdArrByRoleId(int $roleId) : array;
 }

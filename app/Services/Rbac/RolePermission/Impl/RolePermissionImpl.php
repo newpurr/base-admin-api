@@ -90,8 +90,8 @@ class RolePermissionImpl implements RolePermissionService
      *
      * @return array
      */
-    public function getFrontendPathByRoleId(int $roleId) : array
+    public function getPermissionByRoleId(int $roleId) : array
     {
-        return $this->rolePermissionRepository->getFrontendPathByRoleId($roleId);
+        return $this->rolePermissionRepository->getPermissionIdArrByRoleId($roleId);
     }
 }

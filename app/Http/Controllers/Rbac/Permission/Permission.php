@@ -133,4 +133,18 @@ class Permission extends Controller
             'affected_rows' => $affectedRows
         ]);
     }
+    
+    /**
+     * 前端所有path数组
+     *
+     * @return array
+     */
+    public function theFrontEndPath() : array
+    {
+        $frontEndPathArr = $this->permissionService->getTheFrontEndPath();
+    
+        return json_response()->success([
+            'frontend_path_arr' => $frontEndPathArr
+        ]);
+    }
 }

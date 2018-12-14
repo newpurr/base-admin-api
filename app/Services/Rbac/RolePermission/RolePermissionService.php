@@ -49,5 +49,5 @@ interface RolePermissionService
      *
      * @return array
      */
-    public function getFrontendPathByRoleId(int $roleId) : array;
+    public function getPermissionByRoleId(int $roleId) : array;
 }

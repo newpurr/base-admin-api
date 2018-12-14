@@ -51,17 +51,18 @@ class RolePermission extends Controller
     }
     
     /**
-     * Display a listing of the resource.
+     * 获取角色拥有的权限ID数组
      *
      * @param int $roleId 角色ID
      *
      * @return array
      */
-    public function path($roleId) : array
+    public function index($roleId) : array
     {
-    
-        $array = $this->rolePermissionService->getFrontendPathByRoleId($roleId);
+        $permissionIdList = $this->rolePermissionService->getPermissionByRoleId($roleId);
         
-        return json_response()->success($array);
+        return json_response()->success([
+            'permission_id_list' => $permissionIdList
+        ]);
     }
 }

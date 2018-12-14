@@ -98,4 +98,14 @@ class PermisssionServiceImpl implements PermissionService
     {
         return (bool) $this->permissionRepository->update([ 'is_deleted' => DeletedStateEnum::IS_DELETED ], $id);
     }
+    
+    /**
+     * 获取所有前端路径path
+     *
+     * @return array
+     */
+    public function getTheFrontEndPath() : array
+    {
+        return $this->permissionRepository->getTheFrontEndPath();
+    }
 }

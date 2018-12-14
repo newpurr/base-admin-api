@@ -58,21 +58,8 @@ class RolePermissionRepositoryEloquent extends BaseRepository implements RolePer
      *
      * @return array
      */
-    public function getFrontendPathByRoleId(int $roleId) : array
+    public function getPermissionIdArrByRoleId(int $roleId) : array
     {
-        return DB::table(RolePermission::tableName() . ' as rp')
-                 ->leftJoin(
-                     Permission::tableName() . ' as p',
-                     'rp.permission_id',
-                     '=',
-                     'p.id'
-                 )
-                 ->where('p.per_type', Type::MENU)
-                 ->where('p.state', StateEnum::ENABLED)
-                 ->where('p.is_deleted', DeletedStateEnum::NORMAL)
-                 ->pluck('p.path', 'p.id')->toArray();
-        // return $this->model->whereHas('permission', function ($query) {
-        //     $query->where('per_type', Type::MENU);
-        // })->with('permission')->select(['id', 'permission_id'])->get()->toArray();
+        return RolePermission::whereRoleId($roleId)->distinct()->pluck('permission_id')->toArray();
     }
 }
