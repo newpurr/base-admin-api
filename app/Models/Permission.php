@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\helper\StateHelper;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -37,6 +38,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Permission extends BaseModel
 {
+    use StateHelper;
+    
     protected $table = 'permissions';
     
     /**

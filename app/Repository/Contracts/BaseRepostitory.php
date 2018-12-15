@@ -31,4 +31,13 @@ interface BaseRepostitory extends RepositoryInterface
      * @return int
      */
     public function updateWhere(array $attributes, \Closure $where) : int;
+    
+    /**
+     * 批量插入数据
+     *
+     * @param array $values
+     *
+     * @return bool
+     */
+    public function insert(array $values) : bool;
 }

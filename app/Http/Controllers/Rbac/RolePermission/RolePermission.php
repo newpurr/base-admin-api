@@ -45,7 +45,7 @@ class RolePermission extends Controller
      */
     public function store(Request $request, int $roleId) : array
     {
-        $this->rolePermissionService->allotFrontendPermission($roleId, $request->post('permissionList', []));
+        $this->rolePermissionService->allotFrontendPermission($roleId, $request->json('params.permission_list', []));
         
         return json_response()->success();
     }

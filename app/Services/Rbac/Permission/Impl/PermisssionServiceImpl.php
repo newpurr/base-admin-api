@@ -11,6 +11,7 @@ use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use SupperHappysir\Constant\DeletedStateEnum;
+use Illuminate\Database\Eloquent\Collection;
 
 class PermisssionServiceImpl implements PermissionService
 {
@@ -107,5 +108,18 @@ class PermisssionServiceImpl implements PermissionService
     public function getTheFrontEndPath() : array
     {
         return $this->permissionRepository->getTheFrontEndPath();
+    }
+    
+    /**
+     * 通过权限ID获取权限信息
+     *
+     * @param array $idArr   权限ID数组
+     * @param array $columns 获取的列
+     *
+     * @return Collection
+     */
+    public function getPermissionCollectionByIdArr(array $idArr, $columns = [ '*' ]) : Collection
+    {
+        return $this->permissionRepository->findWhereIn('id', $idArr, $columns);
     }
 }

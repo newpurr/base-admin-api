@@ -2,9 +2,7 @@
 
 namespace App\Repository\Helper;
 
-use App\Constant\StateEnum;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Trait BeatchUpdate
@@ -28,5 +26,17 @@ trait BatchOperation
     public function updateWhere(array $attributes, Closure $where) : int
     {
         return $this->model->where($where)->update($attributes);
+    }
+    
+    /**
+     * 批量插入
+     *
+     * @param array $values
+     *
+     * @return bool
+     */
+    public function insert(array $values) : bool
+    {
+        return $this->model->insert($values);
     }
 }

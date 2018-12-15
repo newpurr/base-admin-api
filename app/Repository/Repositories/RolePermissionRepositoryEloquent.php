@@ -2,16 +2,11 @@
 
 namespace App\Repository\Repositories;
 
-use App\Constant\Permission\Type;
 use App\Exceptions\ParamterErrorException;
-use App\Models\Permission;
 use App\Models\RolePermission;
 use App\Repository\Contracts\RolePermissionRepository;
 use App\Repository\Helper\BatchOperation;
-use Illuminate\Support\Facades\DB;
 use Prettus\Repository\Eloquent\BaseRepository;
-use SupperHappysir\Constant\DeletedStateEnum;
-use SupperHappysir\Constant\StateEnum;
 
 /**
  * Class RolePermissionRepositoryEloquent.

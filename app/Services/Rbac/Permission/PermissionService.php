@@ -4,6 +4,7 @@ namespace App\Services\Rbac\Permission;
 
 use App\Services\Contracts\BaseServiceInterface as BaseService;
 use App\Services\Contracts\BatchChangeStateServiceInterface as BatchChangeState;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Interface PermissionService
@@ -22,4 +23,14 @@ interface PermissionService extends BatchChangeState, BaseService
      * @return array
      */
     public function getTheFrontEndPath() : array;
+    
+    /**
+     * 通过权限ID获取权限信息
+     *
+     * @param array $idArr   权限ID数组
+     * @param array $columns 获取的列
+     *
+     * @return Collection
+     */
+    public function getPermissionCollectionByIdArr(array $idArr, $columns = ['*']) : Collection;
 }

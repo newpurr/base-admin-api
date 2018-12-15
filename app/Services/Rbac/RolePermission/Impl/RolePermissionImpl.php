@@ -2,7 +2,9 @@
 
 namespace App\Services\Rbac\RolePermission\Impl;
 
+use App\Models\Permission;
 use App\Repository\Contracts\RolePermissionRepository;
+use App\Services\Rbac\Permission\PermissionService;
 use App\Services\Rbac\RolePermission\RolePermissionService;
 
 /**
@@ -21,12 +23,24 @@ class RolePermissionImpl implements RolePermissionService
     private $rolePermissionRepository;
     
     /**
-     * RoleServiceImpl constructor.
-     * @param RolePermissionRepository $rolePermissionRepository
+     * 权限service
+     *
+     * @var PermissionService
      */
-    public function __construct(RolePermissionRepository $rolePermissionRepository)
-    {
+    private $permissionService;
+    
+    /**
+     * RoleServiceImpl constructor.
+     *
+     * @param RolePermissionRepository $rolePermissionRepository
+     * @param PermissionService        $permissionService
+     */
+    public function __construct(
+        RolePermissionRepository $rolePermissionRepository,
+        PermissionService $permissionService
+    ) {
         $this->rolePermissionRepository = $rolePermissionRepository;
+        $this->permissionService        = $permissionService;
     }
     
     /**
@@ -57,27 +71,40 @@ class RolePermissionImpl implements RolePermissionService
     /**
      * 分配角色后端接口权限
      * @param int   $roleId            角色ID
-     * @param array $permissionPathArr 权限path数组
+     * @param array $permissionIdArr   权限path数组
      * @return bool
      * @throws \Exception
      */
-    public function allotFrontendPermission(int $roleId, array $permissionPathArr) : bool
+    public function allotFrontendPermission(int $roleId, array $permissionIdArr) : bool
     {
-        $idArr = \App\Models\Permission::whereIn('path', $permissionPathArr)->pluck('id');
+        if (!$roleId) {
+            throw new \Exception('请指定角色ID');
+        }
         
-        $insertRolePermissionArr = [];
-        collect($idArr)->each(function ($item) use (&$insertRolePermissionArr, $roleId) {
-            $insertRolePermissionArr[] = [
-                'permission_id' => $item,
-                'role_id'       => $roleId,
-                'created_at'    => \Carbon\Carbon::now()
-            ];
+        // 过滤参数中给的权限集合,重新获取系统中正常的的权限
+        $permissionCollection = $this->permissionService->getPermissionCollectionByIdArr($permissionIdArr);
+        $permissionCollection = $permissionCollection->filter(function (Permission $permission) {
+            return $permission->notDelete() && $permission->isEnabled();
         });
         
+        // 组合待批量插入的数据
+        $insertRolePermissionArr = [];
+        if (!$permissionCollection->isEmpty()) {
+            $permissionCollection->each(function (Permission $permission) use (&$insertRolePermissionArr, $roleId) {
+                $insertRolePermissionArr[] = [
+                    'permission_id' => $permission->id,
+                    'role_id'       => $roleId,
+                    'created_at'    => \Carbon\Carbon::now()
+                ];
+            });
+        }
+        
+        // 删除已有的权限数据
         $this->deleteByRoleId($roleId);
         
+        // 批量插入数据
         if ($insertRolePermissionArr) {
-            \App\Models\RolePermission::insert($insertRolePermissionArr);
+            return $this->rolePermissionRepository->insert($insertRolePermissionArr);
         }
         
         return true;
