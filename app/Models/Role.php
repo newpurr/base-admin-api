@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\helper\BaseScopeHelper;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -26,7 +27,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  */
 class Role extends BaseModel implements Transformable
 {
-    use TransformableTrait;
+    use TransformableTrait,BaseScopeHelper;
     
     protected $table = 'roles';
     

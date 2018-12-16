@@ -15,7 +15,7 @@
     "laravel/tinker": "^1.0",
     "predis/predis": "^1.1",
     "prettus/l5-repository": "^2.6",
-    "super-happysir/share-package": "^1.0.0",
+    "super-happysir/share-package": "1.0.*",
     "swooletw/laravel-swoole": "^2.5",
     "tymon/jwt-auth": "1.*@rc"
   },
