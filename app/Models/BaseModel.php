@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\helper\BaseScopeHelper;
 use Illuminate\Database\Eloquent\Model;
 use SupperHappysir\Constant\DeletedStateEnum;
 use SupperHappysir\Constant\StateEnum;
@@ -30,6 +31,8 @@ use SupperHappysir\Constant\StateEnum;
  */
 class BaseModel extends Model
 {
+    use BaseScopeHelper;
+    
     /**
      * The attributes that are mass assignable.
      *

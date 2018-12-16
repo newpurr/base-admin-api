@@ -13,6 +13,12 @@ use SupperHappysir\Constant\StateEnum;
  * @author  luotao
  * @version 1.0
  * @package App\Models\helper
+ * @method static \Illuminate\Database\Eloquent\Builder|$this deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this notDeleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this normality()
  */
 trait BaseScopeHelper
 {

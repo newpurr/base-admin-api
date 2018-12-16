@@ -74,7 +74,7 @@ class Role extends Controller
     public function update(Request $request, $id) : array
     {
         $roleModel = $this->roleService->update($request->only(['name']), $id);
-        
+
         return json_response()->success($roleModel->toArray());
     }
     

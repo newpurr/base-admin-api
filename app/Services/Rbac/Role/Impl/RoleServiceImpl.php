@@ -2,6 +2,7 @@
 
 namespace App\Services\Rbac\Role\Impl;
 
+use App\Models\BaseModel;
 use App\Models\Role;
 use App\Repository\Contracts\RoleRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
@@ -55,7 +56,6 @@ class RoleServiceImpl implements RoleService
     {
         $this->roleRepository->pushCriteria(app(IsDeletedCriteria::class));
         $this->roleRepository->pushCriteria(app(StateCriteria::class));
-        
         return $this->roleRepository->paginate($pageSize, $columns);
     }
     

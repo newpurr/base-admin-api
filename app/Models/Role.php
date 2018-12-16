@@ -27,7 +27,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  */
 class Role extends BaseModel implements Transformable
 {
-    use TransformableTrait,BaseScopeHelper;
+    use TransformableTrait;
     
     protected $table = 'roles';
     
