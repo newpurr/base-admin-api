@@ -8,8 +8,8 @@ use App\Repository\Contracts\PermissionRepository;
 use App\Repository\Helper\BatchOperation;
 use App\Repository\Validators\PermissionValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
-use SupperHappysir\Constant\DeletedStateEnum;
-use SupperHappysir\Constant\StateEnum;
+use SuperHappysir\Constant\DeletedStateEnum;
+use SuperHappysir\Constant\StateEnum;
 
 /**
  * Class PermissionRepositoryEloquent.

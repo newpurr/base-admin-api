@@ -10,7 +10,7 @@ use App\Repository\Criteria\StateCriteria;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use SupperHappysir\Constant\DeletedStateEnum;
+use SuperHappysir\Constant\DeletedStateEnum;
 
 /**
  * Class RoleServiceImpl

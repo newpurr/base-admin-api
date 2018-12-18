@@ -5,12 +5,13 @@ namespace App\Services\Rbac\Permission\Impl;
 use App\Models\Permission;
 use App\Repository\Contracts\PermissionRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
+use App\Repository\Criteria\Permission\Id;
 use App\Repository\Criteria\StateCriteria;
 use App\Repository\Criteria\Permission\Type;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use SupperHappysir\Constant\DeletedStateEnum;
+use SuperHappysir\Constant\DeletedStateEnum;
 use Illuminate\Database\Eloquent\Collection;
 
 class PermisssionServiceImpl implements PermissionService
@@ -45,6 +46,7 @@ class PermisssionServiceImpl implements PermissionService
         $this->permissionRepository->pushCriteria(app(IsDeletedCriteria::class));
         $this->permissionRepository->pushCriteria(app(StateCriteria::class));
         $this->permissionRepository->pushCriteria(app(Type::class));
+        $this->permissionRepository->pushCriteria(app(Id::class));
         
         return $this->permissionRepository->paginate($pageSize, $columns);
     }

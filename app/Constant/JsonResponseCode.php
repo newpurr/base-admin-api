@@ -2,10 +2,12 @@
 
 namespace App\Constant;
 
-use SupperHappysir\Constant\Util\MappingHelper;
+
+use SuperHappysir\Constant\Util\MappingHelper;
 
 /**
  * Class JsonResponseCode Json响应状态码常量
+ *
  * @package App\Constant
  */
 class JsonResponseCode

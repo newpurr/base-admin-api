@@ -69,7 +69,7 @@ $router->post('roles/_bulk/batchDisabled', 'Rbac\Role\Role@batchDisabled');
 $router->apiResource('roles', 'Rbac\Role\Role');
 
 // 角色权限分配
-$router->post('role/{roleid}/permission', 'Rbac\RolePermission\RolePermission@store');
+$router->post('roles/{roleid}/permission', 'Rbac\RolePermission\RolePermission@store');
 
 // 角色权限查询
-$router->get('role/{roleid}/permission', 'Rbac\RolePermission\RolePermission@index');
+$router->get('roles/{roleid}/permission', 'Rbac\RolePermission\RolePermission@index');

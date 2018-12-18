@@ -4,7 +4,7 @@ namespace App\Repository\Criteria;
 
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
-use SupperHappysir\Constant\DeletedStateEnum;
+use SuperHappysir\Constant\DeletedStateEnum;
 
 /**
  * Class IdInCriteriaCriteria.

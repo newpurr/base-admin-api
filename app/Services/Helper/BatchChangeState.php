@@ -4,7 +4,7 @@ namespace App\Services\Helper;
 
 use App\Repository\Contracts\BaseRepostitory;
 use Illuminate\Database\Eloquent\Builder;
-use SupperHappysir\Constant\StateEnum;
+use SuperHappysir\Constant\StateEnum;
 
 /**
  * trait BatchChangeState

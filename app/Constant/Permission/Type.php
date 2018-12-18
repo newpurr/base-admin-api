@@ -2,7 +2,8 @@
 
 namespace App\Constant\Permission;
 
-use SupperHappysir\Constant\Util\MappingHelper;
+
+use SuperHappysir\Constant\Util\MappingHelper;
 
 class Type
 {
