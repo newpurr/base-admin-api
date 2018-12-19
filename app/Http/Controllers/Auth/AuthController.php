@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Constant\JsonResponseCode;
 use App\Http\Controllers\Controller;
+use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
 
 class AuthController extends Controller
 {
@@ -18,56 +19,59 @@ class AuthController extends Controller
     
     /**
      * Get a JWT via given credentials.
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function login() : array
+    public function login() : JsonResponseBodyInterface
     {
-        $credentials = request([
-            'name',
-            'password'
-        ]);
+        $username = request('name');
+        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+            $credentials['email'] = $username :
+            $credentials['phone'] = $username;
+    
+        $credentials['password'] = request('password');
+        
         if (!$token = auth()->attempt($credentials)) {
-            return json_response()->error(JsonResponseCode::UNAUTHORIZED, 'Unauthorized');
+            return json_error_response(JsonResponseCode::UNAUTHORIZED, 'Unauthorized');
         }
         
-        return json_response()->success(
+        return json_success_response(
             $this->respondWithToken($token)
         );
     }
     
     /**
      * Get the authenticated User.
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function user() : array
+    public function user() : JsonResponseBodyInterface
     {
-        return json_response()->success(auth()->user());
+        return json_success_response(auth()->user());
     }
     
     /**
      * Log the user out (Invalidate the token).
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function logout() : array
+    public function logout() : JsonResponseBodyInterface
     {
         auth()->logout();
     
-        return json_response()->success([], 'Successfully logged out');
+        return json_success_response([], 'Successfully logged out');
     }
     
     /**
      * Refresh a token.
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function refresh() : array
+    public function refresh() : JsonResponseBodyInterface
     {
-        return json_response()->success(
+        return json_success_response(
             $this->respondWithToken(auth()->refresh())
         );
     }
     
     /**
-     * Get the token array structure.
+     * Get the token
      * @param  string $token
      * @return array
      */

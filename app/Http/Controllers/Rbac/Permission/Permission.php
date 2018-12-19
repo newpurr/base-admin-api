@@ -32,7 +32,7 @@ class Permission extends Controller
     {
         $paginate = $this->permissionService->paginate((int) \request('limit', 15));
         
-        return json_response()->success($paginate);
+        return json_success_response($paginate);
     }
     
     
@@ -47,7 +47,7 @@ class Permission extends Controller
             $request->only(['name','path','method','description','per_type','state'])
         );
         
-        return json_response()->success($roleModel->toArray());
+        return json_success_response($roleModel->toArray());
     }
     
     /**
@@ -65,7 +65,7 @@ class Permission extends Controller
             throw new ParamterErrorException('无指定资源');
         }
         
-        return json_response()->success($roleModel->toArray());
+        return json_success_response($roleModel->toArray());
     }
     
     /**
@@ -81,7 +81,7 @@ class Permission extends Controller
             $id
         );
         
-        return json_response()->success($roleModel->toArray());
+        return json_success_response($roleModel->toArray());
     }
     
     /**
@@ -93,7 +93,7 @@ class Permission extends Controller
     {
         $this->permissionService->softDelete($id);
         
-        return json_response()->success();
+        return json_success_response();
     }
     
     /**
@@ -110,7 +110,7 @@ class Permission extends Controller
         
         $affectedRows = $this->permissionService->batchDisabled(explode(',', $ids));
         
-        return json_response()->success([
+        return json_success_response([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -129,7 +129,7 @@ class Permission extends Controller
         
         $affectedRows = $this->permissionService->batchEnabled(explode(',', $ids));
         
-        return json_response()->success([
+        return json_success_response([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -143,7 +143,7 @@ class Permission extends Controller
     {
         $frontEndPathArr = $this->permissionService->getTheFrontEndPath();
     
-        return json_response()->success([
+        return json_success_response([
             'frontend_path_arr' => $frontEndPathArr
         ]);
     }

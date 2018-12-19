@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Rbac\RolePermission;
 use App\Http\Controllers\Controller;
 use App\Services\Rbac\RolePermission\RolePermissionService;
 use Illuminate\Http\Request;
+use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
 
 /**
  * Class RolePermission
@@ -41,13 +42,13 @@ class RolePermission extends Controller
      *
      * @param int                       $roleId
      *
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function store(Request $request, int $roleId) : array
+    public function store(Request $request, int $roleId) : JsonResponseBodyInterface
     {
         $this->rolePermissionService->allotFrontendPermission($roleId, $request->json('params.permission_list', []));
         
-        return json_response()->success();
+        return json_success_response();
     }
     
     /**
@@ -55,13 +56,13 @@ class RolePermission extends Controller
      *
      * @param int $roleId 角色ID
      *
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function index($roleId) : array
+    public function index($roleId) : JsonResponseBodyInterface
     {
         $permissionIdList = $this->rolePermissionService->getPermissionByRoleId($roleId);
         
-        return json_response()->success([
+        return json_success_response([
             'permission_id_list' => $permissionIdList
         ]);
     }

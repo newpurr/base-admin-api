@@ -1,6 +1,9 @@
 <?php
 
+use App\Constant\JsonResponseCode;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Support\Arrayable;
+use SuperHappysir\Utils\Response\JsonResponseBody;
 
 if (!function_exists('paginate_to_apidata')) {
     /**
@@ -24,15 +27,59 @@ if (!function_exists('paginate_to_apidata')) {
     }
 }
 
-if (!function_exists('json_response')) {
+if (!function_exists('json_response_body')) {
     /**
-     * Get the JsonResponseData instance.
+     * json 响应body
      *
-     * @return \App\Utils\JsonResponseData
+     * @param string $code
+     * @param string $message
+     * @param array  $payload
+     *
+     * @return \SuperHappysir\Utils\Response\JsonResponseBodyInterface
      */
-    function json_response()
+    function json_response_body(string $code = '', string $message = '', array $payload = [])
     {
-        return app(\App\Utils\JsonResponseData::class);
+        return new JsonResponseBody($code, $message, $payload);
+    }
+}
+
+if (!function_exists('json_success_response')) {
+    /**
+     * json 成功响应体
+     *
+     * @param array  $response
+     * @param string $message
+     *
+     * @return \SuperHappysir\Utils\Response\JsonResponseBodyInterface
+     */
+    function json_success_response($response = [], $message = '')
+    {
+        // 分页对象
+        if ($response instanceof LengthAwarePaginator) {
+            $response = paginate_to_apidata($response);
+        }
+    
+        // 实现Arrayable的对象
+        if ($response instanceof Arrayable) {
+            $response = $response->toArray();
+        }
+        
+        return json_response_body(JsonResponseCode::SUCCESS, $message, $response);
+    }
+}
+
+if (!function_exists('json_error_response')) {
+    /**
+     * json 失败响应体
+     *
+     * @param string $code
+     * @param string $message
+     *
+     * @return \SuperHappysir\Utils\Response\JsonResponseBodyInterface
+     */
+    function json_error_response(string $code, string $message)
+    {
+        return json_response_body($code, $message, []);
     }
 }
 
@@ -47,36 +94,5 @@ if (!function_exists('absolute_resources_path')) {
     function resources_path(string $relativePath)
     {
         return sprintf('//%s/%s', config('filesystems.disks.public.upyun.domain'), $relativePath);
-    }
-}
-
-if (!function_exists('saveTree')) {
-    function saveTree($tree, $parantId = 0)
-    {
-        if (empty($tree)) {
-            return true;
-        }
-        
-        /** @var \App\Models\Permission $model */
-        $model = \App\Models\Permission::firstOrNew([
-            'per_type' => 2,
-            'path'     => $tree['absolute_path']
-        ]);
-        
-        $model->name        = $tree['name'];
-        $model->description = $tree['title'];
-        $model->per_type    = $tree['per_type'];
-        $model->parent_id   = $parantId;
-        $model->save();
-        
-        if (empty($tree['children'])) {
-            return true;
-        }
-        
-        foreach ($tree['children'] as $child) {
-            saveTree($child, $model->id);
-        }
-        
-        return true;
     }
 }

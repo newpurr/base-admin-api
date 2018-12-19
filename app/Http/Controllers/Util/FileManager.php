@@ -7,6 +7,7 @@ use App\Models\Attachments;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
 
 /**
  * Class FileManager
@@ -24,9 +25,9 @@ class FileManager extends Controller
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function upload(Request $request) : array
+    public function upload(Request $request) : JsonResponseBodyInterface
     {
         $uploadFile = $request->file('file_data');
         if (!$uploadFile) {
@@ -49,6 +50,6 @@ class FileManager extends Controller
             $collection->push($attachmentsModel);
         }
         
-        return $this->success([ 'files' => $collection->toArray() ]);
+        return json_success_response([ 'files' => $collection->toArray() ]);
     }
 }

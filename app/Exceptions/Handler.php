@@ -29,24 +29,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        $jsonResponse = json_response();
         if ($exception instanceof CustomException) {
-            logger($exception->getMessage(), $request->all());
-            
-            return $this->json(
-                $jsonResponse->error($exception->getCode(), $exception->getMessage())
-            );
+            return $this->json(json_error_response($exception->getCode(), $exception->getMessage()));
         }
         
         if ($exception instanceof AuthenticationException) {
-            return $this->json(
-                $jsonResponse->error(JsonResponseCode::UNAUTHORIZED, $exception->getMessage())
-            );
+            return $this->json(json_error_response(JsonResponseCode::UNAUTHORIZED, $exception->getMessage()));
         }
-        
+    
         if ($exception instanceof ValidatorException) {
             return $this->json(
-                $jsonResponse->format(JsonResponseCode::PARAMETER_ERROR, $exception->getMessageBag()->first())
+                json_error_response(JsonResponseCode::PARAMETER_ERROR, $exception->getMessageBag()->first())
             );
         }
     
@@ -55,7 +48,7 @@ class Handler extends ExceptionHandler
     
     /**
      * json
-     * @param $response
+     * @param \SuperHappysir\Utils\Response\JsonResponseBodyInterface $response
      * @return \Illuminate\Http\JsonResponse
      */
     protected function json($response) : \Illuminate\Http\JsonResponse
