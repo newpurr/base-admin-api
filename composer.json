@@ -22,6 +22,7 @@
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.4",
+    "beyondcode/laravel-query-detector": "^1.0",
     "filp/whoops": "^2.0",
     "friendsofphp/php-cs-fixer": "^2.13",
     "fzaninotto/faker": "^1.4",

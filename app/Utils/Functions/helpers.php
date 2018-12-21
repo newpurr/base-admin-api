@@ -3,7 +3,6 @@
 use App\Constant\JsonResponseCode;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Support\Arrayable;
-use SuperHappysir\Utils\Response\JsonResponseBody;
 
 if (!function_exists('paginate_to_apidata')) {
     /**
@@ -24,22 +23,6 @@ if (!function_exists('paginate_to_apidata')) {
                 'page_size'    => $paginate->perPage()
             ]
         ];
-    }
-}
-
-if (!function_exists('json_response_body')) {
-    /**
-     * json 响应body
-     *
-     * @param string $code
-     * @param string $message
-     * @param array  $payload
-     *
-     * @return \SuperHappysir\Utils\Response\JsonResponseBodyInterface
-     */
-    function json_response_body(string $code = '', string $message = '', array $payload = [])
-    {
-        return new JsonResponseBody($code, $message, $payload);
     }
 }
 
