@@ -2,7 +2,6 @@
 
 namespace App\Services\Rbac\Role\Impl;
 
-use App\Models\BaseModel;
 use App\Models\Role;
 use App\Repository\Contracts\RoleRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
@@ -10,7 +9,6 @@ use App\Repository\Criteria\StateCriteria;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use SuperHappysir\Constant\DeletedStateEnum;
 
 /**
  * Class RoleServiceImpl
@@ -39,9 +37,7 @@ class RoleServiceImpl implements RoleService
      */
     public function __construct(RoleRepository $roleRepository)
     {
-        $this->roleRepository = $roleRepository;
-    
-        $this->setRepostitory($roleRepository);
+        $this->repostitory = $roleRepository;
     }
     
     /**
@@ -54,9 +50,9 @@ class RoleServiceImpl implements RoleService
      */
     public function paginate(int $pageSize, $columns = [ '*' ]) : LengthAwarePaginator
     {
-        $this->roleRepository->pushCriteria(app(IsDeletedCriteria::class));
-        $this->roleRepository->pushCriteria(app(StateCriteria::class));
-        return $this->roleRepository->paginate($pageSize, $columns);
+        $this->repostitory->pushCriteria(app(IsDeletedCriteria::class));
+        $this->repostitory->pushCriteria(app(StateCriteria::class));
+        return $this->repostitory->paginate($pageSize, $columns);
     }
     
     /**
@@ -70,7 +66,7 @@ class RoleServiceImpl implements RoleService
      */
     public function find(int $roleId, $columns = [ '*' ]) : ?Role
     {
-        return $this->roleRepository->find($roleId, $columns);
+        return $this->repostitory->find($roleId, $columns);
     }
     
     /**
@@ -82,7 +78,7 @@ class RoleServiceImpl implements RoleService
      */
     public function create(array $roleAttributes) : Role
     {
-        return $this->roleRepository->create($roleAttributes);
+        return $this->repostitory->create($roleAttributes);
     }
     
     /**
@@ -95,18 +91,6 @@ class RoleServiceImpl implements RoleService
      */
     public function update(array $roleAttributes, int $id) : Role
     {
-        return $this->roleRepository->update($roleAttributes, $id);
-    }
-    
-    /**
-     * 删除一个模型
-     *
-     * @param int $id
-     *
-     * @return bool
-     */
-    public function softDelete(int $id) : bool
-    {
-        return (bool) $this->roleRepository->update([ 'is_deleted' => DeletedStateEnum::IS_DELETED ], $id);
+        return $this->repostitory->update($roleAttributes, $id);
     }
 }

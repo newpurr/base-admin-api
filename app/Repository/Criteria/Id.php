@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Criteria\Permission;
+namespace App\Repository\Criteria;
 
 use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
@@ -15,7 +15,7 @@ class Id implements CriteriaInterface
 {
     /**
      * Apply criteria in query repository
-     * @param \App\Models\Permission $model
+     * @param \App\Models\BaseModel $model
      * @param RepositoryInterface    $repository
      * @return mixed
      */

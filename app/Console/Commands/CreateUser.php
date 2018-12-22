@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Admin;
-use App\User;
 use Hash;
 use Illuminate\Console\Command;
 use SuperHappysir\Constant\Enum\StateEnum;
@@ -20,7 +19,7 @@ class CreateUser extends Command
      * The console command description.
      * @var string
      */
-    protected $description = '创建一个系统用户';
+    protected $description = '创建一个管理员用户';
     
     /**
      * Execute the console command.
@@ -28,24 +27,19 @@ class CreateUser extends Command
      */
     public function handle()
     {
-        $name     = $this->ask('What is your name?');
-        $email    = $this->ask('What is your email?');
+        $account     = $this->ask('What is your account?');
+        $nickname     = $this->ask('What is your nickname?');
+        $mobile    = $this->ask('What is your mobile?');
         $password = $this->secret('What is your password?');
         
-        User::create([
-            'name'     => $name,
-            'email'    => $email,
-            'password' => Hash::make($password),
-        ]);
-        
         Admin::create([
-            'account'  => $name,
-            'nickname' => $name,
-            'mobile'   => $email,
+            'account'  => $account,
+            'nickname' => $nickname,
+            'mobile'   => $mobile,
             'state'    => StateEnum::ENABLED,
             'password' => Hash::make($password),
         ]);
         
-        $this->info($name . ' has created!');
+        $this->info('The administrator was created successfully');
     }
 }

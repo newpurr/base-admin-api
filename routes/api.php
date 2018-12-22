@@ -13,20 +13,28 @@ $router = app(Router::class);
 | 这里放置的用户相关操作的rest api
 |
 */
+// 权限rest资源增删改查路由
+$router->apiResource('admin', 'Admin\UserController');
+
 $router->group([
-    'prefix' => 'auth'
+    'prefix' => 'admin'
 ], function (Router $router) {
-    // 登录
-    $router->post('login', 'Auth\AuthController@login');
+    // 认证
+    $router->group([
+        'prefix' => 'auth'
+    ], function (Router $router) {
+        // 登录
+        $router->post('login', 'Auth\AuthController@login');
     
-    // 退出
-    $router->post('logout', 'Auth\AuthController@logout');
+        // 退出
+        $router->post('logout', 'Auth\AuthController@logout');
     
-    // 刷新token
-    $router->post('refresh', 'Auth\AuthController@refresh');
+        // 刷新token
+        $router->post('refresh', 'Auth\AuthController@refresh');
     
-    // 用户信息
-    $router->get('user', 'Auth\AuthController@user');
+        // 用户信息
+        $router->get('user', 'Auth\AuthController@user');
+    });
 });
 
 /*

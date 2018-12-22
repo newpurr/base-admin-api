@@ -94,4 +94,32 @@ trait BaseScopeHelper
         return $query->where('is_deleted', DeletedStateEnum::NORMAL)
                      ->where('state', StateEnum::ENABLED);
     }
+    
+    /**
+     * 删除条件scope
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int                                   $stateCode
+     *
+     * @return mixed
+     */
+    public function scopeDeletedState($query, $stateCode = DeletedStateEnum::NORMAL)
+    {
+        return $query->where('is_deleted', $stateCode);
+    }
+    
+    /**
+     * 状态条件scope
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int|array                             $stateCode
+     *
+     * @return mixed
+     */
+    public function scopeState($query, $stateCode = StateEnum::ENABLED)
+    {
+        $stateCode = !\is_array($stateCode) ? [ $stateCode ] : $stateCode;
+        
+        return $query->whereIn('state', $stateCode);
+    }
 }

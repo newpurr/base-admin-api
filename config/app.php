@@ -157,6 +157,7 @@ return [
          * Package Service Providers...
          */
         JellyBool\Flysystem\Upyun\UpyunServiceProvider::class,
+        Unicodeveloper\DumbPassword\DumbPasswordServiceProvider::class,
         
         /*
          * Application Service Providers...

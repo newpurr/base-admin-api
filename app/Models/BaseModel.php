@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Models\helper\BaseScopeHelper;
 use Illuminate\Database\Eloquent\Model;
-use SuperHappysir\Constant\DeletedStateEnum;
-use SuperHappysir\Constant\StateEnum;
+use SuperHappysir\Constant\Enum\DeletedStateEnum;
+use SuperHappysir\Constant\Enum\StateEnum;
 
 /**
  * Class Role.
@@ -61,33 +61,5 @@ class BaseModel extends Model
     public static function tableName() : string
     {
         return (new static)->getTable();
-    }
-    
-    /**
-     * 删除条件scope
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int                                   $stateCode
-     *
-     * @return mixed
-     */
-    public function scopeDeletedState($query, $stateCode = DeletedStateEnum::NORMAL)
-    {
-        return $query->where('is_deleted', $stateCode);
-    }
-    
-    /**
-     * 状态条件scope
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|array                             $stateCode
-     *
-     * @return mixed
-     */
-    public function scopeState($query, $stateCode = StateEnum::ENABLED)
-    {
-        $stateCode = !\is_array($stateCode) ? [ $stateCode ] : $stateCode;
-        
-        return $query->whereIn('state', $stateCode);
     }
 }

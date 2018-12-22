@@ -4,14 +4,13 @@ namespace App\Services\Rbac\Permission\Impl;
 
 use App\Models\Permission;
 use App\Repository\Contracts\PermissionRepository;
+use App\Repository\Criteria\Id;
 use App\Repository\Criteria\IsDeletedCriteria;
-use App\Repository\Criteria\Permission\Id;
 use App\Repository\Criteria\StateCriteria;
 use App\Repository\Criteria\Permission\Type;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use SuperHappysir\Constant\DeletedStateEnum;
 use Illuminate\Database\Eloquent\Collection;
 
 class PermisssionServiceImpl implements PermissionService
@@ -19,20 +18,12 @@ class PermisssionServiceImpl implements PermissionService
     use BatchChangeState;
     
     /**
-     * 权限service
-     * @var PermissionRepository
-     */
-    protected $permissionRepository;
-    
-    /**
      * PermisssionServiceImpl constructor.
      * @param PermissionRepository $permissionRepository
      */
     public function __construct(PermissionRepository $permissionRepository)
     {
-        $this->permissionRepository = $permissionRepository;
-    
-        $this->setRepostitory($permissionRepository);
+        $this->repostitory = $permissionRepository;
     }
     
     /**
@@ -43,12 +34,12 @@ class PermisssionServiceImpl implements PermissionService
      */
     public function paginate(int $pageSize, $columns = ['*']) : LengthAwarePaginator
     {
-        $this->permissionRepository->pushCriteria(app(IsDeletedCriteria::class));
-        $this->permissionRepository->pushCriteria(app(StateCriteria::class));
-        $this->permissionRepository->pushCriteria(app(Type::class));
-        $this->permissionRepository->pushCriteria(app(Id::class));
+        $this->repostitory->pushCriteria(app(IsDeletedCriteria::class));
+        $this->repostitory->pushCriteria(app(StateCriteria::class));
+        $this->repostitory->pushCriteria(app(Type::class));
+        $this->repostitory->pushCriteria(app(Id::class));
         
-        return $this->permissionRepository->paginate($pageSize, $columns);
+        return $this->repostitory->paginate($pageSize, $columns);
     }
     
     /**
@@ -62,7 +53,7 @@ class PermisssionServiceImpl implements PermissionService
      */
     public function find(int $roleId, $columns = [ '*' ]) : ?Permission
     {
-        return $this->permissionRepository->find($roleId, $columns);
+        return $this->repostitory->find($roleId, $columns);
     }
     
     /**
@@ -74,7 +65,7 @@ class PermisssionServiceImpl implements PermissionService
      */
     public function create(array $permissionAttributes) : Permission
     {
-        return $this->permissionRepository->create($permissionAttributes);
+        return $this->repostitory->create($permissionAttributes);
     }
     
     /**
@@ -87,19 +78,7 @@ class PermisssionServiceImpl implements PermissionService
      */
     public function update(array $permissionAttributes, int $id) : Permission
     {
-        return $this->permissionRepository->update($permissionAttributes, $id);
-    }
-    
-    /**
-     * 删除一个模型
-     *
-     * @param int $id
-     *
-     * @return bool
-     */
-    public function softDelete(int $id) : bool
-    {
-        return (bool) $this->permissionRepository->update([ 'is_deleted' => DeletedStateEnum::IS_DELETED ], $id);
+        return $this->repostitory->update($permissionAttributes, $id);
     }
     
     /**
@@ -109,7 +88,7 @@ class PermisssionServiceImpl implements PermissionService
      */
     public function getTheFrontEndPath() : array
     {
-        return $this->permissionRepository->getTheFrontEndPath();
+        return $this->repostitory->getTheFrontEndPath();
     }
     
     /**
@@ -122,6 +101,6 @@ class PermisssionServiceImpl implements PermissionService
      */
     public function getPermissionCollectionByIdArr(array $idArr, $columns = [ '*' ]) : Collection
     {
-        return $this->permissionRepository->findWhereIn('id', $idArr, $columns);
+        return $this->repostitory->findWhereIn('id', $idArr, $columns);
     }
 }

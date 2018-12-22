@@ -16,7 +16,7 @@ use Closure;
 trait BatchOperation
 {
     /**
-     * Delete multiple entities by given criteria.
+     * 批量更新数据【注意，此方法不会做request validation】
      *
      * @param array   $attributes
      * @param Closure $where
