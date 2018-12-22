@@ -14,7 +14,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'refresh']]);
+        $this->middleware('auth:admin_api', ['except' => ['login', 'refresh']]);
     }
     
     /**
@@ -24,13 +24,13 @@ class AuthController extends Controller
     public function login() : JsonResponseBodyInterface
     {
         $username = request('username');
-        filter_var($username, FILTER_VALIDATE_EMAIL) ?
-            $credentials['email'] = $username :
-            $credentials['name'] = $username;
+        is_phone_num($username) ?
+            $credentials['mobile']  = $username :
+            $credentials['account'] = $username;
     
         $credentials['password'] = request('password');
     
-        if (!$token = auth()->attempt($credentials)) {
+        if (!$token = auth('admin_api')->attempt($credentials)) {
             return json_error_response(JsonResponseCode::UNAUTHORIZED, 'Unauthorized');
         }
         
@@ -45,7 +45,7 @@ class AuthController extends Controller
      */
     public function user() : JsonResponseBodyInterface
     {
-        return json_success_response(auth()->user());
+        return json_success_response(auth('admin_api')->user());
     }
     
     /**
@@ -54,7 +54,7 @@ class AuthController extends Controller
      */
     public function logout() : JsonResponseBodyInterface
     {
-        auth()->logout();
+        auth('admin_api')->logout();
     
         return json_success_response([], 'Successfully logged out');
     }
@@ -66,7 +66,7 @@ class AuthController extends Controller
     public function refresh() : JsonResponseBodyInterface
     {
         return json_success_response(
-            $this->respondWithToken(auth()->refresh())
+            $this->respondWithToken(auth('admin_api')->refresh())
         );
     }
     
@@ -80,7 +80,7 @@ class AuthController extends Controller
         return [
             'access_token' => $token,
             'token_type'   => 'bearer',
-            'expires_in'   => auth('api')->factory()->getTTL() * 60
+            'expires_in'   => auth('admin_api')->factory()->getTTL() * 60
         ];
     }
 }

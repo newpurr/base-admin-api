@@ -28,6 +28,12 @@ use SuperHappysir\Constant\StateEnum;
  * @method $this deletedState( $stateCode )
  * @method $this state( $stateCode )
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel normality()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel notDeleted()
  */
 class BaseModel extends Model
 {

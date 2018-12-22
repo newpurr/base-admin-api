@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Permission
+ *
  * @property int                 $id          自增主键
  * @property string              $name        权限名称
  * @property string              $path        权限path
@@ -33,8 +34,17 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereIsDeleted($value)
  * @mixin \Eloquent
- *
  * @property-read \Illuminate\Database\Eloquent\Collection $roles
+ * @property int $state 启用状态 1-启用 2-禁用
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deletedState($stateCode = 0)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel normality()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel notDeleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel state($stateCode = 1)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Permission whereState($value)
  */
 class Permission extends BaseModel
 {

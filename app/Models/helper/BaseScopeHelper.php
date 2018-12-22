@@ -2,8 +2,8 @@
 
 namespace App\Models\helper;
 
-use SuperHappysir\Constant\DeletedStateEnum;
-use SuperHappysir\Constant\StateEnum;
+use SuperHappysir\Constant\Enum\DeletedStateEnum;
+use SuperHappysir\Constant\Enum\StateEnum;
 
 /**
  * Class ScopeHelper

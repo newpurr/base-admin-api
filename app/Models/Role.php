@@ -22,8 +22,23 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role name( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role nameLike( $value )
  * @mixin \Eloquent
- *
  * @property-read \Illuminate\Database\Eloquent\Collection $permissions
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deletedState($stateCode = 0)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel normality()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel notDeleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel state($stateCode = 1)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereIsDeleted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereUpdatedAt($value)
  */
 class Role extends BaseModel implements Transformable
 {

@@ -2,8 +2,7 @@
 
 namespace App\Constant;
 
-
-use SuperHappysir\Constant\Util\MappingHelper;
+use SuperHappysir\Constant\Enum\Util\MappingHelper;
 
 /**
  * Class JsonResponseCode Json响应状态码常量
@@ -48,5 +47,4 @@ class JsonResponseCode
         self::PARAMETER_ERROR => '参数错误',
         self::UNAUTHORIZED    => '请先登录',
     ];
-    
 }

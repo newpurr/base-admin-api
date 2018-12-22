@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Admin;
 use App\User;
 use Hash;
 use Illuminate\Console\Command;
+use SuperHappysir\Constant\Enum\StateEnum;
 
 class CreateUser extends Command
 {
@@ -33,6 +35,14 @@ class CreateUser extends Command
         User::create([
             'name'     => $name,
             'email'    => $email,
+            'password' => Hash::make($password),
+        ]);
+        
+        Admin::create([
+            'account'  => $name,
+            'nickname' => $name,
+            'mobile'   => $email,
+            'state'    => StateEnum::ENABLED,
             'password' => Hash::make($password),
         ]);
         

@@ -38,4 +38,12 @@ $factory->define(App\User::class, function (Faker $faker) {
 # 2.生成数据
 php artisan tinker
 factory(\App\User::class, 20)->create();
+
+
+############### ide-helper ###############
+ ide-helper
+  ide-helper:eloquent         Add \Eloquent helper to \Eloquent\Model
+  ide-helper:generate         Generate a new IDE Helper file.
+  ide-helper:meta             Generate metadata for PhpStorm
+  ide-helper:models           Generate autocompletion for models
 ```
