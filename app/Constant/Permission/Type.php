@@ -2,7 +2,7 @@
 
 namespace App\Constant\Permission;
 
-use SuperHappysir\Constant\Enum\Util\MappingHelper;
+use SuperHappysir\Support\Constant\Enum\Util\MappingHelper;
 
 class Type
 {

@@ -33,7 +33,7 @@ if (!function_exists('json_success_response')) {
      * @param array  $response
      * @param string $message
      *
-     * @return \SuperHappysir\Utils\Response\JsonResponseBodyInterface
+     * @return \SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface
      */
     function json_success_response($response = [], $message = '')
     {
@@ -58,7 +58,7 @@ if (!function_exists('json_error_response')) {
      * @param string $code
      * @param string $message
      *
-     * @return \SuperHappysir\Utils\Response\JsonResponseBodyInterface
+     * @return \SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface
      */
     function json_error_response(string $code, string $message)
     {

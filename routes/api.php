@@ -16,6 +16,12 @@ $router = app(Router::class);
 // 权限rest资源增删改查路由
 $router->apiResource('admin', 'Admin\UserController');
 
+// 权限批量启用
+$router->post('admin/_bulk/batchEnabled', 'Admin\UserController@batchEnable');
+
+// 权限批量禁用
+$router->post('admin/_bulk/batchDisabled', 'Admin\UserController@batchDisabled');
+
 $router->group([
     'prefix' => 'admin'
 ], function (Router $router) {

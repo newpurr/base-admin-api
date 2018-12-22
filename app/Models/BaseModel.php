@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Models\helper\BaseScopeHelper;
 use Illuminate\Database\Eloquent\Model;
-use SuperHappysir\Constant\Enum\DeletedStateEnum;
-use SuperHappysir\Constant\Enum\StateEnum;
+use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
+use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
  * Class Role.

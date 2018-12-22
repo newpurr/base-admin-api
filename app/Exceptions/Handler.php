@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
     
     /**
      * json
-     * @param \SuperHappysir\Utils\Response\JsonResponseBodyInterface $response
+     * @param \SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface $response
      * @return \Illuminate\Http\JsonResponse
      */
     protected function json($response) : \Illuminate\Http\JsonResponse

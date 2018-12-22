@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Admin;
 use Hash;
 use Illuminate\Console\Command;
-use SuperHappysir\Constant\Enum\StateEnum;
+use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 class CreateUser extends Command
 {

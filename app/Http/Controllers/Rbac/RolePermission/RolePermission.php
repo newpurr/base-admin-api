@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Rbac\RolePermission;
 use App\Http\Controllers\Controller;
 use App\Services\Rbac\RolePermission\RolePermissionService;
 use Illuminate\Http\Request;
-use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
+use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
 /**
  * Class RolePermission

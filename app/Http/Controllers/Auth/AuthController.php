@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Constant\JsonResponseCode;
 use App\Http\Controllers\Controller;
-use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
+use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
 class AuthController extends Controller
 {

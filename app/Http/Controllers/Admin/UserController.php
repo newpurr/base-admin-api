@@ -6,7 +6,7 @@ use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\User\UserService;
 use Illuminate\Http\Request;
-use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
+use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
 /**
  * Class UserController

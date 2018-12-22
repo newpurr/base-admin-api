@@ -7,7 +7,7 @@ use App\Models\Attachments;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
+use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
 /**
  * Class FileManager

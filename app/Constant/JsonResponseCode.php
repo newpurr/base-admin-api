@@ -2,7 +2,7 @@
 
 namespace App\Constant;
 
-use SuperHappysir\Constant\Enum\Util\MappingHelper;
+use SuperHappysir\Support\Constant\Enum\Util\MappingHelper;
 
 /**
  * Class JsonResponseCode Json响应状态码常量

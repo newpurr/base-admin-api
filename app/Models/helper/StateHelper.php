@@ -2,8 +2,8 @@
 
 namespace App\Models\helper;
 
-use SuperHappysir\Constant\Enum\DeletedStateEnum;
-use SuperHappysir\Constant\Enum\StateEnum;
+use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
+use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
  * Trait StateHelper

@@ -59,6 +59,8 @@ class UserServiceImpl implements UserService
      */
     public function create(array $attributes)
     {
+        $attributes = $this->ensurePasswordIsValid($attributes);
+        
         return $this->repostitory->create($attributes);
     }
     
@@ -88,8 +90,23 @@ class UserServiceImpl implements UserService
      */
     public function update(array $attributes, int $id)
     {
-        // 涉及密码的修改将Validator提前
-        // ！！！I5-Repository对当前场景的支持有缺陷！！！
+        $attributes = $this->ensurePasswordIsValid($attributes);
+    
+        return $this->repostitory->update($attributes, $id);
+    }
+    
+    /**
+     * 保证password符合指定规则
+     *
+     * @param array $attributes
+     *
+     * @return array
+     */
+    private function ensurePasswordIsValid(array $attributes) : array
+    {
+        // 涉及密码的修改将密码的Validator单独校验
+        // I5-Repository对当前场景的支持有缺陷
+        // 其校验实在fill model后,存在修改器等操作会影响校验结果
         if (!empty($attributes['password'])) {
             $adminValidator = app(AdminValidator::class);
             $validator      = Validator::make(
@@ -102,6 +119,7 @@ class UserServiceImpl implements UserService
                 throw new ParamterErrorException($errorMsg);
             }
         }
-        return $this->repostitory->update($attributes, $id);
-    }
+        
+        return $attributes;
+}
 }

@@ -4,7 +4,8 @@ namespace App\Services\Helper;
 
 use App\Repository\Contracts\BaseRepostitory;
 use Illuminate\Database\Eloquent\Builder;
-use SuperHappysir\Constant\Enum\StateEnum;
+use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
+use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
  * trait BatchChangeState
@@ -71,7 +72,12 @@ trait BatchChangeState
      */
     public function softDelete(int $id) : bool
     {
-        return (bool) $this->repostitory->update([ 'is_deleted' => DeletedStateEnum::IS_DELETED ], $id);
+        return (bool) $this->repostitory->updateWhere(
+            [ 'is_deleted' => DeletedStateEnum::IS_DELETED ],
+            function (Builder $builder) use ($id) {
+                $builder->where('id', $id);
+            }
+        );
     }
     
     /**
