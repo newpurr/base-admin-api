@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 18/12/2018 22:01:38
+ Date: 21/12/2018 23:17:12
 */
 
 SET NAMES utf8mb4;
@@ -65,7 +65,7 @@ CREATE TABLE `ba_migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ba_migrations
@@ -84,6 +84,13 @@ INSERT INTO `ba_migrations` VALUES (15, '2018_09_02_141900_create_ba_permissions
 INSERT INTO `ba_migrations` VALUES (16, '2018_09_02_141900_create_ba_role_permissions_table', 0);
 INSERT INTO `ba_migrations` VALUES (17, '2018_09_02_141900_create_ba_roles_table', 0);
 INSERT INTO `ba_migrations` VALUES (18, '2018_09_02_141900_create_ba_users_table', 0);
+INSERT INTO `ba_migrations` VALUES (19, '2018_12_21_145133_create_ba_attachments_table', 0);
+INSERT INTO `ba_migrations` VALUES (20, '2018_12_21_145133_create_ba_migrations_table', 0);
+INSERT INTO `ba_migrations` VALUES (21, '2018_12_21_145133_create_ba_password_resets_table', 0);
+INSERT INTO `ba_migrations` VALUES (22, '2018_12_21_145133_create_ba_permissions_table', 0);
+INSERT INTO `ba_migrations` VALUES (23, '2018_12_21_145133_create_ba_role_permissions_table', 0);
+INSERT INTO `ba_migrations` VALUES (24, '2018_12_21_145133_create_ba_roles_table', 0);
+INSERT INTO `ba_migrations` VALUES (25, '2018_12_21_145133_create_ba_users_table', 0);
 
 -- ----------------------------
 -- Table structure for ba_password_resets

@@ -23,13 +23,13 @@ class AuthController extends Controller
      */
     public function login() : JsonResponseBodyInterface
     {
-        $username = request('name');
+        $username = request('username');
         filter_var($username, FILTER_VALIDATE_EMAIL) ?
             $credentials['email'] = $username :
-            $credentials['phone'] = $username;
+            $credentials['name'] = $username;
     
         $credentials['password'] = request('password');
-        
+    
         if (!$token = auth()->attempt($credentials)) {
             return json_error_response(JsonResponseCode::UNAUTHORIZED, 'Unauthorized');
         }

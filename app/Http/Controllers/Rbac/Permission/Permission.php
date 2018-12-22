@@ -6,6 +6,7 @@ use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Http\Request;
+use SuperHappysir\Utils\Response\JsonResponseBodyInterface;
 
 class Permission extends Controller
 {
@@ -26,9 +27,9 @@ class Permission extends Controller
     
     /**
      * Display a listing of the resource.
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function index() : array
+    public function index() : JsonResponseBodyInterface
     {
         $paginate = $this->permissionService->paginate((int) \request('limit', 15));
         
@@ -39,9 +40,9 @@ class Permission extends Controller
     /**
      * Store a newly created resource in storage.
      * @param  \Illuminate\Http\Request $request
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function store(Request $request) : array
+    public function store(Request $request) : JsonResponseBodyInterface
     {
         $roleModel = $this->permissionService->create(
             $request->only(['name','path','method','description','per_type','state'])
@@ -53,7 +54,7 @@ class Permission extends Controller
     /**
      * Display the specified resource.
      * @param  int $id
-     * @return array|mixed
+     * @return JsonResponseBodyInterface|mixed
      */
     public function show($id)
     {
@@ -72,9 +73,9 @@ class Permission extends Controller
      * Update the specified resource in storage.
      * @param  \Illuminate\Http\Request $request
      * @param  int                      $id
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function update(Request $request, $id) : array
+    public function update(Request $request, $id) : JsonResponseBodyInterface
     {
         $roleModel = $this->permissionService->update(
             $request->only(['name','path','method','description','per_type','state']),
@@ -87,9 +88,9 @@ class Permission extends Controller
     /**
      * Remove the specified resource from storage.
      * @param  int $id
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function destroy($id) : array
+    public function destroy($id) : JsonResponseBodyInterface
     {
         $this->permissionService->softDelete($id);
         
@@ -99,9 +100,9 @@ class Permission extends Controller
     /**
      * 批量禁用角色
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function batchDisabled(Request $request) : array
+    public function batchDisabled(Request $request) : JsonResponseBodyInterface
     {
         $ids = $request->json('params.ids');
         if (!$ids) {
@@ -118,9 +119,9 @@ class Permission extends Controller
     /**
      * batchEnable
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function batchEnable(Request $request) : array
+    public function batchEnable(Request $request) : JsonResponseBodyInterface
     {
         $ids = $request->json('params.ids');
         if (!$ids) {
@@ -137,9 +138,9 @@ class Permission extends Controller
     /**
      * 前端所有path数组
      *
-     * @return array
+     * @return JsonResponseBodyInterface
      */
-    public function theFrontEndPath() : array
+    public function theFrontEndPath() : JsonResponseBodyInterface
     {
         $frontEndPathArr = $this->permissionService->getTheFrontEndPath();
     
