@@ -11,25 +11,26 @@ class CreateUser extends Command
 {
     /**
      * The name and signature of the console command.
+     *
      * @var string
      */
     protected $signature = 'admin:create';
     
     /**
      * The console command description.
+     *
      * @var string
      */
     protected $description = '创建一个管理员用户';
     
     /**
      * Execute the console command.
-     * @return mixed
      */
     public function handle()
     {
-        $account     = $this->ask('What is your account?');
-        $nickname     = $this->ask('What is your nickname?');
-        $mobile    = $this->ask('What is your mobile?');
+        $account  = $this->ask('What is your account?');
+        $nickname = $this->ask('What is your nickname?');
+        $mobile   = $this->ask('What is your mobile?');
         $password = $this->secret('What is your password?');
         
         Admin::create([

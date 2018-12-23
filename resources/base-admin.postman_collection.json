@@ -1,0 +1,1285 @@
+{
+	"info": {
+		"_postman_id": "ff579650-035b-46bc-97f9-7bbadda65175",
+		"name": "base-admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "管理员",
+			"item": [
+				{
+					"name": "认证",
+					"item": [
+						{
+							"name": "[管理员]登录获取token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a687d0eb-1d4b-459f-8804-59f84445b20d",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ1OTc2MiwiZXhwIjoxNTQ1NDYzMzYyLCJuYmYiOjE1NDU0NTk3NjIsImp0aSI6IkpUd1d3SkhMV28zckNEclQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.7Hx8m-s2LPd4bD6RGo-GFckc2kK_TeJ_3Q7XOFVxCdA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"username\": \"luotao2\", \"password\": \"jastdsssss\"}\n"
+								},
+								"url": {
+									"raw": "{{host}}/api/admin/auth/login?",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "luotao",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"disabled": true
+										}
+									]
+								},
+								"description": "角色列表接口"
+							},
+							"response": []
+						},
+						{
+							"name": "[管理员]用户信息",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "32171bda-93f7-47ec-838b-8a5880866786",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ2NTEyMiwiZXhwIjoxNTQ1NDY4NzIyLCJuYmYiOjE1NDU0NjUxMjIsImp0aSI6Ik9xZEtoME5MQVUxZzhMUEYiLCJzdWIiOjIxLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5Iiwibmlja25hbWUiOiJhZG1pbiJ9.-USpEw5AF6lPF_JrNTLZ9WYhiN-gf96l1fxEw-f4YN8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/api/admin/auth/user",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"auth",
+										"user"
+									]
+								},
+								"description": "角色列表接口"
+							},
+							"response": []
+						},
+						{
+							"name": "[管理员]刷新授权",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9cc5fb61-2a0d-4a8d-b9d5-b4c63197863e",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NDUzMjA0OCwiZXhwIjoxNTQ0NTM1NjQ4LCJuYmYiOjE1NDQ1MzIwNDgsImp0aSI6ImRDUFhoMDRocExleFhsQmIiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.qRuaQxwV_1xwLrt9Y4IJSOhq0qBzeg1F9eJJIMDEniA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/api/admin/auth/refresh",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"auth",
+										"refresh"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "[管理员]分页列表&筛选",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a687d0eb-1d4b-459f-8804-59f84445b20d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ1OTc2MiwiZXhwIjoxNTQ1NDYzMzYyLCJuYmYiOjE1NDU0NTk3NjIsImp0aSI6IkpUd1d3SkhMV28zckNEclQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.7Hx8m-s2LPd4bD6RGo-GFckc2kK_TeJ_3Q7XOFVxCdA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/admin?",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "luotao",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						},
+						"description": "角色列表接口"
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]用户详情",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a687d0eb-1d4b-459f-8804-59f84445b20d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ1OTc2MiwiZXhwIjoxNTQ1NDYzMzYyLCJuYmYiOjE1NDU0NTk3NjIsImp0aSI6IkpUd1d3SkhMV28zckNEclQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.7Hx8m-s2LPd4bD6RGo-GFckc2kK_TeJ_3Q7XOFVxCdA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/21?",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"21"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "luotao",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						},
+						"description": "角色列表接口"
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]更新用户",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a687d0eb-1d4b-459f-8804-59f84445b20d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ1OTc2MiwiZXhwIjoxNTQ1NDYzMzYyLCJuYmYiOjE1NDU0NTk3NjIsImp0aSI6IkpUd1d3SkhMV28zckNEclQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.7Hx8m-s2LPd4bD6RGo-GFckc2kK_TeJ_3Q7XOFVxCdA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickname\": \"admin3\",\n    \"mobile\": \"18581405483\",\n    \"password\": \"1234567890lxllxl\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/21?",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"21"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "luotao",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						},
+						"description": "角色列表接口"
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]删除用户",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a687d0eb-1d4b-459f-8804-59f84445b20d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ1OTc2MiwiZXhwIjoxNTQ1NDYzMzYyLCJuYmYiOjE1NDU0NTk3NjIsImp0aSI6IkpUd1d3SkhMV28zckNEclQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.7Hx8m-s2LPd4bD6RGo-GFckc2kK_TeJ_3Q7XOFVxCdA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/21?",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"21"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "luotao",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						},
+						"description": "角色列表接口"
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]创建用户",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a687d0eb-1d4b-459f-8804-59f84445b20d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ1OTc2MiwiZXhwIjoxNTQ1NDYzMzYyLCJuYmYiOjE1NDU0NTk3NjIsImp0aSI6IkpUd1d3SkhMV28zckNEclQiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.7Hx8m-s2LPd4bD6RGo-GFckc2kK_TeJ_3Q7XOFVxCdA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickname\": \"admin3\",\n    \"mobile\": \"18581405483\",\n    \"password\": \"jastdsssss\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/admin?",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "luotao",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]批量启用",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60be1a0e-aa91-4ee7-8afb-62e97e3932d8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"1,21\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/_bulk/batchEnabled",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"_bulk",
+								"batchEnabled"
+							]
+						},
+						"description": "查询所有权限"
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]批量禁用",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60be1a0e-aa91-4ee7-8afb-62e97e3932d8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"1,21\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/_bulk/batchDisabled",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"_bulk",
+								"batchDisabled"
+							]
+						},
+						"description": "查询所有权限"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "权限",
+			"item": [
+				{
+					"name": "[权限]批量启用",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c32b2d78-5fb0-4c60-9a4e-6059e67138da",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permission/_bulk/batchEnable",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission",
+								"_bulk",
+								"batchEnable"
+							]
+						},
+						"description": "查询所有权限"
+					},
+					"response": []
+				},
+				{
+					"name": "[权限]批量禁用",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ae70fd62-58fb-49a4-845e-14dd5971db6b",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permission/_bulk/batchDisabled",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission",
+								"_bulk",
+								"batchDisabled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[权限]分页列表&筛选",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8cf4dd2e-30a9-4697-b49c-499f31a71ffe",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permission?page=1&limit=100",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "ids",
+									"value": "482",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[权限]权限详情",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4217a1ed-3e2c-49bc-88fd-361b1be53184",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/permission/482",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission",
+								"482"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[权限]前端权限路径",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7809785e-b579-4326-b860-37d02dd3efdc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/permission/frontend/path",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission",
+								"frontend",
+								"path"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "角色",
+			"item": [
+				{
+					"name": "[权限]获取角色拥有的权限ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2a1def2-b2df-45fc-ac3b-93545af4882e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/1/permission",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"1",
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]批量启用",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "60be1a0e-aa91-4ee7-8afb-62e97e3932d8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"6,7\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/_bulk/batchEnable",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"_bulk",
+								"batchEnable"
+							]
+						},
+						"description": "查询所有权限"
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]批量禁用",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a1affcf-0919-4c5c-9c2d-a48c07ed1863",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"ids\":\"6,7\"}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/_bulk/batchDisabled",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"_bulk",
+								"batchDisabled"
+							]
+						},
+						"description": "查询所有权限"
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]分页列表&筛选",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e7514545-93ad-41d4-a988-8e8b3375d38d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": "角色列表接口"
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]分配角色权限",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "489daa23-3038-450b-b5fe-e91559737195",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"permission_list\":[482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553]}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/1/permission",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"1",
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]角色详情",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5d14b884-cd65-4090-8203-e09bc043671f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]创建角色",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "737df0ca-bcab-4675-a2e7-c3a7810e2400",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试111",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]更新角色",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4e7c2df5-3553-4daa-b8e9-6f128985204d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "测试22",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/6",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

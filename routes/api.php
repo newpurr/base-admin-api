@@ -30,16 +30,16 @@ $router->group([
         'prefix' => 'auth'
     ], function (Router $router) {
         // 登录
-        $router->post('login', 'Auth\AuthController@login');
+        $router->post('login', 'Admin\AuthController@login');
     
         // 退出
-        $router->post('logout', 'Auth\AuthController@logout');
+        $router->post('logout', 'Admin\AuthController@logout');
     
         // 刷新token
-        $router->post('refresh', 'Auth\AuthController@refresh');
+        $router->post('refresh', 'Admin\AuthController@refresh');
     
         // 用户信息
-        $router->get('user', 'Auth\AuthController@user');
+        $router->get('user', 'Admin\AuthController@user');
     });
 });
 

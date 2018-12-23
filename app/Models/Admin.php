@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\helper\BaseScopeHelper;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -40,16 +39,6 @@ class Admin extends Authenticatable implements JWTSubject
     protected $guarded = [];
     
     protected $hidden = ['password', 'is_deleted'];
-    
-    /**
-     * 设置password时自动hash
-     *
-     * @param $value
-     */
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
     
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

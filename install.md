@@ -4,7 +4,7 @@
 php artisan key:generate
 
 # Set the JWTAuth secret key used to sign the tokens
-jwt:secret
+php artisan jwt:secret
 
 ############### migrations与Seed逆向工具 ###############
 # 逆向 migrations 生成

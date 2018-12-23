@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Admin;
 
 use App\Constant\JsonResponseCode;
 use App\Http\Controllers\Controller;
@@ -29,7 +29,7 @@ class AuthController extends Controller
             $credentials['account'] = $username;
     
         $credentials['password'] = request('password');
-    
+        
         if (!$token = auth('admin_api')->attempt($credentials)) {
             return json_error_response(JsonResponseCode::UNAUTHORIZED, '账号或密码错误!');
         }
