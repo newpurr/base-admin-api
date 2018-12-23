@@ -76,6 +76,6 @@ if (!function_exists('absolute_resources_path')) {
      */
     function resources_path(string $relativePath)
     {
-        return sprintf('//%s/%s', config('filesystems.disks.public.upyun.domain'), $relativePath);
+        return sprintf('%s/%s', config('filesystems.disks.public.upyun.domain'), $relativePath);
     }
 }

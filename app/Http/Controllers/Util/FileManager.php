@@ -29,27 +29,31 @@ class FileManager extends Controller
      */
     public function upload(Request $request) : JsonResponseBodyInterface
     {
-        $uploadFile = $request->file('file_data');
-        if (!$uploadFile) {
-            return $this->error('error', 'no file');
+        $allFiles = $request->allFiles();
+        if (!$allFiles) {
+            return json_error_response('error', 'no file');
         }
-        if ($uploadFile instanceof UploadedFile) {
-            $uploadFile = [ $uploadFile ];
-        }
+        
+        $result = [];
+        
         $path              = '/' . date('Y-m');
         $filesystemAdapter = Storage::disk('public.upyun');
-        $collection        = collect();
+        
         /** @var \Illuminate\Http\UploadedFile $file */
-        foreach ($uploadFile as $file) {
+        foreach ($allFiles as $key => $file) {
+            if (!$file instanceof UploadedFile) {
+                continue;
+            }
             /** @var Attachments $attachmentsModel */
             $attachmentsModel            = Attachments::make();
             $attachmentsModel->mime_type = $file->getMimeType();
             $attachmentsModel->src       = $filesystemAdapter->put($path, $file);
             $attachmentsModel->save();
-            $attachmentsModel->src = resources_path($attachmentsModel->src);
-            $collection->push($attachmentsModel);
+            $attr                 = $attachmentsModel->toArray();
+            $attr['domian']       = config('filesystems.disks.public.upyun.domain');
+            $result[$key] = $attr;
         }
         
-        return json_success_response([ 'files' => $collection->toArray() ]);
+        return json_success_response($result);
     }
 }

@@ -83,11 +83,7 @@
 {{csrf_field()}}
                     <div class="form-group">
                         <label for="">label</label>
-                        <input type="file" class="form-control" id="" name="file_data[]">
-                    </div>
-                    <div class="form-group">
-                        <label for="">label</label>
-                        <input type="file" class="form-control" id="" name="file_data[]">
+                        <input type="file" class="form-control" id="" name="file_data">
                     </div>
 
                     <div class="form-group">
