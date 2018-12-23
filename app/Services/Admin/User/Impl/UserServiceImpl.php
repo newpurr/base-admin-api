@@ -11,7 +11,6 @@ use App\Repository\Validators\AdminValidator;
 use App\Services\Admin\User\UserService;
 use App\Services\Helper\BatchChangeState;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Hash;
 use Validator;
 
 /**
@@ -104,9 +103,10 @@ class UserServiceImpl implements UserService
      */
     private function ensurePasswordIsValid(array $attributes) : array
     {
-        // 涉及密码的修改将密码的Validator单独校验
+        // 涉及密码的修改,因此将密码的Validator单独校验
         // I5-Repository对当前场景的支持有缺陷
-        // 其校验实在fill model后,存在修改器等操作会影响校验结果
+        // 其校验实在fill model后,而我们将密码hash是在fill这一步做的操作
+        // 存在修改器等操作会影响校验结果
         if (!empty($attributes['password'])) {
             $adminValidator = app(AdminValidator::class);
             $validator      = Validator::make(

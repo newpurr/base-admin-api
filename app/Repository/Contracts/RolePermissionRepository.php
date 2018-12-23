@@ -2,8 +2,11 @@
 
 namespace App\Repository\Contracts;
 
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * Interface RolePermissionRepository.
+ *
  * @package namespace App\Repository\Contracts;
  */
 interface RolePermissionRepository extends BaseRepostitory
@@ -23,11 +26,11 @@ interface RolePermissionRepository extends BaseRepostitory
     public function deletePermissionByRoleId(int $roleId) : int;
     
     /**
-     * 根据角色ID获取角色权限path路径
+     * 根据角色ID获取角色权限
      *
      * @param int $roleId
      *
-     * @return array
+     * @return Collection
      */
-    public function getPermissionIdArrByRoleId(int $roleId) : array;
+    public function getPermissionCollectionByRoleId(int $roleId) : Collection;
 }

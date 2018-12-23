@@ -6,6 +6,7 @@ use App\Exceptions\ParamterErrorException;
 use App\Models\RolePermission;
 use App\Repository\Contracts\RolePermissionRepository;
 use App\Repository\Helper\BatchOperation;
+use Illuminate\Database\Eloquent\Collection;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
@@ -47,14 +48,24 @@ class RolePermissionRepositoryEloquent extends BaseRepository implements RolePer
     }
     
     /**
-     * 根据角色ID获取角色权限path路径
+     * 根据角色ID获取角色权限
      *
      * @param int $roleId
      *
-     * @return array
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getPermissionIdArrByRoleId(int $roleId) : array
+    public function getPermissionCollectionByRoleId(int $roleId) : Collection
     {
-        return RolePermission::whereRoleId($roleId)->distinct()->pluck('permission_id')->toArray();
+        $collection = RolePermission::whereRoleId($roleId)
+                             ->distinct()
+                             ->select([ 'permission_id', 'role_id' ])
+                             ->with('permission')
+                             ->get();
+    
+        $collection = $collection->map(function (RolePermission $rolePermission) {
+            return $rolePermission->permission;
+        });
+    
+        return $collection;
     }
 }

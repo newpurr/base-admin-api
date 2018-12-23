@@ -31,7 +31,7 @@ class AuthController extends Controller
         $credentials['password'] = request('password');
     
         if (!$token = auth('admin_api')->attempt($credentials)) {
-            return json_error_response(JsonResponseCode::UNAUTHORIZED, 'Unauthorized');
+            return json_error_response(JsonResponseCode::UNAUTHORIZED, '账号或密码错误!');
         }
         
         return json_success_response(

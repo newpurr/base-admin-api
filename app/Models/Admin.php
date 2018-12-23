@@ -39,6 +39,8 @@ class Admin extends Authenticatable implements JWTSubject
     
     protected $guarded = [];
     
+    protected $hidden = ['password', 'is_deleted'];
+    
     /**
      * 设置password时自动hash
      *

@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Repository\Contracts\RolePermissionRepository;
 use App\Services\Rbac\Permission\PermissionService;
 use App\Services\Rbac\RolePermission\RolePermissionService;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class RolePermission
@@ -115,10 +116,10 @@ class RolePermissionImpl implements RolePermissionService
      *
      * @param int $roleId
      *
-     * @return array
+     * @return Collection
      */
-    public function getPermissionByRoleId(int $roleId) : array
+    public function getPermissionByRoleId(int $roleId) : Collection
     {
-        return $this->rolePermissionRepository->getPermissionIdArrByRoleId($roleId);
+        return $this->rolePermissionRepository->getPermissionCollectionByRoleId($roleId);
     }
 }

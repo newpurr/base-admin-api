@@ -2,6 +2,8 @@
 
 namespace App\Services\Rbac\RolePermission;
 
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * interface RolePermissionService
  *
@@ -47,7 +49,7 @@ interface RolePermissionService
      *
      * @param int $roleId
      *
-     * @return array
+     * @return Collection
      */
-    public function getPermissionByRoleId(int $roleId) : array;
+    public function getPermissionByRoleId(int $roleId) : Collection;
 }
