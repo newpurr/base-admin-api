@@ -46,7 +46,7 @@ class RolePermission extends Controller
      */
     public function store(Request $request, int $roleId) : JsonResponseBodyInterface
     {
-        $this->rolePermissionService->allotFrontendPermission($roleId, $request->json('params.permission_list', []));
+        $this->rolePermissionService->allotPermission($roleId, $request->json('params.permission_list', []));
         
         return json_success_response();
     }
@@ -62,7 +62,6 @@ class RolePermission extends Controller
     {
         $permissionIdList = $this->rolePermissionService->getPermissionByRoleId($roleId);
         
-        // dd(\DB::connection()->getQueryLog());
         return json_success_response([
             'permission_list' => $permissionIdList
         ]);

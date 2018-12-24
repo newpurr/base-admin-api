@@ -29,7 +29,7 @@ class RolePermissionTest extends TestCase
     
         $permissionPathArr = \App\Models\Permission::where('id', '>', 0)->limit(20)->pluck('path')->toArray();
     
-        $status = $this->rolePermissionService->allotFrontendPermission($roleId, $permissionPathArr);
+        $status = $this->rolePermissionService->allotPermission($roleId, $permissionPathArr);
         $this->assertTrue($status);
     }
 }

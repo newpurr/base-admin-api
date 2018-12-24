@@ -36,4 +36,24 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
     {
         return RoleValidator::class;
     }
+    
+    /**
+     * 分配权限
+     *
+     * @param int   $roleId          role id
+     * @param array $permissionIdArr the permission model  primaryKey array
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function allotPermission(int $roleId, array $permissionIdArr) : bool
+    {
+        try {
+            $this->sync($roleId, 'permissions', $permissionIdArr);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+        
+        return true;
+    }
 }

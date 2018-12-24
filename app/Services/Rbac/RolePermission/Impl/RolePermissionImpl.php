@@ -9,6 +9,7 @@ use App\Repository\Contracts\RoleRepository;
 use App\Services\Rbac\Permission\PermissionService;
 use App\Services\Rbac\RolePermission\RolePermissionService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class RolePermission
@@ -56,20 +57,7 @@ class RolePermissionImpl implements RolePermissionService
     {
         $this->rolePermissionRepository = $rolePermissionRepository;
         $this->permissionService        = $permissionService;
-        $this->roleRepository = $roleRepository;
-    }
-    
-    /**
-     * 分配角色后端接口权限
-     *
-     * @param int   $roleId          角色ID
-     * @param array $permissionIdArr 权限ID数组
-     *
-     * @return bool
-     */
-    public function allotBackendPermission(int $roleId, array $permissionIdArr) : bool
-    {
-        // TODO: Implement allot() method.
+        $this->roleRepository           = $roleRepository;
     }
     
     /**
@@ -84,8 +72,8 @@ class RolePermissionImpl implements RolePermissionService
         if (empty($roleId)) {
             return false;
         }
-        
-        return $this->rolePermissionRepository->deletePermissionByRoleId($roleId);
+    
+        $this->roleRepository->allotPermission($roleId,  []);
     }
     
     /**
@@ -97,7 +85,7 @@ class RolePermissionImpl implements RolePermissionService
      * @return bool
      * @throws \Exception
      */
-    public function allotFrontendPermission(int $roleId, array $permissionIdArr) : bool
+    public function allotPermission(int $roleId, array $permissionIdArr) : bool
     {
         if (!$roleId) {
             throw new ParamterErrorException('请指定角色ID');
@@ -112,7 +100,7 @@ class RolePermissionImpl implements RolePermissionService
             return $permission->notDelete() && $permission->isEnabled();
         })->pluck('id');
     
-        $this->roleRepository->sync($roleId, 'permissions', $permissionCollection);
+        $this->roleRepository->allotPermission($roleId,  $permissionCollection->toArray());
         
         return true;
     }
@@ -126,6 +114,13 @@ class RolePermissionImpl implements RolePermissionService
      */
     public function getPermissionByRoleId(int $roleId) : Collection
     {
-        return $this->rolePermissionRepository->getPermissionCollectionByRoleId($roleId);
+        /** @var \App\Models\Role $roleModel */
+        $roleModel = $this->roleRepository->with('permissions')->find($roleId);
+    
+        if (!$roleModel) {
+            throw new ModelNotFoundException('无此角色');
+        }
+        
+        return $roleModel->permissions;
     }
 }

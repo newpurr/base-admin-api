@@ -16,24 +16,14 @@ use Illuminate\Database\Eloquent\Collection;
 interface RolePermissionService
 {
     /**
-     * 分配角色后端接口权限
+     * 分配角色权限
      *
      * @param int   $roleId          角色ID
-     * @param array $permissionIdArr 权限ID数组
+     * @param array $permissionIdArr 权限id数组
      *
      * @return bool
      */
-    public function allotBackendPermission(int $roleId, array $permissionIdArr) : bool;
-    
-    /**
-     * 分配角色后端接口权限
-     *
-     * @param int   $roleId            角色ID
-     * @param array $permissionPathArr 权限path数组
-     *
-     * @return bool
-     */
-    public function allotFrontendPermission(int $roleId, array $permissionPathArr) : bool;
+    public function allotPermission(int $roleId, array $permissionIdArr) : bool;
     
     /**
      * 删除分配给角色的全部权限
