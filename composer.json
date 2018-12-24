@@ -1,6 +1,6 @@
 {
   "name": "supper-happysir/base-admin",
-  "description": "a basic background management system",
+  "description": "a basic content management system",
   "keywords": [
   ],
   "license": "MIT",
@@ -71,8 +71,7 @@
     ],
     "post-update-cmd": [
       "php artisan clear-compiled",
-      "php artisan ide-helper:generate",
-      "php artisan optimize"
+      "php artisan ide-helper:generate"
     ]
   },
   "config": {
