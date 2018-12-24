@@ -4,8 +4,6 @@ namespace App\Models;
 
 use App\Models\helper\BaseScopeHelper;
 use Illuminate\Database\Eloquent\Model;
-use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
-use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
  * Class Role.
@@ -28,12 +26,12 @@ use SuperHappysir\Support\Constant\Enum\StateEnum;
  * @method $this deletedState( $stateCode )
  * @method $this state( $stateCode )
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel awaiting()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deleted()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disabled()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel enabled()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel normality()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel notDeleted()
+ * @method static \Illuminate\Database\Eloquent\Builder$this awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder$this deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder$this disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder$this enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder$this normality()
+ * @method static \Illuminate\Database\Eloquent\Builder$this notDeleted()
  */
 class BaseModel extends Model
 {

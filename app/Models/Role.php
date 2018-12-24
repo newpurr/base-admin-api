@@ -11,34 +11,34 @@ use Prettus\Repository\Traits\TransformableTrait;
  * Class Role.
  *
  * @package namespace App\Models;
- * @property int                 $id
- * @property string              $name       角色名称
- * @property int                 $state      启用状态 1-启用 2-禁用
- * @property int                 $is_deleted 是否删除: 0-未删除 1-已删除
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereEnable( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereName( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role name( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role nameLike( $value )
+ * @property int                                           $id
+ * @property string                                        $name       角色名称
+ * @property int                                           $state      启用状态 1-启用 2-禁用
+ * @property int                                           $is_deleted 是否删除: 0-未删除 1-已删除
+ * @property \Carbon\Carbon|null                           $created_at
+ * @property \Carbon\Carbon|null                           $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereEnable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this name($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this nameLike($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection $permissions
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel awaiting()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deleted()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deletedState($stateCode = 0)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disabled()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel enabled()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel normality()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel notDeleted()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel state($stateCode = 1)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereIsDeleted($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereState($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder$this awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder$this deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder$this deletedState($stateCode = 0)
+ * @method static \Illuminate\Database\Eloquent\Builder$this disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder$this enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder$this normality()
+ * @method static \Illuminate\Database\Eloquent\Builder$this notDeleted()
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this query()
+ * @method static \Illuminate\Database\Eloquent\Builder$this state($stateCode = 1)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereIsDeleted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\$this whereUpdatedAt($value)
  */
 class Role extends BaseModel implements Transformable
 {

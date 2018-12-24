@@ -18,18 +18,18 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @property int                             $is_deleted 是否删除:0-未删除 1-已删除
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereAccount( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereCreatedAt( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereId( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereIsDeleted( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereMobile( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereNickname( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin wherePassword( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereState( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Admin whereUpdatedAt( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this query()
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereAccount( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereCreatedAt( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereId( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereIsDeleted( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereMobile( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereNickname( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this wherePassword( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereState( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereUpdatedAt( $value )
  * @mixin \Eloquent
  */
 class Admin extends Authenticatable implements JWTSubject

@@ -22,14 +22,14 @@ use SuperHappysir\Support\Constant\Enum\StateEnum;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RolePermission query()
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel awaiting()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deleted()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel deletedState( $stateCode = 0 )
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel disabled()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel enabled()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel normality()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel notDeleted()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel state( $stateCode = 1 )
+ * @method static \Illuminate\Database\Eloquent\Builder$this awaiting()
+ * @method static \Illuminate\Database\Eloquent\Builder$this deleted()
+ * @method static \Illuminate\Database\Eloquent\Builder$this deletedState( $stateCode = 0 )
+ * @method static \Illuminate\Database\Eloquent\Builder$this disabled()
+ * @method static \Illuminate\Database\Eloquent\Builder$this enabled()
+ * @method static \Illuminate\Database\Eloquent\Builder$this normality()
+ * @method static \Illuminate\Database\Eloquent\Builder$this notDeleted()
+ * @method static \Illuminate\Database\Eloquent\Builder$this state( $stateCode = 1 )
  */
 class RolePermission extends BaseModel
 {
