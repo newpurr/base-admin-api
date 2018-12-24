@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\helper\BaseScopeHelper;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -53,11 +52,11 @@ class Role extends BaseModel implements Transformable
      */
     public function permissions() : BelongsToMany
     {
-        return $this->belongsToMany(Permission::class, 'role_permissions', 'permission_id', 'role_id');
+        return $this->belongsToMany(Permission::class, RolePermission::tableName(), 'role_id', 'permission_id');
     }
     
     /**
-     * 角色名称条件scope
+     * Role name condition scope
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string                                $name
@@ -70,7 +69,7 @@ class Role extends BaseModel implements Transformable
     }
     
     /**
-     * 角色名称条件scope
+     * Role name condition like scope
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string                                $name

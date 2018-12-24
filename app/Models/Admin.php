@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\helper\BaseScopeHelper;
+use App\Models\helper\StateQueryTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -21,24 +21,24 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  * @method static \Illuminate\Database\Eloquent\Builder|$this newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|$this newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|$this query()
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereAccount( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereCreatedAt( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereId( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereIsDeleted( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereMobile( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereNickname( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this wherePassword( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereState( $value )
- * @method static \Illuminate\Database\Eloquent\Builder|$this whereUpdatedAt( $value )
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereAccount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereIsDeleted($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereMobile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereNickname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|$this whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Admin extends Authenticatable implements JWTSubject
 {
-    use BaseScopeHelper;
+    use StateQueryTrait;
     
     protected $guarded = [];
     
-    protected $hidden = ['password', 'is_deleted'];
+    protected $hidden  = ['password', 'is_deleted'];
     
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

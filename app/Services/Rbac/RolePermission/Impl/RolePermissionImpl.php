@@ -2,8 +2,10 @@
 
 namespace App\Services\Rbac\RolePermission\Impl;
 
+use App\Exceptions\ParamterErrorException;
 use App\Models\Permission;
 use App\Repository\Contracts\RolePermissionRepository;
+use App\Repository\Contracts\RoleRepository;
 use App\Services\Rbac\Permission\PermissionService;
 use App\Services\Rbac\RolePermission\RolePermissionService;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * Class RolePermission
  * 角色权限分配接口实现
+ *
  * @author  luotao
  * @version 1.0
  * @package App\Services\Rbac\RolePermission\Impl
@@ -18,7 +21,8 @@ use Illuminate\Database\Eloquent\Collection;
 class RolePermissionImpl implements RolePermissionService
 {
     /**
-     * role Repository
+     * role permission Repository
+     *
      * @var RolePermissionRepository
      */
     private $rolePermissionRepository;
@@ -31,23 +35,36 @@ class RolePermissionImpl implements RolePermissionService
     private $permissionService;
     
     /**
+     * role Repository
+     *
+     * @var \App\Repository\Contracts\RoleRepository
+     */
+    private $roleRepository;
+    
+    /**
      * RoleServiceImpl constructor.
      *
      * @param RolePermissionRepository $rolePermissionRepository
      * @param PermissionService        $permissionService
+     * @param RoleRepository           $roleRepository
      */
     public function __construct(
         RolePermissionRepository $rolePermissionRepository,
-        PermissionService $permissionService
-    ) {
+        PermissionService $permissionService,
+        RoleRepository $roleRepository
+    )
+    {
         $this->rolePermissionRepository = $rolePermissionRepository;
         $this->permissionService        = $permissionService;
+        $this->roleRepository = $roleRepository;
     }
     
     /**
      * 分配角色后端接口权限
+     *
      * @param int   $roleId          角色ID
      * @param array $permissionIdArr 权限ID数组
+     *
      * @return bool
      */
     public function allotBackendPermission(int $roleId, array $permissionIdArr) : bool
@@ -57,7 +74,9 @@ class RolePermissionImpl implements RolePermissionService
     
     /**
      * 删除分配给角色的全部权限
+     *
      * @param int $roleId
+     *
      * @return bool
      */
     public function deleteByRoleId(int $roleId) : bool
@@ -71,42 +90,29 @@ class RolePermissionImpl implements RolePermissionService
     
     /**
      * 分配角色后端接口权限
-     * @param int   $roleId            角色ID
-     * @param array $permissionIdArr   权限path数组
+     *
+     * @param int   $roleId          角色ID
+     * @param array $permissionIdArr 权限path数组
+     *
      * @return bool
      * @throws \Exception
      */
     public function allotFrontendPermission(int $roleId, array $permissionIdArr) : bool
     {
         if (!$roleId) {
-            throw new \Exception('请指定角色ID');
+            throw new ParamterErrorException('请指定角色ID');
         }
         
         // 过滤参数中给的权限集合,重新获取系统中正常的的权限
-        $permissionCollection = $this->permissionService->getPermissionCollectionByIdArr($permissionIdArr);
+        $permissionCollection = $this->permissionService->getPermissionCollectionByIdArr(
+            $permissionIdArr,
+            ['is_deleted', 'id', 'state']
+        );
         $permissionCollection = $permissionCollection->filter(function (Permission $permission) {
             return $permission->notDelete() && $permission->isEnabled();
-        });
-        
-        // 组合待批量插入的数据
-        $insertRolePermissionArr = [];
-        if (!$permissionCollection->isEmpty()) {
-            $permissionCollection->each(function (Permission $permission) use (&$insertRolePermissionArr, $roleId) {
-                $insertRolePermissionArr[] = [
-                    'permission_id' => $permission->id,
-                    'role_id'       => $roleId,
-                    'created_at'    => \Carbon\Carbon::now()
-                ];
-            });
-        }
-        
-        // 删除已有的权限数据
-        $this->deleteByRoleId($roleId);
-        
-        // 批量插入数据
-        if ($insertRolePermissionArr) {
-            return $this->rolePermissionRepository->insert($insertRolePermissionArr);
-        }
+        })->pluck('id');
+    
+        $this->roleRepository->sync($roleId, 'permissions', $permissionCollection);
         
         return true;
     }

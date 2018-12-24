@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\helper\BaseScopeHelper;
+use App\Models\helper\StateQueryTrait;
+use App\Models\helper\TableNameTrait;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -33,9 +34,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder$this normality()
  * @method static \Illuminate\Database\Eloquent\Builder$this notDeleted()
  */
-class BaseModel extends Model
+abstract class BaseModel extends Model
 {
-    use BaseScopeHelper;
+    use StateQueryTrait,TableNameTrait;
     
     /**
      * The attributes that are mass assignable.
@@ -50,14 +51,4 @@ class BaseModel extends Model
      * @var bool
      */
     public $timestamps = false;
-    
-    /**
-     * 获取表名称
-     *
-     * @return string
-     */
-    public static function tableName() : string
-    {
-        return (new static)->getTable();
-    }
 }

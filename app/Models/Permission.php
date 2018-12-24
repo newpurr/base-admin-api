@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\helper\StateHelper;
+use App\Models\helper\StateJudgeTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -48,7 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Permission extends BaseModel
 {
-    use StateHelper;
+    use StateJudgeTrait;
     
     protected $table = 'permissions';
     
@@ -69,6 +69,6 @@ class Permission extends BaseModel
      */
     public function roles() : BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'role_permissions', 'role_id', 'permission_id');
+        return $this->belongsToMany(Role::class, RolePermission::tableName(), 'permission_id', 'role_id');
     }
 }

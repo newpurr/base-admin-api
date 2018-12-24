@@ -6,15 +6,15 @@ use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
 use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
- * Trait StateHelper
+ * Trait StateJudgeTrait
  *
- * 数据库通用辅助函数
+ * Judging state trait
  *
  * @author  luotao
  * @version 1.0
  * @package App\Models\helper
  */
-trait StateHelper
+trait StateJudgeTrait
 {
     /**
      * 已删除状态

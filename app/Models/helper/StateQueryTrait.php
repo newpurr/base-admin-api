@@ -6,9 +6,9 @@ use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
 use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
- * Class ScopeHelper
+ * Class StateQueryTrait
  *
- * scope 辅助函数
+ * state query trait
  *
  * @author  luotao
  * @version 1.0
@@ -20,7 +20,7 @@ use SuperHappysir\Support\Constant\Enum\StateEnum;
  * @method static \Illuminate\Database\Eloquent\Builder|$this awaiting()
  * @method static \Illuminate\Database\Eloquent\Builder|$this normality()
  */
-trait BaseScopeHelper
+trait StateQueryTrait
 {
     /**
      * 已删除状态查询作用域
