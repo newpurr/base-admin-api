@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/config/ide-helper.php
 /.idea
 /.vscode
 /.vagrant
