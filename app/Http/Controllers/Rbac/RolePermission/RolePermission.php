@@ -61,6 +61,7 @@ class RolePermission extends Controller
     public function index($roleId) : JsonResponseBodyInterface
     {
         $permissionIdList = $this->rolePermissionService->getPermissionByRoleId($roleId);
+        
         // dd(\DB::connection()->getQueryLog());
         return json_success_response([
             'permission_list' => $permissionIdList

@@ -5,6 +5,18 @@ use Illuminate\Routing\Router;
 /** @var \Illuminate\Routing\Router $router */
 $router = app(Router::class);
 
+$router->get('/health', function () {
+    if (!extension_loaded('swoole')) {
+        $response = [];
+        $msg = 'hello happysir\'blog';
+    } else {
+        $response = Server::stats();
+        $msg = 'hello happysir\'blog';
+    }
+    
+    return json_success_response($response, $msg);
+});
+
 /*
 |--------------------------------------------------------------------------
 | 管理员管理API
@@ -31,13 +43,13 @@ $router->group([
     ], function (Router $router) {
         // 登录
         $router->post('login', 'Admin\AuthController@login');
-    
+        
         // 退出
         $router->post('logout', 'Admin\AuthController@logout');
-    
+        
         // 刷新token
         $router->post('refresh', 'Admin\AuthController@refresh');
-    
+        
         // 用户信息
         $router->get('user', 'Admin\AuthController@user');
     });

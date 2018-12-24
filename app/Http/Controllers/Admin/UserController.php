@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\User\UserService;
@@ -64,8 +65,11 @@ class UserController extends Controller
     
     /**
      * Display the specified resource.
+     *
      * @param  int $id
+     *
      * @return JsonResponseBodyInterface|mixed
+     * @throws \App\Exceptions\NotFoundException
      */
     public function show($id)
     {
@@ -81,7 +85,7 @@ class UserController extends Controller
             'is_deleted',
         ]);
         if (!$roleModel) {
-            throw new ParamterErrorException('无指定资源');
+            throw new NotFoundException();
         }
         
         return json_success_response($roleModel->toArray());

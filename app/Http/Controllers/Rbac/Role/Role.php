@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rbac\Role;
 
+use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Services\Rbac\Role\RoleService;
@@ -50,8 +51,11 @@ class Role extends Controller
     
     /**
      * Display the specified resource.
+     *
      * @param  int $id
+     *
      * @return JsonResponseBodyInterface|mixed
+     * @throws \App\Exceptions\NotFoundException
      */
     public function show($id)
     {
@@ -60,7 +64,7 @@ class Role extends Controller
             'name'
         ]);
         if (!$roleModel) {
-            throw new ParamterErrorException('无指定资源');
+            throw new NotFoundException();
         }
         
         return json_success_response($roleModel->toArray());

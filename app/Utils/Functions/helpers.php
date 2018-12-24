@@ -46,6 +46,8 @@ if (!function_exists('json_success_response')) {
         if ($response instanceof Arrayable) {
             $response = $response->toArray();
         }
+    
+        !$message && $message = JsonResponseCode::getName(JsonResponseCode::SUCCESS) ?? '';
         
         return json_response_body(JsonResponseCode::SUCCESS, $message, $response);
     }

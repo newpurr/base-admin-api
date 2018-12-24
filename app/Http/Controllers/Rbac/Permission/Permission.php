@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rbac\Permission;
 
+use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Services\Rbac\Permission\PermissionService;
@@ -53,8 +54,11 @@ class Permission extends Controller
     
     /**
      * Display the specified resource.
+     *
      * @param  int $id
+     *
      * @return JsonResponseBodyInterface|mixed
+     * @throws \App\Exceptions\NotFoundException
      */
     public function show($id)
     {
@@ -63,7 +67,7 @@ class Permission extends Controller
             'name'
         ]);
         if (!$roleModel) {
-            throw new ParamterErrorException('无指定资源');
+            throw new NotFoundException();
         }
         
         return json_success_response($roleModel->toArray());

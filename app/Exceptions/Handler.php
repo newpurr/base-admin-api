@@ -5,8 +5,10 @@ namespace App\Exceptions;
 use App\Constant\JsonResponseCode;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Prettus\Validator\Exceptions\ValidatorException;
+use Psr\Container\NotFoundExceptionInterface;
 
 class Handler extends ExceptionHandler
 {
@@ -29,6 +31,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof NotFoundExceptionInterface
+            || $exception instanceof ModelNotFoundException) {
+            return $this->json(json_error_response(JsonResponseCode::NOT_FOUND, '资源不存在'));
+        }
+        
         if ($exception instanceof CustomException) {
             return $this->json(json_error_response($exception->getCode(), $exception->getMessage()));
         }
