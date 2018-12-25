@@ -4,14 +4,17 @@ namespace App\Services\Admin\User\Impl;
 
 use App\Exceptions\ParamterErrorException;
 use App\Models\BaseModel;
+use App\Models\Role;
 use App\Repository\Contracts\AdminRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
 use App\Repository\Criteria\StateCriteria;
 use App\Repository\Validators\AdminValidator;
 use App\Services\Admin\User\UserService;
 use App\Services\Helper\BatchChangeState;
+use App\Services\Rbac\Role\RoleService;
 use Hash;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Validator;
 
 /**
@@ -28,13 +31,22 @@ class UserServiceImpl implements UserService
     use BatchChangeState;
     
     /**
+     *
+     *
+     * @var \App\Services\Rbac\Role\RoleService
+     */
+    private $roleService;
+    
+    /**
      * PermisssionServiceImpl constructor.
      *
      * @param \App\Repository\Contracts\AdminRepository $repository
+     * @param \App\Services\Rbac\Role\RoleService       $roleService
      */
-    public function __construct(AdminRepository $repository)
+    public function __construct(AdminRepository $repository, RoleService $roleService)
     {
         $this->repostitory = $repository;
+        $this->roleService = $roleService;
     }
     
     /**
@@ -123,4 +135,58 @@ class UserServiceImpl implements UserService
         
         return $attributes;
 }
+    
+    /**
+     * 分配角色
+     *
+     * @param int   $userId    用户ID
+     * @param array $roleIdArr 角色id数组
+     *
+     * @return bool
+     */
+    public function allotRole(int $userId, array $roleIdArr) : bool
+    {
+        if (!$userId) {
+            throw new ParamterErrorException('请指定角色ID');
+        }
+    
+        // 过滤参数中给的权限集合,重新获取系统中正常的的角色
+        $permissionCollection = $this->roleService->getRoleCollectionByIdArr(
+            $roleIdArr,
+            ['is_deleted', 'id', 'state']
+        );
+        $permissionCollection = $permissionCollection->filter(function (Role $role) {
+            return $role->isNormality();
+        })->pluck('id');
+    
+        return $this->repostitory->allotRole($userId, $permissionCollection->toArray());
+    }
+    
+    /**
+     * 删除分配的角色
+     *
+     * @param int $userId 用户ID
+     *
+     * @return bool
+     */
+    public function deleteByUserId(int $userId) : bool
+    {
+        if (empty($userId)) {
+            return false;
+        }
+    
+        return $this->repostitory->clearRoleByUserId($userId);
+    }
+    
+    /**
+     * 获取用户角色
+     *
+     * @param int $userId
+     *
+     * @return Collection
+     */
+    public function getRoleByUserId(int $userId) : Collection
+    {
+        return $this->repostitory->getRoleCollectionByRoleId($userId);
+    }
 }

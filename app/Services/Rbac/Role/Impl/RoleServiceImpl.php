@@ -155,4 +155,17 @@ class RoleServiceImpl implements RoleService
     {
         return $this->repostitory->getPermissionCollectionByRoleId($roleId);
     }
+    
+    /**
+     * 通过角色ID获取角色信息
+     *
+     * @param array $idArr   角色ID数组
+     * @param array $columns 获取的列
+     *
+     * @return Collection
+     */
+    public function getRoleCollectionByIdArr(array $idArr, $columns = ['*']) : Collection
+    {
+        return $this->repostitory->findWhereIn('id', $idArr, $columns);
+    }
 }

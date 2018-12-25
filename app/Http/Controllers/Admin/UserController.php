@@ -156,4 +156,35 @@ class UserController extends Controller
             'affected_rows' => $affectedRows
         ]);
     }
+    
+    /**
+     * 分配角色
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
+     * @return \SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface
+     */
+    public function allotRole(Request $request, int $id) : JsonResponseBodyInterface
+    {
+        $this->service->allotRole($id, $request->json('params.role_list', []));
+    
+        return json_success_response();
+    }
+    
+    /**
+     * 获取角色拥有的权限ID数组
+     *
+     * @param int $id 用户ID
+     *
+     * @return JsonResponseBodyInterface
+     */
+    public function getRoleByRoleId($id) : JsonResponseBodyInterface
+    {
+        $roleList = $this->service->getRoleByUserId($id);
+        
+        return json_success_response([
+            'role_list' => $roleList
+        ]);
+    }
 }

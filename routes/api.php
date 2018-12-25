@@ -35,6 +35,12 @@ $router->post('admin/_bulk/batchEnabled', 'Admin\UserController@batchEnable');
 // 权限批量禁用
 $router->post('admin/_bulk/batchDisabled', 'Admin\UserController@batchDisabled');
 
+// 分配角色
+$router->post('admin/{uid}/roles', 'Admin\UserController@allotRole');
+
+// 角色查询
+$router->get('admin/{uid}/roles', 'Admin\UserController@getRoleByRoleId');
+
 $router->group([
     'prefix' => 'admin'
 ], function (Router $router) {

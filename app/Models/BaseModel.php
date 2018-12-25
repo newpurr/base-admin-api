@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\helper\StateJudgeTrait;
 use App\Models\helper\StateQueryTrait;
 use App\Models\helper\TableNameTrait;
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseModel extends Model
 {
-    use StateQueryTrait, TableNameTrait;
+    use StateQueryTrait, TableNameTrait, StateJudgeTrait;
     
     /**
      * The attributes that are mass assignable.

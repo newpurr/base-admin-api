@@ -10,15 +10,16 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * App\Models\Admin
  *
- * @property int                             $id
- * @property string                          $account    账号
- * @property string                          $nickname   昵称
- * @property string                          $mobile     手机号
- * @property string                          $password   密码
- * @property int                             $state      启用状态 1-启用 2-禁用
- * @property int                             $is_deleted 是否删除:0-未删除 1-已删除
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                                      $id
+ * @property string                                   $account    账号
+ * @property string                                   $nickname   昵称
+ * @property string                                   $mobile     手机号
+ * @property string                                   $password   密码
+ * @property int                                      $state      启用状态 1-启用 2-禁用
+ * @property int                                      $is_deleted 是否删除:0-未删除 1-已删除
+ * @property \Illuminate\Support\Carbon|null          $created_at
+ * @property \Illuminate\Support\Carbon|null          $updated_at
+ * @property \Illuminate\Database\Eloquent\Collection $roles
  * @method static \Illuminate\Database\Eloquent\Builder|$this newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|$this newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|$this query()

@@ -44,4 +44,14 @@ interface RoleService extends BatchChangeState, BaseService
      * @return Collection
      */
     public function getPermissionByRoleId(int $roleId) : Collection;
+    
+    /**
+     * 通过角色ID获取角色信息
+     *
+     * @param array $idArr   角色ID数组
+     * @param array $columns 获取的列
+     *
+     * @return Collection
+     */
+    public function getRoleCollectionByIdArr(array $idArr, $columns = ['*']) : Collection;
 }
