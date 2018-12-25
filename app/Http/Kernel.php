@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\ApiAuthMiddleware;
 use App\Http\Middleware\CheckForMaintenanceMode;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -58,6 +59,7 @@ class Kernel extends HttpKernel
         ],
         
         'api' => [
+            ApiAuthMiddleware::class,
             'throttle:60,1',
             'bindings',
         ],
@@ -72,6 +74,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth'          => Authenticate::class,
+        'api.auth'      => ApiAuthMiddleware::class,
         'auth.basic'    => AuthenticateWithBasicAuth::class,
         'bindings'      => SubstituteBindings::class,
         'cache.headers' => SetCacheHeaders::class,

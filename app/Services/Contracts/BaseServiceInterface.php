@@ -15,11 +15,13 @@ interface BaseServiceInterface
 {
     /**
      * 获取单个角色信息
-     * @param int   $roleId
+     *
+     * @param int   $id
      * @param array $columns
+     *
      * @return BaseModel|null
      */
-    public function find(int $roleId, $columns = ['*']);
+    public function find(int $id, $columns = ['*']);
     
     /**
      * 创建一个模型

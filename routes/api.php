@@ -9,10 +9,10 @@ $router = app(Router::class);
 $router->get('/health', function () {
     if (PHP_SAPI === 'cli' && extension_loaded('swoole')) {
         $response = Server::stats();
-        $msg = 'hello happysir\'blog';
+        $msg = 'hello ' . config('app.name');
     } else {
         $response = [];
-        $msg = 'hello happysir\'blog';
+        $msg = 'hello ' . config('app.name');
     }
     
     return json_success_response($response, $msg);

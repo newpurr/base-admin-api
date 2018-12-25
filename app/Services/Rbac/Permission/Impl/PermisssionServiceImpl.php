@@ -45,15 +45,15 @@ class PermisssionServiceImpl implements PermissionService
     /**
      * 获取单个角色信息
      *
-     * @param int   $roleId
+     * @param int   $id
      *
      * @param array $columns
      *
      * @return \App\Models\Permission|null
      */
-    public function find(int $roleId, $columns = [ '*' ]) : ?Permission
+    public function find(int $id, $columns = ['*' ]) : ?Permission
     {
-        return $this->repostitory->find($roleId, $columns);
+        return $this->repostitory->find($id, $columns);
     }
     
     /**

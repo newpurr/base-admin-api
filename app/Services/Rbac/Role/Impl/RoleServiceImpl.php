@@ -66,15 +66,15 @@ class RoleServiceImpl implements RoleService
     /**
      * 获取单个角色信息
      *
-     * @param int   $roleId
+     * @param int   $id
      *
      * @param array $columns
      *
      * @return \App\Models\Role|null
      */
-    public function find(int $roleId, $columns = [ '*' ]) : ?Role
+    public function find(int $id, $columns = ['*' ]) : ?Role
     {
-        return $this->repostitory->find($roleId, $columns);
+        return $this->repostitory->find($id, $columns);
     }
     
     /**

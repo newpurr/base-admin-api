@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Admin\User\UserService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
+use Validator;
 
 /**
  * Class UserController
@@ -145,12 +146,16 @@ class UserController extends Controller
      */
     public function batchEnable(Request $request) : JsonResponseBodyInterface
     {
-        $ids = $request->json('params.ids');
-        if (!$ids) {
-            throw new ParamterErrorException('请指定需要批量操作的选项ID');
+        $ids       = $request->json('params');
+        $validator = Validator::make($ids, ['ids' => 'required|array'], [
+            'ids.required' => '请指定需要批量操作的选项ID',
+            'ids.array'    => 'params.ids字段必须是数组'
+        ]);
+        if ($validator->fails()) {
+            throw new ParamterErrorException($validator->errors()->first());
         }
         
-        $affectedRows = $this->service->batchEnabled(explode(',', $ids));
+        $affectedRows = $this->service->batchEnabled($ids);
         
         return json_success_response([
             'affected_rows' => $affectedRows
