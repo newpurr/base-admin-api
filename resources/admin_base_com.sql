@@ -11,50 +11,85 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 21/12/2018 23:17:12
+ Date: 25/12/2018 22:09:55
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for ba_admins
+-- ----------------------------
+DROP TABLE IF EXISTS `ba_admins`;
+CREATE TABLE `ba_admins`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '账号',
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '昵称',
+  `mobile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '手机号',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` tinyint(1) NOT NULL DEFAULT 2 COMMENT '启用状态 1-启用 2-禁用',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除:0-未删除 1-已删除',
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `admin_account_unique`(`account`) USING BTREE,
+  UNIQUE INDEX `admin_nickname_unique`(`nickname`) USING BTREE,
+  UNIQUE INDEX `admin_mobile_unique`(`mobile`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ba_admins
+-- ----------------------------
+INSERT INTO `ba_admins` VALUES (1, 'luotao2', 'luota2o', '18581405482', '$2y$10$PKnuGXL5TLXHCQrwHz5EE.U1wPrW/WU2vEnJKesBUiqeuLvGwITcW', 1, 0, '2018-12-23 09:10:34', '2018-12-25 13:36:20');
+INSERT INTO `ba_admins` VALUES (2, 'luotao', 'admin3', '18581405483', '$2y$10$DR4U4BoYcqJnKRN5sXuDCOUmwpQOGNTkmAT98Q.o5XaIZedNOWBue', 1, 0, '2018-12-23 09:12:05', '2018-12-25 09:02:37');
+
+-- ----------------------------
+-- Table structure for ba_assigned_roles
+-- ----------------------------
+DROP TABLE IF EXISTS `ba_assigned_roles`;
+CREATE TABLE `ba_assigned_roles`  (
+  `assigned_id` int(11) UNSIGNED NOT NULL COMMENT '用户ID',
+  `role_id` int(11) UNSIGNED NOT NULL COMMENT '角色ID',
+  UNIQUE INDEX `idx_uid_roleid`(`assigned_id`, `role_id`) USING BTREE,
+  UNIQUE INDEX `idx_roleid_uid`(`role_id`, `assigned_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ba_assigned_roles
+-- ----------------------------
+INSERT INTO `ba_assigned_roles` VALUES (1, 1);
+INSERT INTO `ba_assigned_roles` VALUES (1, 2);
+INSERT INTO `ba_assigned_roles` VALUES (1, 4);
+INSERT INTO `ba_assigned_roles` VALUES (1, 6);
+INSERT INTO `ba_assigned_roles` VALUES (1, 7);
+
+-- ----------------------------
 -- Table structure for ba_attachments
 -- ----------------------------
 DROP TABLE IF EXISTS `ba_attachments`;
 CREATE TABLE `ba_attachments`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `src` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `mime_type` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner_uid` int(11) UNSIGNED NOT NULL DEFAULT 0,
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `owner_uid` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `owner_uid`(`owner_uid`) USING BTREE,
-  INDEX `updated_at`(`updated_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '附件表' ROW_FORMAT = Dynamic;
+  INDEX `owner_uid`(`owner_uid`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ba_attachments
 -- ----------------------------
-INSERT INTO `ba_attachments` VALUES (14, '2018-11/6gsuKbC4aVB069XP5nir8bGOPf4QyWhMHusG3VHb.png', 'image/png', 0, '2018-11-06 13:37:36', '2018-11-06 13:37:36');
-INSERT INTO `ba_attachments` VALUES (15, '2018-11/Y8jP3kAG3Ew6VZXcNl6a8iZogKAe5LLnh7ccvC9Q.png', 'image/png', 0, '2018-11-06 13:37:43', '2018-11-06 13:37:43');
-INSERT INTO `ba_attachments` VALUES (16, '2018-11/PeC1430EW9s54UBjKyTcDaeuJGsWrj7d2pZpiUkX.png', 'image/png', 0, '2018-11-06 13:38:25', '2018-11-06 13:38:25');
-INSERT INTO `ba_attachments` VALUES (17, '2018-11/9fUHhy6MgR1bu6X8apsUr634cy7Tg43zjSvGnCdV.jpeg', 'image/jpeg', 0, '2018-11-06 13:39:03', '2018-11-06 13:39:03');
-INSERT INTO `ba_attachments` VALUES (18, '2018-11/yOaFSRtvMHUWMFOapPPO50970eXLxrVsiknLkxIW.png', 'image/png', 0, '2018-11-06 13:39:24', '2018-11-06 13:39:24');
-INSERT INTO `ba_attachments` VALUES (19, '2018-11/d4Fdo1tuXjNK647Jce4N7MuqebimXORGYwA6hUct.png', 'image/png', 0, '2018-11-06 14:18:40', '2018-11-06 14:18:40');
-INSERT INTO `ba_attachments` VALUES (20, '2018-11/NrIpTd0MiBwGt3MAbO7XPciznJV6FmngbHnOHNJg.png', 'image/png', 0, '2018-11-06 14:19:09', '2018-11-06 14:19:09');
-INSERT INTO `ba_attachments` VALUES (21, '2018-11/XTzFCN8riHG1IGi9RTByXVeezU8dA8dWi8akbLQ6.png', 'image/png', 0, '2018-11-06 14:20:32', '2018-11-06 14:20:32');
-INSERT INTO `ba_attachments` VALUES (22, '2018-11/ypOE8ykkVwWGsddoEuAxKKNs1tU7M3bEYgM5Mxdt.jpeg', 'image/jpeg', 0, '2018-11-06 14:23:02', '2018-11-06 14:23:02');
-INSERT INTO `ba_attachments` VALUES (23, '2018-11/OjA21ZoRc5pnSoBIDh5HsnfNUbcLrNrbCfcKA9EZ.png', 'image/png', 0, '2018-11-06 14:25:17', '2018-11-06 14:25:17');
-INSERT INTO `ba_attachments` VALUES (24, '2018-11/amyS3eRLETT572Ujj3Cu5MDioPT1JZxokanOmP8v.png', 'image/png', 0, '2018-11-06 14:25:39', '2018-11-06 14:25:39');
-INSERT INTO `ba_attachments` VALUES (25, '2018-11/Mf7qj9y7xay27KLDKLLhizAjkjv9qWpviyQgvMjW.png', 'image/png', 0, '2018-11-07 13:19:51', '2018-11-07 13:19:51');
-INSERT INTO `ba_attachments` VALUES (26, '2018-11/V0ZeocWzLJsHJMwxJgExK9FzbRQM3qqbMpJvArD4.jpeg', 'image/jpeg', 0, '2018-11-07 14:55:18', '2018-11-07 14:55:18');
-INSERT INTO `ba_attachments` VALUES (27, '2018-11/SK7bSIFxGHKTuidlhLuMYiFpmojRSrGZIHBXL3OC.png', 'image/png', 0, '2018-11-16 17:09:08', '2018-11-16 17:09:08');
-INSERT INTO `ba_attachments` VALUES (28, '2018-11/X8yX3QwykYBR0tkOvVF7m2bmRIcse2fHYquTVqVh.jpeg', 'image/jpeg', 0, '2018-11-16 17:09:08', '2018-11-16 17:09:08');
-INSERT INTO `ba_attachments` VALUES (29, '2018-11/rqADGlX882C4C9YzeNZExXkKCfP3m0CQLsqVdZab.png', 'image/png', 0, '2018-11-16 17:09:37', '2018-11-16 17:09:37');
-INSERT INTO `ba_attachments` VALUES (30, '2018-11/Cwtz5i555NFyVSTqYJmhTIX01hvpMHJi2oRDFQQ0.jpeg', 'image/jpeg', 0, '2018-11-16 17:09:37', '2018-11-16 17:09:37');
-INSERT INTO `ba_attachments` VALUES (31, '2018-11/EYY2TaW9RKrKEHmJWRcufNrox4L5lSuxYi86U82i.png', 'image/png', 0, '2018-11-16 17:10:05', '2018-11-16 17:10:05');
-INSERT INTO `ba_attachments` VALUES (32, '2018-11/qEiwqG2pxdADqFZmdfPehAaxAHU9TNPOr0kJNJkc.jpeg', 'image/jpeg', 0, '2018-11-16 17:10:05', '2018-11-16 17:10:05');
+INSERT INTO `ba_attachments` VALUES (1, '2018-12/H5Nnjmts0NcFQMzaFZdRL7mDdwFw93Hp2YG6uZZq.png', 'image/png', 0, '2018-12-23 07:27:38', '2018-12-23 07:27:38');
+INSERT INTO `ba_attachments` VALUES (2, '2018-12/ciD8ywaRM4zL4IyUCyzLA7uCxbAyET1pXA7dpEyF.jpeg', 'image/jpeg', 0, '2018-12-23 07:27:38', '2018-12-23 07:27:38');
+INSERT INTO `ba_attachments` VALUES (3, '2018-12/VcGtw1I8DQptBvtix481bCsSyVGs8M9g4alpW242.png', 'image/png', 0, '2018-12-23 07:32:10', '2018-12-23 07:32:10');
+INSERT INTO `ba_attachments` VALUES (4, '2018-12/FwZ26tUD4Ner3WdAVjDV8uzzgFsAq7Xu5tB5xdT9.jpeg', 'image/jpeg', 0, '2018-12-23 07:32:11', '2018-12-23 07:32:11');
+INSERT INTO `ba_attachments` VALUES (5, '2018-12/Dfi8eCDuNDBw4OjRXbRQyXnJLVWfYIHLUPFMGOi7.png', 'image/png', 0, '2018-12-23 07:32:48', '2018-12-23 07:32:48');
+INSERT INTO `ba_attachments` VALUES (6, '2018-12/RAodd37q6p1nxLUcF95T5sZ46bcgcvu1WRDFMieW.jpeg', 'image/jpeg', 0, '2018-12-23 07:32:49', '2018-12-23 07:32:49');
+INSERT INTO `ba_attachments` VALUES (7, '2018-12/zV3t3J2sAAha3ztEUTRjcaUNDVg0I9ml4aGem7ym.png', 'image/png', 0, '2018-12-23 07:33:54', '2018-12-23 07:33:54');
+INSERT INTO `ba_attachments` VALUES (8, '2018-12/qxlBiBB1Oe8ZEe8jAIqLW1zFkhmDSpgyIissJlC5.png', 'image/png', 0, '2018-12-23 07:37:17', '2018-12-23 07:37:17');
+INSERT INTO `ba_attachments` VALUES (9, '2018-12/iSOm89TrBZW8Q2m2BVWTQRjOsHOuHW551r13Pq7n.png', 'image/png', 0, '2018-12-23 07:38:33', '2018-12-23 07:38:33');
 
 -- ----------------------------
 -- Table structure for ba_migrations
@@ -65,32 +100,18 @@ CREATE TABLE `ba_migrations`  (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ba_migrations
 -- ----------------------------
-INSERT INTO `ba_migrations` VALUES (1, '2014_10_12_000000_create_users_table', 1);
-INSERT INTO `ba_migrations` VALUES (2, '2014_10_12_100000_create_password_resets_table', 1);
-INSERT INTO `ba_migrations` VALUES (7, '2018_09_01_033216_create_ba_migrations_table', 0);
-INSERT INTO `ba_migrations` VALUES (8, '2018_09_01_033216_create_ba_password_resets_table', 0);
-INSERT INTO `ba_migrations` VALUES (9, '2018_09_01_033216_create_ba_permissions_table', 0);
-INSERT INTO `ba_migrations` VALUES (10, '2018_09_01_033216_create_ba_role_permissions_table', 0);
-INSERT INTO `ba_migrations` VALUES (11, '2018_09_01_033216_create_ba_roles_table', 0);
-INSERT INTO `ba_migrations` VALUES (12, '2018_09_01_033216_create_ba_users_table', 0);
-INSERT INTO `ba_migrations` VALUES (13, '2018_09_02_141900_create_ba_migrations_table', 0);
-INSERT INTO `ba_migrations` VALUES (14, '2018_09_02_141900_create_ba_password_resets_table', 0);
-INSERT INTO `ba_migrations` VALUES (15, '2018_09_02_141900_create_ba_permissions_table', 0);
-INSERT INTO `ba_migrations` VALUES (16, '2018_09_02_141900_create_ba_role_permissions_table', 0);
-INSERT INTO `ba_migrations` VALUES (17, '2018_09_02_141900_create_ba_roles_table', 0);
-INSERT INTO `ba_migrations` VALUES (18, '2018_09_02_141900_create_ba_users_table', 0);
-INSERT INTO `ba_migrations` VALUES (19, '2018_12_21_145133_create_ba_attachments_table', 0);
-INSERT INTO `ba_migrations` VALUES (20, '2018_12_21_145133_create_ba_migrations_table', 0);
-INSERT INTO `ba_migrations` VALUES (21, '2018_12_21_145133_create_ba_password_resets_table', 0);
-INSERT INTO `ba_migrations` VALUES (22, '2018_12_21_145133_create_ba_permissions_table', 0);
-INSERT INTO `ba_migrations` VALUES (23, '2018_12_21_145133_create_ba_role_permissions_table', 0);
-INSERT INTO `ba_migrations` VALUES (24, '2018_12_21_145133_create_ba_roles_table', 0);
-INSERT INTO `ba_migrations` VALUES (25, '2018_12_21_145133_create_ba_users_table', 0);
+INSERT INTO `ba_migrations` VALUES (1, '2018_12_21_145133_create_ba_attachments_table', 1);
+INSERT INTO `ba_migrations` VALUES (2, '2018_12_21_145133_create_ba_password_resets_table', 1);
+INSERT INTO `ba_migrations` VALUES (3, '2018_12_21_145133_create_ba_permissions_table', 1);
+INSERT INTO `ba_migrations` VALUES (4, '2018_12_21_145133_create_ba_role_permissions_table', 1);
+INSERT INTO `ba_migrations` VALUES (5, '2018_12_21_145133_create_ba_roles_table', 1);
+INSERT INTO `ba_migrations` VALUES (6, '2018_12_21_145133_create_ba_users_table', 1);
+INSERT INTO `ba_migrations` VALUES (7, '2018_12_22_064408_create_admins_table', 2);
 
 -- ----------------------------
 -- Table structure for ba_password_resets
@@ -99,7 +120,7 @@ DROP TABLE IF EXISTS `ba_password_resets`;
 CREATE TABLE `ba_password_resets`  (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `created_at` datetime(0) NULL DEFAULT NULL,
   INDEX `password_resets_email_index`(`email`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -114,19 +135,18 @@ CREATE TABLE `ba_permissions`  (
   `method` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'GET' COMMENT '请求方法',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '描述',
   `per_type` smallint(5) UNSIGNED NOT NULL COMMENT '权限类型 1-API 2-菜单/页面 3-按钮',
-  `parent_id` int(11) UNSIGNED NOT NULL COMMENT '父级权限ID',
-  `state` tinyint(3) UNSIGNED NOT NULL DEFAULT 2 COMMENT '启用状态 1-启用 2-禁用',
-  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除:0-未删除 1-已删除',
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `updated_at`(`updated_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 554 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+  `parent_id` int(10) UNSIGNED NOT NULL COMMENT '父级权限ID',
+  `state` tinyint(1) NOT NULL DEFAULT 2 COMMENT '启用状态 1-启用 2-禁用',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除:0-未删除 1-已删除',
+  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 556 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ba_permissions
 -- ----------------------------
-INSERT INTO `ba_permissions` VALUES (482, '根对象', '/', 'GET', '根对象', 2, 0, 1, 0, '2018-09-01 14:21:15', '2018-12-14 13:40:05');
+INSERT INTO `ba_permissions` VALUES (482, '根对象', '/', 'GET', '根对象', 2, 0, 1, 0, '2018-09-01 14:21:15', '2018-12-25 10:31:05');
 INSERT INTO `ba_permissions` VALUES (483, 'permission', '/permission', 'GET', '权限测试页', 2, 0, 1, 0, '2018-09-01 14:21:15', '2018-12-14 13:40:05');
 INSERT INTO `ba_permissions` VALUES (484, 'PagePermission', '/permission/page', 'GET', '页面权限', 2, 0, 1, 0, '2018-09-01 14:21:15', '2018-12-14 13:40:05');
 INSERT INTO `ba_permissions` VALUES (485, 'DirectivePermission', '/permission/directive', 'GET', '指令权限', 2, 0, 1, 0, '2018-09-01 14:21:15', '2018-12-14 13:40:05');
@@ -198,110 +218,7 @@ INSERT INTO `ba_permissions` VALUES (550, 'editRole', '/role/edit/:id(\\d+)', 'G
 INSERT INTO `ba_permissions` VALUES (551, 'roleList', '/role/list', 'GET', '角色列表', 2, 0, 1, 0, '2018-09-21 13:14:56', '2018-12-14 13:40:05');
 INSERT INTO `ba_permissions` VALUES (552, 'Example', '/upload', 'GET', 'upload', 2, 0, 1, 0, '2018-11-06 13:12:47', '2018-12-14 13:40:05');
 INSERT INTO `ba_permissions` VALUES (553, 'uploadDemo', '/upload/demo', 'GET', 'uploadDemo', 2, 0, 1, 0, '2018-11-06 13:12:47', '2018-12-14 13:40:05');
-
--- ----------------------------
--- Table structure for ba_role_permissions
--- ----------------------------
-DROP TABLE IF EXISTS `ba_role_permissions`;
-CREATE TABLE `ba_role_permissions`  (
-  `role_id` int(10) UNSIGNED NOT NULL COMMENT '角色ID',
-  `permission_id` int(10) UNSIGNED NOT NULL COMMENT '权限ID',
-  `created_at` timestamp(0) NULL DEFAULT NULL,
-  UNIQUE INDEX `role_permissions_role_id_index`(`role_id`, `permission_id`) USING BTREE,
-  INDEX `role_permissions_permission_id_index`(`permission_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色-权限关联表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of ba_role_permissions
--- ----------------------------
-INSERT INTO `ba_role_permissions` VALUES (1, 482, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 483, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 484, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 485, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 486, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 487, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 488, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 489, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 490, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 491, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 492, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 493, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 494, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 495, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 496, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 497, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 498, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 499, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 500, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 501, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 502, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 503, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 504, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 505, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 506, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 507, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 508, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 509, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 510, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 511, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 512, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 513, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 514, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 515, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 516, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 517, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 518, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 519, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 520, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 521, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 522, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 523, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 524, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 525, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 526, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 527, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 528, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 529, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 530, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 531, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 532, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 533, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 534, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 535, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 536, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 537, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 538, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 539, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 540, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 541, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 542, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 543, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 544, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 545, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 546, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 547, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 548, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 549, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 550, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 551, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 552, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (1, 553, '2018-12-15 13:42:44');
-INSERT INTO `ba_role_permissions` VALUES (2, 482, '2018-09-24 12:12:49');
-INSERT INTO `ba_role_permissions` VALUES (2, 544, '2018-09-24 12:12:49');
-INSERT INTO `ba_role_permissions` VALUES (2, 545, '2018-09-24 12:12:49');
-INSERT INTO `ba_role_permissions` VALUES (2, 548, '2018-09-24 12:12:49');
-INSERT INTO `ba_role_permissions` VALUES (2, 551, '2018-09-24 12:12:49');
-INSERT INTO `ba_role_permissions` VALUES (3, 548, '2018-11-26 14:47:42');
-INSERT INTO `ba_role_permissions` VALUES (3, 551, '2018-11-26 14:47:42');
-INSERT INTO `ba_role_permissions` VALUES (3, 552, '2018-11-26 14:47:42');
-INSERT INTO `ba_role_permissions` VALUES (3, 553, '2018-11-26 14:47:42');
-INSERT INTO `ba_role_permissions` VALUES (4, 548, '2018-12-08 14:28:16');
-INSERT INTO `ba_role_permissions` VALUES (4, 551, '2018-12-08 14:28:16');
-INSERT INTO `ba_role_permissions` VALUES (5, 482, '2018-10-08 13:33:25');
-INSERT INTO `ba_role_permissions` VALUES (5, 544, '2018-10-08 13:33:25');
-INSERT INTO `ba_role_permissions` VALUES (5, 545, '2018-10-08 13:33:25');
-INSERT INTO `ba_role_permissions` VALUES (5, 548, '2018-10-08 13:33:25');
-INSERT INTO `ba_role_permissions` VALUES (5, 551, '2018-10-08 13:33:25');
+INSERT INTO `ba_permissions` VALUES (555, '测试权限9', '/cs1', 'GET', 'dsadsadsadsad', 1, 0, 2, 0, '2018-12-25 09:26:22', '2018-12-25 09:28:06');
 
 -- ----------------------------
 -- Table structure for ba_roles
@@ -310,13 +227,12 @@ DROP TABLE IF EXISTS `ba_roles`;
 CREATE TABLE `ba_roles`  (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '角色名称',
-  `state` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '启用状态 1-启用 2-禁用',
-  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除: 0-未删除 1-已删除',
-  `created_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `updated_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `updated_at`(`updated_at`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+  `state` tinyint(1) NOT NULL DEFAULT 0 COMMENT '启用状态 1-启用 2-禁用',
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否删除: 0-未删除 1-已删除',
+  `created_at` timestamp(0) NULL DEFAULT NULL,
+  `updated_at` timestamp(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ba_roles
@@ -328,6 +244,109 @@ INSERT INTO `ba_roles` VALUES (4, '名字长一点11111', 1, 0, '2018-12-08 14:2
 INSERT INTO `ba_roles` VALUES (5, '测试', 2, 0, '2018-12-16 14:05:46', '2018-12-16 14:05:46');
 INSERT INTO `ba_roles` VALUES (6, '测试22', 1, 0, '2018-12-16 14:05:57', '2018-12-16 14:19:31');
 INSERT INTO `ba_roles` VALUES (7, '测试111', 1, 0, '2018-12-16 14:16:52', '2018-12-16 14:19:31');
+
+-- ----------------------------
+-- Table structure for ba_roles_permissions
+-- ----------------------------
+DROP TABLE IF EXISTS `ba_roles_permissions`;
+CREATE TABLE `ba_roles_permissions`  (
+  `role_id` int(10) UNSIGNED NOT NULL COMMENT '角色ID',
+  `permission_id` int(10) UNSIGNED NOT NULL COMMENT '权限ID',
+  UNIQUE INDEX `role_permissions_role_id_index`(`role_id`, `permission_id`) USING BTREE,
+  INDEX `role_permissions_permission_id_index`(`permission_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of ba_roles_permissions
+-- ----------------------------
+INSERT INTO `ba_roles_permissions` VALUES (1, 482);
+INSERT INTO `ba_roles_permissions` VALUES (2, 482);
+INSERT INTO `ba_roles_permissions` VALUES (5, 482);
+INSERT INTO `ba_roles_permissions` VALUES (1, 483);
+INSERT INTO `ba_roles_permissions` VALUES (1, 484);
+INSERT INTO `ba_roles_permissions` VALUES (1, 485);
+INSERT INTO `ba_roles_permissions` VALUES (1, 486);
+INSERT INTO `ba_roles_permissions` VALUES (1, 487);
+INSERT INTO `ba_roles_permissions` VALUES (1, 488);
+INSERT INTO `ba_roles_permissions` VALUES (1, 489);
+INSERT INTO `ba_roles_permissions` VALUES (1, 490);
+INSERT INTO `ba_roles_permissions` VALUES (1, 491);
+INSERT INTO `ba_roles_permissions` VALUES (1, 492);
+INSERT INTO `ba_roles_permissions` VALUES (1, 493);
+INSERT INTO `ba_roles_permissions` VALUES (1, 494);
+INSERT INTO `ba_roles_permissions` VALUES (1, 495);
+INSERT INTO `ba_roles_permissions` VALUES (1, 496);
+INSERT INTO `ba_roles_permissions` VALUES (1, 497);
+INSERT INTO `ba_roles_permissions` VALUES (1, 498);
+INSERT INTO `ba_roles_permissions` VALUES (1, 499);
+INSERT INTO `ba_roles_permissions` VALUES (1, 500);
+INSERT INTO `ba_roles_permissions` VALUES (1, 501);
+INSERT INTO `ba_roles_permissions` VALUES (1, 502);
+INSERT INTO `ba_roles_permissions` VALUES (1, 503);
+INSERT INTO `ba_roles_permissions` VALUES (1, 504);
+INSERT INTO `ba_roles_permissions` VALUES (1, 505);
+INSERT INTO `ba_roles_permissions` VALUES (1, 506);
+INSERT INTO `ba_roles_permissions` VALUES (1, 507);
+INSERT INTO `ba_roles_permissions` VALUES (1, 508);
+INSERT INTO `ba_roles_permissions` VALUES (1, 509);
+INSERT INTO `ba_roles_permissions` VALUES (1, 510);
+INSERT INTO `ba_roles_permissions` VALUES (1, 511);
+INSERT INTO `ba_roles_permissions` VALUES (1, 512);
+INSERT INTO `ba_roles_permissions` VALUES (1, 513);
+INSERT INTO `ba_roles_permissions` VALUES (1, 514);
+INSERT INTO `ba_roles_permissions` VALUES (1, 515);
+INSERT INTO `ba_roles_permissions` VALUES (1, 516);
+INSERT INTO `ba_roles_permissions` VALUES (1, 517);
+INSERT INTO `ba_roles_permissions` VALUES (1, 518);
+INSERT INTO `ba_roles_permissions` VALUES (1, 519);
+INSERT INTO `ba_roles_permissions` VALUES (1, 520);
+INSERT INTO `ba_roles_permissions` VALUES (1, 521);
+INSERT INTO `ba_roles_permissions` VALUES (1, 522);
+INSERT INTO `ba_roles_permissions` VALUES (1, 523);
+INSERT INTO `ba_roles_permissions` VALUES (1, 524);
+INSERT INTO `ba_roles_permissions` VALUES (1, 525);
+INSERT INTO `ba_roles_permissions` VALUES (1, 526);
+INSERT INTO `ba_roles_permissions` VALUES (1, 527);
+INSERT INTO `ba_roles_permissions` VALUES (1, 528);
+INSERT INTO `ba_roles_permissions` VALUES (1, 529);
+INSERT INTO `ba_roles_permissions` VALUES (1, 530);
+INSERT INTO `ba_roles_permissions` VALUES (1, 531);
+INSERT INTO `ba_roles_permissions` VALUES (1, 532);
+INSERT INTO `ba_roles_permissions` VALUES (1, 533);
+INSERT INTO `ba_roles_permissions` VALUES (1, 534);
+INSERT INTO `ba_roles_permissions` VALUES (1, 535);
+INSERT INTO `ba_roles_permissions` VALUES (1, 536);
+INSERT INTO `ba_roles_permissions` VALUES (1, 537);
+INSERT INTO `ba_roles_permissions` VALUES (1, 538);
+INSERT INTO `ba_roles_permissions` VALUES (1, 539);
+INSERT INTO `ba_roles_permissions` VALUES (1, 540);
+INSERT INTO `ba_roles_permissions` VALUES (1, 541);
+INSERT INTO `ba_roles_permissions` VALUES (1, 542);
+INSERT INTO `ba_roles_permissions` VALUES (1, 543);
+INSERT INTO `ba_roles_permissions` VALUES (1, 544);
+INSERT INTO `ba_roles_permissions` VALUES (2, 544);
+INSERT INTO `ba_roles_permissions` VALUES (5, 544);
+INSERT INTO `ba_roles_permissions` VALUES (1, 545);
+INSERT INTO `ba_roles_permissions` VALUES (2, 545);
+INSERT INTO `ba_roles_permissions` VALUES (5, 545);
+INSERT INTO `ba_roles_permissions` VALUES (1, 546);
+INSERT INTO `ba_roles_permissions` VALUES (1, 547);
+INSERT INTO `ba_roles_permissions` VALUES (1, 548);
+INSERT INTO `ba_roles_permissions` VALUES (2, 548);
+INSERT INTO `ba_roles_permissions` VALUES (3, 548);
+INSERT INTO `ba_roles_permissions` VALUES (4, 548);
+INSERT INTO `ba_roles_permissions` VALUES (5, 548);
+INSERT INTO `ba_roles_permissions` VALUES (1, 549);
+INSERT INTO `ba_roles_permissions` VALUES (1, 550);
+INSERT INTO `ba_roles_permissions` VALUES (1, 551);
+INSERT INTO `ba_roles_permissions` VALUES (2, 551);
+INSERT INTO `ba_roles_permissions` VALUES (3, 551);
+INSERT INTO `ba_roles_permissions` VALUES (4, 551);
+INSERT INTO `ba_roles_permissions` VALUES (5, 551);
+INSERT INTO `ba_roles_permissions` VALUES (1, 552);
+INSERT INTO `ba_roles_permissions` VALUES (3, 552);
+INSERT INTO `ba_roles_permissions` VALUES (1, 553);
+INSERT INTO `ba_roles_permissions` VALUES (3, 553);
 
 -- ----------------------------
 -- Table structure for ba_users
@@ -343,12 +362,11 @@ CREATE TABLE `ba_users`  (
   `updated_at` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `users_email_unique`(`email`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of ba_users
 -- ----------------------------
-INSERT INTO `ba_users` VALUES (1, 'luotao', 'luotao954@gmail.com', '$2y$10$7xKcl2UHR87bgyawfCrqoOyXjVgpDdFpnL3HCVCRjWrK/H/vwcDs6', '', '2018-12-09 06:50:23', '2018-12-09 06:50:23');
-INSERT INTO `ba_users` VALUES (2, 'luotao2', '2417599488@qq.com', '$2y$10$jlggJZS5JMshclZ3Y6hyV.GUaQuoYVLLCDtL2BbsCkItbxZbBQ1je', NULL, '2018-12-09 09:20:11', '2018-12-09 09:20:11');
+INSERT INTO `ba_users` VALUES (3, 'admin', '18581405481', '$2y$10$MqEbgzBKj9flgX2YlrLnA.OyyQxljx63N.kR4H66KDfcICqsG1kv2', NULL, '2018-12-22 07:40:46', '2018-12-22 07:40:46');
 
 SET FOREIGN_KEY_CHECKS = 1;
