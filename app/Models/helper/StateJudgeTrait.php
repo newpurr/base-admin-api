@@ -23,7 +23,7 @@ trait StateJudgeTrait
      */
     public function hasDeleted() : bool
     {
-        return (int)$this->is_deleted === DeletedStateEnum::IS_DELETED;
+        return (int) $this->is_deleted === DeletedStateEnum::IS_DELETED;
     }
     
     /**
@@ -43,7 +43,7 @@ trait StateJudgeTrait
      */
     public function isEnabled() : bool
     {
-        return (int)$this->state === StateEnum::ENABLED;
+        return (int) $this->state === StateEnum::ENABLED;
     }
     
     /**
@@ -53,7 +53,7 @@ trait StateJudgeTrait
      */
     public function isDisabled() : bool
     {
-        return (int)$this->state === StateEnum::DISABLED;
+        return (int) $this->state === StateEnum::DISABLED;
     }
     
     /**
@@ -63,6 +63,16 @@ trait StateJudgeTrait
      */
     public function isPending() : bool
     {
-        return (int)$this->state === StateEnum::DEFAULT;
+        return (int) $this->state === StateEnum::AWAITING;
+    }
+    
+    /**
+     * 待处理状态
+     *
+     * @return bool
+     */
+    public function isNormality() : bool
+    {
+        return $this->notDelete() && $this->isEnabled();
     }
 }

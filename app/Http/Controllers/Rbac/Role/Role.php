@@ -132,4 +132,36 @@ class Role extends Controller
             'affected_rows' => $affectedRows
         ]);
     }
+    
+    /**
+     * 分配权限
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @param int                       $roleId
+     *
+     * @return JsonResponseBodyInterface
+     */
+    public function allotPermission(Request $request, int $roleId) : JsonResponseBodyInterface
+    {
+        $this->roleService->allotPermission($roleId, $request->json('params.permission_list', []));
+        
+        return json_success_response();
+    }
+    
+    /**
+     * 获取角色拥有的权限ID数组
+     *
+     * @param int $roleId 角色ID
+     *
+     * @return JsonResponseBodyInterface
+     */
+    public function getPermissionByRoleId($roleId) : JsonResponseBodyInterface
+    {
+        $permissionIdList = $this->roleService->getPermissionByRoleId($roleId);
+        
+        return json_success_response([
+            'permission_list' => $permissionIdList
+        ]);
+    }
 }

@@ -56,6 +56,16 @@ class Role extends BaseModel implements Transformable
     }
     
     /**
+     * permissions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles() : BelongsToMany
+    {
+        return $this->belongsToMany(Admin::class, AssignedRoles::tableName(), 'role_id', 'assigned_id');
+    }
+    
+    /**
      * Role name condition scope
      *
      * @param \Illuminate\Database\Eloquent\Builder $query

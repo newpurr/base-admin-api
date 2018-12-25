@@ -16,16 +16,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                 $is_deleted 是否删除: 0-未删除 1-已删除
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @method $this whereId( $value )
- * @method $this whereCreatedAt( $value )
- * @method $this whereUpdatedAt( $value )
+ * @method $this whereId($value)
+ * @method $this whereCreatedAt($value)
+ * @method $this whereUpdatedAt($value)
  * @method $this newModelQuery()
  * @method $this newQuery()
  * @method $this query()
- * @method $this whereIsDeleted( $value )
- * @method $this whereState( $value )
- * @method $this deletedState( $stateCode )
- * @method $this state( $stateCode )
+ * @method $this whereIsDeleted($value)
+ * @method $this whereState($value)
+ * @method $this deletedState($stateCode)
+ * @method $this state($stateCode)
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Eloquent\Builder$this awaiting()
  * @method static \Illuminate\Database\Eloquent\Builder$this deleted()
@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseModel extends Model
 {
-    use StateQueryTrait,TableNameTrait;
+    use StateQueryTrait, TableNameTrait;
     
     /**
      * The attributes that are mass assignable.
@@ -44,6 +44,13 @@ abstract class BaseModel extends Model
      * @var array
      */
     protected $guarded = [];
+    
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array
+     */
+    protected $hidden  = ['pivot'];
     
     /**
      * 禁止自动维护时间

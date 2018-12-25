@@ -2,13 +2,17 @@
 
 namespace App\Services\Rbac\Role\Impl;
 
+use App\Exceptions\ParamterErrorException;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Repository\Contracts\RoleRepository;
 use App\Repository\Criteria\IsDeletedCriteria;
 use App\Repository\Criteria\StateCriteria;
 use App\Services\Helper\BatchChangeState;
+use App\Services\Rbac\Permission\PermissionService;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class RoleServiceImpl
@@ -24,20 +28,24 @@ class RoleServiceImpl implements RoleService
     use BatchChangeState;
     
     /**
-     * role Repository
+     * 权限service
      *
-     * @var RoleRepository
+     * @var PermissionService
      */
-    private $roleRepository;
+    private $permissionService;
     
     /**
      * RoleServiceImpl constructor.
      *
-     * @param $roleRepository
+     * @param PermissionService        $permissionService
+     * @param RoleRepository           $roleRepository
      */
-    public function __construct(RoleRepository $roleRepository)
-    {
-        $this->repostitory = $roleRepository;
+    public function __construct(
+        PermissionService $permissionService,
+        RoleRepository $roleRepository
+    ) {
+        $this->repostitory        = $roleRepository;
+        $this->permissionService  = $permissionService;
     }
     
     /**
@@ -92,5 +100,59 @@ class RoleServiceImpl implements RoleService
     public function update(array $roleAttributes, int $id) : Role
     {
         return $this->repostitory->update($roleAttributes, $id);
+    }
+    /**
+     * 删除分配给角色的全部权限
+     *
+     * @param int $roleId
+     *
+     * @return bool
+     */
+    public function deleteByRoleId(int $roleId) : bool
+    {
+        if (empty($roleId)) {
+            return false;
+        }
+        
+        return $this->repostitory->clearPermissionByRoleId($roleId);
+    }
+    
+    /**
+     * 分配角色后端接口权限
+     *
+     * @param int   $roleId          角色ID
+     * @param array $permissionIdArr 权限path数组
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function allotPermission(int $roleId, array $permissionIdArr) : bool
+    {
+        if (!$roleId) {
+            throw new ParamterErrorException('请指定角色ID');
+        }
+        
+        // 过滤参数中给的权限集合,重新获取系统中正常的的权限
+        $permissionCollection = $this->permissionService->getPermissionCollectionByIdArr(
+            $permissionIdArr,
+            ['is_deleted', 'id', 'state']
+        );
+        $permissionCollection = $permissionCollection->filter(function (Permission $permission) {
+            return $permission->isNormality();
+        })->pluck('id');
+        
+        return $this->repostitory->allotPermission($roleId, $permissionCollection->toArray());
+    }
+    
+    /**
+     * 根据角色ID获取角色权限path路径
+     *
+     * @param int $roleId
+     *
+     * @return Collection
+     */
+    public function getPermissionByRoleId(int $roleId) : Collection
+    {
+        return $this->repostitory->getPermissionCollectionByRoleId($roleId);
     }
 }

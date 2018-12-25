@@ -5,12 +5,13 @@ use Illuminate\Routing\Router;
 /** @var \Illuminate\Routing\Router $router */
 $router = app(Router::class);
 
+// 健康检查
 $router->get('/health', function () {
-    if (!extension_loaded('swoole')) {
-        $response = [];
+    if (PHP_SAPI === 'cli' && extension_loaded('swoole')) {
+        $response = Server::stats();
         $msg = 'hello happysir\'blog';
     } else {
-        $response = Server::stats();
+        $response = [];
         $msg = 'hello happysir\'blog';
     }
     
@@ -75,7 +76,6 @@ $router->post('permission/_bulk/batchDisabled', 'Rbac\Permission\Permission@batc
 // 权限rest资源增删改查路由
 $router->apiResource('permission', 'Rbac\Permission\Permission');
 
-/*** 角色管理API ***/
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ $router->post('roles/_bulk/batchDisabled', 'Rbac\Role\Role@batchDisabled');
 $router->apiResource('roles', 'Rbac\Role\Role');
 
 // 角色权限分配
-$router->post('roles/{roleid}/permission', 'Rbac\RolePermission\RolePermission@store');
+$router->post('roles/{roleid}/permission', 'Rbac\Role\Role@allotPermission');
 
 // 角色权限查询
-$router->get('roles/{roleid}/permission', 'Rbac\RolePermission\RolePermission@index');
+$router->get('roles/{roleid}/permission', 'Rbac\Role\Role@getPermissionByRoleId');
