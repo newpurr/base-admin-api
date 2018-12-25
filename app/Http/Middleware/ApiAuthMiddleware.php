@@ -15,8 +15,8 @@ class ApiAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        var_dump($request->getMethod());
-        dd($request->route());
+        // var_dump($request->getMethod());
+        // dd($request->route());
         return $next($request);
     }
 }

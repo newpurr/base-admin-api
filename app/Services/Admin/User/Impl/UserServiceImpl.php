@@ -2,6 +2,7 @@
 
 namespace App\Services\Admin\User\Impl;
 
+use App\Events\UserRoleChanged;
 use App\Exceptions\ParamterErrorException;
 use App\Models\BaseModel;
 use App\Models\Role;
@@ -104,7 +105,11 @@ class UserServiceImpl implements UserService
     {
         $attributes = $this->ensurePasswordIsValid($attributes);
     
-        return $this->repostitory->update($attributes, $id);
+        $model = $this->repostitory->update($attributes, $id);
+    
+        event(new UserRoleChanged($model));
+    
+        return $model;
     }
     
     /**
