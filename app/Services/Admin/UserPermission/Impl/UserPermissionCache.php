@@ -29,7 +29,7 @@ class UserPermissionCache implements UserPermissionService
     {
         // 缓存用户角色
         $rolesCollection = $userModel->roles()->with('permissions:id')->get(['id']);
-        $roleIdArr       = $rolesCollection->pluck('id')->toJson();
+        $roleIdArr       = $rolesCollection->pluck('id')->toArray();
         $expiresAt       = now()->addMinutes(10);
         Cache::put($this->getUserRoleCacheKey($userModel), $roleIdArr, $expiresAt);
         
