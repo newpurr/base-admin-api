@@ -2,10 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRoleChanged;
+use App\Events\RolePermissionChanged;
+use App\Models\Admin;
 use App\Services\Admin\UserPermission\UserPermissionService;
+use Cache;
 
-class UserRoleChangedListener
+class RolePermissionChangedListener
 {
     /**
      * @var UserPermissionService
@@ -25,16 +27,18 @@ class UserRoleChangedListener
     /**
      * Handle the event.
      *
-     * @param \App\Events\UserRoleChanged $userRoleChanged
+     * @param \App\Events\RolePermissionChanged $rolePermissionChanged
      *
      * @return void
      */
-    public function handle(UserRoleChanged $userRoleChanged)
+    public function handle(RolePermissionChanged $rolePermissionChanged)
     {
-        if ($userModel = $userRoleChanged->getUserModel()) {
-            $this->userPermissionService->update(
-                $userModel
-            );
-        }
+        $roleModel = $rolePermissionChanged->getRole();
+        
+        $userModelCollection = $roleModel->users;
+        
+        $userModelCollection->each(function (Admin $userModel) {
+            Cache::forget("user_permission:{$userModel->getTable()}:{$userModel->id}");
+        });
     }
 }

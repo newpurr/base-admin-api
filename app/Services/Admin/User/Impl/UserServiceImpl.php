@@ -4,6 +4,7 @@ namespace App\Services\Admin\User\Impl;
 
 use App\Events\UserRoleChanged;
 use App\Exceptions\ParamterErrorException;
+use App\Models\Admin;
 use App\Models\BaseModel;
 use App\Models\Role;
 use App\Repository\Contracts\AdminRepository;
@@ -105,11 +106,7 @@ class UserServiceImpl implements UserService
     {
         $attributes = $this->ensurePasswordIsValid($attributes);
     
-        $model = $this->repostitory->update($attributes, $id);
-    
-        event(new UserRoleChanged($model));
-    
-        return $model;
+        return $this->repostitory->update($attributes, $id);
     }
     
     /**
@@ -155,6 +152,8 @@ class UserServiceImpl implements UserService
             throw new ParamterErrorException('请指定角色ID');
         }
     
+        $model = Admin::findOrFail($userId);
+        
         // 过滤参数中给的权限集合,重新获取系统中正常的的角色
         $permissionCollection = $this->roleService->getRoleCollectionByIdArr(
             $roleIdArr,
@@ -164,7 +163,11 @@ class UserServiceImpl implements UserService
             return $role->isNormality();
         })->pluck('id');
     
-        return $this->repostitory->allotRole($userId, $permissionCollection->toArray());
+        $status = $this->repostitory->allotRole($userId, $permissionCollection->toArray());
+    
+        event(new UserRoleChanged($model));
+    
+        return $status;
     }
     
     /**

@@ -12,18 +12,27 @@ class RolePermissionChanged
     /**
      * role model
      *
-     * @var \App\Models\Role
+     * @var Role
      */
     private $role;
     
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param \App\Models\Role $role
      */
     public function __construct(Role $role)
     {
         $this->role = $role;
-        echo 2;
+    }
+    
+    /**
+     * getRole
+     *
+     * @return Role
+     */
+    public function getRole() : Role
+    {
+        return $this->role;
     }
 }

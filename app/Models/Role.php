@@ -22,6 +22,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static \Illuminate\Database\Eloquent\Builder|\$this nameLike($value)
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection $permissions
+ * @property-read \Illuminate\Database\Eloquent\Collection $users
  * @method static \Illuminate\Database\Eloquent\Builder$this awaiting()
  * @method static \Illuminate\Database\Eloquent\Builder$this deleted()
  * @method static \Illuminate\Database\Eloquent\Builder$this deletedState($stateCode = 0)
@@ -60,7 +61,7 @@ class Role extends BaseModel implements Transformable
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function roles() : BelongsToMany
+    public function users() : BelongsToMany
     {
         return $this->belongsToMany(Admin::class, AssignedRoles::tableName(), 'role_id', 'assigned_id');
     }

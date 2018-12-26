@@ -2,6 +2,7 @@
 
 namespace App\Services\Rbac\Role\Impl;
 
+use App\Events\RolePermissionChanged;
 use App\Exceptions\ParamterErrorException;
 use App\Models\Permission;
 use App\Models\Role;
@@ -113,8 +114,14 @@ class RoleServiceImpl implements RoleService
         if (empty($roleId)) {
             return false;
         }
+    
+        $model = $this->repostitory->find($roleId);
         
-        return $this->repostitory->clearPermissionByRoleId($roleId);
+        $status = $this->repostitory->clearPermissionByRoleId($roleId);
+        
+        event(new RolePermissionChanged($model));
+        
+        return $status;
     }
     
     /**
@@ -131,6 +138,8 @@ class RoleServiceImpl implements RoleService
         if (!$roleId) {
             throw new ParamterErrorException('请指定角色ID');
         }
+    
+        $model = $this->repostitory->find($roleId);
         
         // 过滤参数中给的权限集合,重新获取系统中正常的的权限
         $permissionCollection = $this->permissionService->getPermissionCollectionByIdArr(
@@ -140,8 +149,12 @@ class RoleServiceImpl implements RoleService
         $permissionCollection = $permissionCollection->filter(function (Permission $permission) {
             return $permission->isNormality();
         })->pluck('id');
+    
+        $status = $this->repostitory->allotPermission($roleId, $permissionCollection->toArray());
+    
+        event(new RolePermissionChanged($model));
         
-        return $this->repostitory->allotPermission($roleId, $permissionCollection->toArray());
+        return $status;
     }
     
     /**
