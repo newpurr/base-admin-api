@@ -49,7 +49,6 @@ class ApiAuthMiddleware
             /** @var \App\Models\Admin $userModel */
             $userModel = auth('admin_api')->user();
     
-            var_dump($userModel);
             if (!$userModel) {
                 throw new AuthenticationException();
             }
