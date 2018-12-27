@@ -18,7 +18,8 @@ class ApiAuthMiddleware
      *
      * @var array
      */
-    protected $whiteList = [
+    protected static $whiteList = [
+        'api/health',
         'api/admin/auth/login',
         'api/admin/auth/refresh'
     ];
@@ -44,7 +45,7 @@ class ApiAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!in_array($request->route()->uri(), $this->whiteList, true)) {
+        if (!in_array($request->route()->uri(), self::$whiteList, true)) {
             /** @var \App\Models\Admin $userModel */
             $userModel = auth('admin_api')->user();
     
