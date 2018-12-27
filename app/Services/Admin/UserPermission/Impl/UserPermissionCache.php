@@ -3,9 +3,11 @@
 namespace App\Services\Admin\UserPermission\Impl;
 
 use App\Models\Admin;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Services\Admin\UserPermission\UserPermissionService;
 use Cache;
+use Illuminate\Http\Request;
 
 /**
  * Class UserPermissionCache
@@ -25,7 +27,7 @@ class UserPermissionCache implements UserPermissionService
      *
      * @return bool
      */
-    public function update(Admin $userModel) : bool
+    public function saveToCache(Admin $userModel) : bool
     {
         // 缓存用户角色
         $rolesCollection = $userModel->roles()->with('permissions:id')->get(['id']);
@@ -55,7 +57,7 @@ class UserPermissionCache implements UserPermissionService
     {
         $key = $this->getUserPermissionCacheKey($userModel);
         if (Cache::has($key) === false) {
-            $this->update($userModel);
+            $this->saveToCache($userModel);
         }
         
         return (array) Cache::get($key);
@@ -72,7 +74,7 @@ class UserPermissionCache implements UserPermissionService
     {
         $key = $this->getUserRoleCacheKey($userModel);
         if (Cache::has($key) === false) {
-            $this->update($userModel);
+            $this->saveToCache($userModel);
         }
         
         return (array) Cache::get($key);
@@ -100,5 +102,33 @@ class UserPermissionCache implements UserPermissionService
     private function getUserPermissionCacheKey(Admin $userModel) : string
     {
         return "user_permission:{$userModel->getTable()}:{$userModel->id}";
+    }
+    
+    /**
+     * assert user has permission， If no false is returned
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @param \App\Models\Admin        $userModel
+     *
+     * @return bool
+     */
+    public function assertHasPermission(Request $request, Admin $userModel) : bool
+    {
+        $permissionId = Permission::where('method', $request->getMethod())
+                                  ->where('path', $request->route()->uri())
+                                  ->pluck('id')->first();
+    
+        
+        if (!$permissionId) {
+            return false;
+        }
+        
+        $userPermissionIdArr = $this->getPermissionIdArr($userModel);
+        if (!$userPermissionIdArr) {
+            return false;
+        }
+    
+        return \in_array($permissionId, $userPermissionIdArr, true);
     }
 }

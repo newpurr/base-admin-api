@@ -3,6 +3,7 @@
 namespace App\Services\Admin\UserPermission;
 
 use App\Models\Admin;
+use Illuminate\Http\Request;
 
 /**
  * Interface UserPermissionService
@@ -22,7 +23,7 @@ interface UserPermissionService
      *
      * @return bool
      */
-    public function update(Admin $userModel) : bool;
+    public function saveToCache(Admin $userModel) : bool;
     
     /**
      * 获取用户拥有的角色ID数组
@@ -41,4 +42,15 @@ interface UserPermissionService
      * @return array
      */
     public function getPermissionIdArr(Admin $userModel) : array;
+    
+    /**
+     * assert user has permission， If no false is returned
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @param \App\Models\Admin        $userModel
+     *
+     * @return bool
+     */
+    public function assertHasPermission(Request $request, Admin $userModel) : bool;
 }

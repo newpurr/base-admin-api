@@ -32,7 +32,7 @@ class UserRoleChangedListener
     public function handle(UserRoleChanged $userRoleChanged)
     {
         if ($userModel = $userRoleChanged->getUserModel()) {
-            $this->userPermissionService->update(
+            $this->userPermissionService->saveToCache(
                 $userModel
             );
         }

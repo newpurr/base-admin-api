@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Constant\JsonResponseCode;
 use App\Services\Admin\UserPermission\UserPermissionService;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
@@ -14,6 +15,26 @@ class ApiAuthMiddleware
     protected $userPermissionService;
     
     /**
+     * White list of routes that do not require detection
+     *
+     * @var array
+     */
+    protected $whiteList = [
+        'api/admin/auth/login',
+        'api/admin/auth/refresh'
+    ];
+    
+    /**
+     * ApiAuthMiddleware constructor.
+     *
+     * @param UserPermissionService $userPermissionService
+     */
+    public function __construct(UserPermissionService $userPermissionService)
+    {
+        $this->userPermissionService = $userPermissionService;
+    }
+    
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
@@ -24,10 +45,18 @@ class ApiAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $userModel = auth('admin_api')->user();
+        if (!in_array($request->route()->uri(), $this->whiteList, true)) {
+            /** @var \App\Models\Admin $userModel */
+            $userModel = auth('admin_api')->user();
+    
+            var_dump($userModel);
+            if (!$userModel) {
+                throw new AuthenticationException();
+            }
         
-        if (!$userModel) {
-            throw new AuthenticationException('21312321321321');
+            if (!$this->userPermissionService->assertHasPermission($request, $userModel)) {
+                throw new AuthenticationException('无权操作');
+            }
         }
         
         return $next($request);
