@@ -1,22 +1,8 @@
 <?php
-
-use App\Models\Admin;
-use App\Services\Admin\UserPermission\UserPermissionService;
 use Illuminate\Routing\Router;
 
 /** @var \Illuminate\Routing\Router $router */
 $router = app(Router::class);
-
-// 健康检查
-$router->get('/_permission', function (UserPermissionService $permissionService) {
-    return json_success_response($permissionService->getPermissionIdArr(Admin::find(1)));
-});
-$router->get('/_role', function (UserPermissionService $permissionService) {
-    return json_success_response($permissionService->getRoleIdArr(Admin::find(1)));
-});
-$router->get('/update', function (UserPermissionService $permissionService) {
-    return json_success_response((array)$permissionService->update(Admin::find(1)));
-});
 
 // 健康检查
 $router->get('/health', function () {
