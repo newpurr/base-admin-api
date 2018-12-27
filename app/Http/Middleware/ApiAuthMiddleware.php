@@ -2,7 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Constant\JsonResponseCode;
 use App\Services\Admin\UserPermission\UserPermissionService;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
