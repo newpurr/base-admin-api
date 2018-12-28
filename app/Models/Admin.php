@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\helper\StateJudgeTrait;
 use App\Models\helper\StateQueryTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,7 +37,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
  */
 class Admin extends Authenticatable implements JWTSubject
 {
-    use StateQueryTrait;
+    use StateQueryTrait, StateJudgeTrait;
     
     protected $table   = 'admins';
     

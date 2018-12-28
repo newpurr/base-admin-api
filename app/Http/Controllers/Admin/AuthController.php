@@ -3,19 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constant\JsonResponseCode;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
-class AuthController extends Controller
+class AuthController extends ApiController
 {
-    /**
-     * Create a new AuthController instance.
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:admin_api', ['except' => ['login', 'refresh']]);
-    }
+    protected $exceptApiAuthUri = [
+        'login', 'refresh'
+    ];
     
     /**
      * Get a JWT via given credentials.

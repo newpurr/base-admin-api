@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Services\Admin\User\UserService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
@@ -19,7 +19,7 @@ use Validator;
  * @version 1.0
  * @package App\Http\Controllers\Admin
  */
-class UserController extends Controller
+class UserController extends ApiController
 {
     /**
      * 权限service
@@ -35,6 +35,7 @@ class UserController extends Controller
      */
     public function __construct(UserService $service)
     {
+        parent::__construct();
         $this->service = $service;
     }
     

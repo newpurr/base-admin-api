@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Services\Admin\UserPermission\UserPermissionService;
 use Cache;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 /**
  * Class UserPermissionCache
@@ -115,20 +116,26 @@ class UserPermissionCache implements UserPermissionService
      */
     public function assertHasPermission(Request $request, Admin $userModel) : bool
     {
-        $permissionId = Permission::where('method', $request->getMethod())
-                                  ->where('path', $request->route()->uri())
-                                  ->pluck('id')->first();
-    
-        
-        if (!$permissionId) {
+        // 查询当前路由匹配的权限集合
+        $permissionCollection = Permission::where('path', $request->route()->uri())->get(['id','method']);
+        $permissionCollection->filter(function(Permission $permission) use ($request) {
+            return Str::contains($permission->method, $request->getMethod());
+        });
+        if ($permissionCollection->isEmpty()) {
             return false;
         }
-        
+    
+        // 获取用户拥有的权限集合
         $userPermissionIdArr = $this->getPermissionIdArr($userModel);
         if (!$userPermissionIdArr) {
             return false;
         }
+        
+        // 计算用户匹配上的权限
+        $permissionCollection = $permissionCollection->map(function(Permission $permission) use ($userPermissionIdArr) {
+            return in_array($permission->id, $userPermissionIdArr);
+        });
     
-        return \in_array($permissionId, $userPermissionIdArr, true);
+        return !$permissionCollection->isEmpty();
     }
 }

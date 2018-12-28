@@ -2,23 +2,26 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Middleware\Hepler\ExceptUriTrait;
 use App\Services\Admin\UserPermission\UserPermissionService;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
 
 class ApiAuthMiddleware
 {
+    use ExceptUriTrait;
+    
     /**
      * @var UserPermissionService
      */
     protected $userPermissionService;
     
     /**
-     * White list of routes that do not require detection
+     * The URIs that should be excluded from CSRF verification.
      *
      * @var array
      */
-    protected static $whiteList = [
+    protected $except = [
         'api/health',
         'api/admin/auth/login',
         'api/admin/auth/refresh'
@@ -45,14 +48,14 @@ class ApiAuthMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!in_array($request->route()->uri(), self::$whiteList, true)) {
+        if (!$status = $this->inExceptArray($request)) {
             /** @var \App\Models\Admin $userModel */
             $userModel = auth('admin_api')->user();
-    
-            if (!$userModel) {
+            
+            if (!$userModel || !$userModel->isNormality()) {
                 throw new AuthenticationException();
             }
-        
+            
             if (!$this->userPermissionService->assertHasPermission($request, $userModel)) {
                 throw new AuthenticationException('无权操作');
             }
