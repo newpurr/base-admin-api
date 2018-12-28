@@ -50,7 +50,7 @@
  
     - 启动swoole服务 `php artisan swoole:http start`
     - nginx反向代理
-    
+        > 配置nginx vhost
         ```nginx
         server
         {
@@ -73,5 +73,6 @@
             }
         }
         ```
-
+        > 重启nginx
+        `nginx -s reload`
 
