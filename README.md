@@ -31,8 +31,10 @@
     ```
 
 2. 表迁移 
-
-     `php artisan migrate`
+     1. `cp .env.example .env`
+     2. 在.env配置自己的数据库链接
+     3. 创建数据库
+     4. 执行迁移`php artisan migrate`
 
 3. 填充数据 
 
@@ -48,8 +50,9 @@
      
  6. 运行项目
  
-    - 启动swoole服务 `php artisan swoole:http start`
-    - nginx反向代理
+    1. 启动swoole服务 `php artisan swoole:http start`
+    2. nginx反向代理
+    
         > 配置nginx vhost
         ```nginx
         server
@@ -74,5 +77,6 @@
         }
         ```
         > 重启nginx
+        
         `nginx -s reload`
 
