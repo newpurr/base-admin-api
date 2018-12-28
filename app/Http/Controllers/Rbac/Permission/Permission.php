@@ -23,7 +23,6 @@ class Permission extends Controller
      */
     public function __construct(PermissionService $permissionService)
     {
-        parent::__construct();
         $this->permissionService = $permissionService;
     }
     

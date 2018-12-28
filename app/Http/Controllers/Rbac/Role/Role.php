@@ -22,7 +22,6 @@ class Role extends Controller
      */
     public function __construct(RoleService $roleService)
     {
-        parent::__construct();
         $this->roleService = $roleService;
     }
     
