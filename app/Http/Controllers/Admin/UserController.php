@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Services\Admin\User\UserService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
@@ -19,7 +19,7 @@ use Validator;
  * @version 1.0
  * @package App\Http\Controllers\Admin
  */
-class UserController extends ApiController
+class UserController extends Controller
 {
     /**
      * 权限service

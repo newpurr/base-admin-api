@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Rbac\Role;
 
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
-class Role extends ApiController
+class Role extends Controller
 {
     /**
      * 角色service

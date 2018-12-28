@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constant\JsonResponseCode;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
-class AuthController extends ApiController
+class AuthController extends Controller
 {
     protected $exceptApiAuthUri = [
         'login', 'refresh'

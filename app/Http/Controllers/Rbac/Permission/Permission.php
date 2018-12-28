@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Rbac\Permission;
 
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\Controller;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
-class Permission extends ApiController
+class Permission extends Controller
 {
     /**
      * 权限service
