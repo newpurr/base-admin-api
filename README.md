@@ -28,30 +28,32 @@
     cd base-admin-api
     
     composer install -vvv
+    cp .env.example .env
     ```
 
-2. 表迁移 
-     1. `cp .env.example .env`
-     2. 在.env配置自己的数据库链接
-     3. 创建数据库(您需要手动创建您配置的数据库)
-     4. 执行迁移`php artisan migrate`
+2. 生成app key 
 
-3. 填充数据 
+     ```shell
+     php artisan config:cache
+     php artisan key:generate
+     ```
+
+3. 生成jwt secret
+
+     `php artisan jwt:secret`
+
+4. 表迁移 
+     1. 在.env配置自己的数据库链接
+     2. 创建数据库(您需要手动创建您配置的数据库,`php artisan migrate`不会自动创建数据库)
+     3. 执行迁移`php artisan migrate`
+
+5. 填充数据 
 
      `php artisan db:seed`
 
-4. 生成app key 
-
-     `php artisan key:generate`
-
-5. 生成jwt secret
-
-     `php artisan jwt:secret`
-     
- 6. 运行项目
+6. 运行项目
  
-    1. 启动swoole服务 `php artisan swoole:http start`
-    2. nginx反向代理
+    1. nginx反向代理
     
         > 配置nginx vhost
         ```nginx
@@ -72,11 +74,13 @@
                 proxy_set_header Connection "keep-alive";
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_pass http://127.0.0.1:1215;
+                # 需要替换成你自己的env文件里面的SWOOLE_HTTP_PORT
+                proxy_pass http://127.0.0.1:SWOOLE_HTTP_PORT;
             }
         }
         ```
-        > 重启nginx
+        > 启动/重启nginx
         
-        `nginx -s reload`
+        `nginx` / `nginx -s reload`
+    2. 启动swoole服务 `php artisan swoole:http start`
 
