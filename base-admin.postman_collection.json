@@ -43,8 +43,8 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
+										"type": "text",
+										"value": "application/json"
 									}
 								],
 								"body": {
@@ -101,7 +101,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NTQ2NTEyMiwiZXhwIjoxNTQ1NDY4NzIyLCJuYmYiOjE1NDU0NjUxMjIsImp0aSI6Ik9xZEtoME5MQVUxZzhMUEYiLCJzdWIiOjIxLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5Iiwibmlja25hbWUiOiJhZG1pbiJ9.-USpEw5AF6lPF_JrNTLZ9WYhiN-gf96l1fxEw-f4YN8",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6MTIxNVwvYXBpXC9hZG1pblwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NDU5ODAwMDcsImV4cCI6MTU0NTk4MzYwNywibmJmIjoxNTQ1OTgwMDA3LCJqdGkiOiJiNEJQcU9HYnFTdWhjY0V3Iiwic3ViIjoxLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5Iiwibmlja25hbWUiOiJsdW90YTJvIn0.R045wiT6yG0woyo3O6tOhzKY336Ioq-xGSsp7axj61I",
 											"type": "string"
 										}
 									]
@@ -150,7 +150,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU0NDUzMjA0OCwiZXhwIjoxNTQ0NTM1NjQ4LCJuYmYiOjE1NDQ1MzIwNDgsImp0aSI6ImRDUFhoMDRocExleFhsQmIiLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.qRuaQxwV_1xwLrt9Y4IJSOhq0qBzeg1F9eJJIMDEniA",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6MTIxNVwvYXBpXC9hZG1pblwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NDU5ODAwMDcsImV4cCI6MTU0NTk4MzYwNywibmJmIjoxNTQ1OTgwMDA3LCJqdGkiOiJiNEJQcU9HYnFTdWhjY0V3Iiwic3ViIjoxLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5Iiwibmlja25hbWUiOiJsdW90YTJvIn0.R045wiT6yG0woyo3O6tOhzKY336Ioq-xGSsp7axj61I",
 											"type": "string"
 										}
 									]
@@ -350,17 +350,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nickname\": \"admin3\",\n    \"mobile\": \"18581405483\",\n    \"password\": \"1234567890lxllxl\"\n}"
+							"raw": "{\n    \"nickname\": \"admin3\",\n    \"mobile\": \"18581405483\",\n    \"password\": \"l1234890l\"\n}"
 						},
 						"url": {
-							"raw": "{{host}}/api/admin/21?",
+							"raw": "{{host}}/api/admin/2?",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"admin",
-								"21"
+								"2"
 							],
 							"query": [
 								{
@@ -484,7 +484,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nickname\": \"admin3\",\n    \"mobile\": \"18581405483\",\n    \"password\": \"jastdsssss\"\n}"
+							"raw": "{\n    \"nickname\": \"luota2o\",\n    \"account\": \"luotao2\",\n    \"mobile\": \"18581405482\",\n    \"password\": \"jastdsssss\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/api/admin?",
@@ -618,6 +618,109 @@
 						"description": "查询所有权限"
 					},
 					"response": []
+				},
+				{
+					"name": "[管理员]获取用户拥有的角色",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b2a1def2-b2df-45fc-ac3b-93545af4882e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6MTIxNVwvYXBpXC9hZG1pblwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NDU5NjYwMjAsImV4cCI6MTU0NTk2OTYyMCwibmJmIjoxNTQ1OTY2MDIwLCJqdGkiOiJTTmlNQmh2UFB1b29iZ3Q4Iiwic3ViIjoxLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5Iiwibmlja25hbWUiOiJsdW90YTJvIn0.coEPQa6fCi-tG7RjDLTU2EzwU7WqYniDRyPX9bH9d_k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{host}}/api/admin/1/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"1",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[管理员]分配角色",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "489daa23-3038-450b-b5fe-e91559737195",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"params\":{\"role_list\":[1,2,3,4,5,6,7]}}"
+						},
+						"url": {
+							"raw": "{{host}}/api/admin/1/roles",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"1",
+								"roles"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -737,9 +840,6 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -760,7 +860,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"params\":{\"ids\":\"482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553\"}}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{host}}/api/permission?page=1&limit=100",
@@ -843,6 +943,58 @@
 					"response": []
 				},
 				{
+					"name": "[权限]删除权限",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4217a1ed-3e2c-49bc-88fd-361b1be53184",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/permission/482",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission",
+								"482"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "[权限]前端权限路径",
 					"event": [
 						{
@@ -889,19 +1041,14 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "角色",
-			"item": [
+				},
 				{
-					"name": "[权限]获取角色拥有的权限ID",
+					"name": "[权限]创建权限",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "b2a1def2-b2df-45fc-ac3b-93545af4882e",
+								"id": "737df0ca-bcab-4675-a2e7-c3a7810e2400",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -911,6 +1058,87 @@
 							}
 						}
 					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"测试权限\",\n    \"path\": \"/cs\",\n    \"method\": \"GET\",\n    \"description\": \"jastdsssss\",\n    \"per_type\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permission",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[权限]修改权限",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "737df0ca-bcab-4675-a2e7-c3a7810e2400",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"测试权限9\",\n    \"path\": \"/cs1\",\n    \"method\": \"GET\",\n    \"description\": \"dsadsadsadsad\",\n    \"per_type\": \"1\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permission/555",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permission",
+								"555"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "角色",
+			"item": [
+				{
+					"name": "[权限]获取角色拥有的权限",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -924,10 +1152,7 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "{{host}}/api/roles/1/permission",
 							"host": [
@@ -1068,6 +1293,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6MTIxNVwvYXBpXC9hZG1pblwvYXV0aFwvcmVmcmVzaCIsImlhdCI6MTU0NTk4MDAwNywiZXhwIjoxNTQ1OTg0ODkxLCJuYmYiOjE1NDU5ODEyOTEsImp0aSI6Ikg4RzBsR1dmcFFYN0ZhVU4iLCJzdWIiOjEsInBydiI6ImRmODgzZGI5N2JkMDVlZjhmZjg1MDgyZDY4NmM0NWU4MzJlNTkzYTkiLCJuaWNrbmFtZSI6Imx1b3RhMm8ifQ.X-GxeCy2UuZh9HcYMqdHvuCEVWHTCyy50ZDifu8ofW8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -1110,7 +1345,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9hZG1pbi5iYXNlLmNvbVwvYXBpXC9hdXRoXC9yZWZyZXNoIiwiaWF0IjoxNTQ0NTMyMDQ4LCJleHAiOjE1NDQ1NDE5ODMsIm5iZiI6MTU0NDUzODM4MywianRpIjoibDJWc3pYQzEyZm5DQWVPMiIsInN1YiI6MSwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSJ9.Oa7Y9A5uov8krAYw2xYFntfRjY1kbrkzjFbmzCL_e1s",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6MTIxNVwvYXBpXC9hZG1pblwvYXV0aFwvbG9naW4iLCJpYXQiOjE1NDU5Nzk4MjksImV4cCI6MTU0NTk4MzQyOSwibmJmIjoxNTQ1OTc5ODI5LCJqdGkiOiJRRU5WQk1QdEduS1BUYmlzIiwic3ViIjoxLCJwcnYiOiJkZjg4M2RiOTdiZDA1ZWY4ZmY4NTA4MmQ2ODZjNDVlODMyZTU5M2E5Iiwibmlja25hbWUiOiJsdW90YTJvIn0.v6nQFLhjAOxJZYgXs68xBDjiThNflbffht97zomPyWQ",
 									"type": "string"
 								}
 							]
@@ -1126,7 +1361,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"params\":{\"permission_list\":[482,483,484,485,486,487,488,489,490,491,492,493,494,495,496,497,498,499,500,501,502,503,504,505,506,507,508,509,510,511,512,513,514,515,516,517,518,519,520,521,522,523,524,525,526,527,528,529,530,531,532,533,534,535,536,537,538,539,540,541,542,543,544,545,546,547,548,549,550,551,552,553]}}"
+							"raw": "{\"params\":{\"permission_list\":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35]}}"
 						},
 						"url": {
 							"raw": "{{host}}/api/roles/1/permission",
@@ -1161,6 +1396,43 @@
 					],
 					"request": {
 						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}/api/roles/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[角色]删除角色",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5d14b884-cd65-4090-8203-e09bc043671f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -1280,6 +1552,60 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "服务健康检查",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e7c2df5-3553-4daa-b8e9-6f128985204d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6MTIxNVwvYXBpXC9hZG1pblwvYXV0aFwvcmVmcmVzaCIsImlhdCI6MTU0NTk4MDAwNywiZXhwIjoxNTQ1OTg0ODkxLCJuYmYiOjE1NDU5ODEyOTEsImp0aSI6Ikg4RzBsR1dmcFFYN0ZhVU4iLCJzdWIiOjEsInBydiI6ImRmODgzZGI5N2JkMDVlZjhmZjg1MDgyZDY4NmM0NWU4MzJlNTkzYTkiLCJuaWNrbmFtZSI6Imx1b3RhMm8ifQ.X-GxeCy2UuZh9HcYMqdHvuCEVWHTCyy50ZDifu8ofW8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/system/health",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"system",
+						"health"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
