@@ -16,6 +16,7 @@ return [
     'admin.batchDisabled'         => '批量禁用',
     'admin.allotRole'             => '授予角色',
     'admin.getRoleByRoleId'       => '拥有角色',
+    'admin.getPermissionByRoleId' => '拥有权限',
     'admin.auth.login'            => '登陆',
     'admin.auth.logout'           => '退出',
     'admin.auth.refresh'          => '刷新登陆',

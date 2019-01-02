@@ -37,13 +37,22 @@ interface RoleService extends BatchChangeState, BaseService
     public function deleteByRoleId(int $roleId) : bool;
     
     /**
-     * 根据角色ID获取角色权限path路径
+     * 根据角色ID获取角色权限
      *
      * @param int $roleId
      *
      * @return Collection
      */
     public function getPermissionByRoleId(int $roleId) : Collection;
+    
+    /**
+     * 根据角色ID集合获取角色权限集合
+     *
+     * @param array $roleIdArr
+     *
+     * @return Collection
+     */
+    public function getPermissionCollectionByRoleIdArr(array $roleIdArr) : Collection;
     
     /**
      * 通过角色ID获取角色信息

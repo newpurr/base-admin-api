@@ -44,4 +44,13 @@ interface UserService extends BatchChangeState, BaseService
      * @return Collection
      */
     public function getRoleByUserId(int $userId) : Collection;
+    
+    /**
+     * 获取用户角色
+     *
+     * @param int $userId
+     *
+     * @return Collection
+     */
+    public function getPermissionByRoleId(int $userId) : Collection;
 }

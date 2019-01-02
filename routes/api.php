@@ -55,6 +55,10 @@ $router->group([
     $router->get('admin/{uid}/roles', 'Admin\UserController@getRoleByRoleId')
            ->name('admin.getRoleByRoleId');
     
+    // 角色查询
+    $router->get('admin/{uid}/permission', 'Admin\UserController@getPermissionByRoleId')
+           ->name('admin.getPermissionByRoleId');
+    
     // 认证
     $router->group([
         'prefix' => 'admin/auth'

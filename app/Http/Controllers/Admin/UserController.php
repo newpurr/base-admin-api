@@ -192,4 +192,20 @@ class UserController extends Controller
             'role_list' => $roleList
         ]);
     }
+    
+    /**
+     * 获取角色拥有的权限ID数组
+     *
+     * @param int $id 用户ID
+     *
+     * @return JsonResponseBodyInterface
+     */
+    public function getPermissionByRoleId($id) : JsonResponseBodyInterface
+    {
+        $roleList = $this->service->getPermissionByRoleId($id);
+        
+        return json_success_response([
+            'permission_list' => $roleList
+        ]);
+    }
 }

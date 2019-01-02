@@ -197,4 +197,18 @@ class UserServiceImpl implements UserService
     {
         return $this->repostitory->getRoleCollectionByRoleId($userId);
     }
+    
+    /**
+     * 获取用户角色
+     *
+     * @param int $userId
+     *
+     * @return Collection
+     */
+    public function getPermissionByRoleId(int $userId) : Collection
+    {
+        return $this->roleService->getPermissionCollectionByRoleIdArr(
+            $this->getRoleByUserId($userId)->pluck('id')->toArray()
+        );
+    }
 }

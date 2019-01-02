@@ -38,4 +38,13 @@ interface RoleRepository extends BaseRepostitory
      * @return Collection
      */
     public function getPermissionCollectionByRoleId(int $roleId) : Collection;
+    
+    /**
+     * 根据角色ID获取角色拥有的权限
+     *
+     * @param array $roleIdArr
+     *
+     * @return Collection
+     */
+    public function getPermissionCollectionByRoleIdArr(array $roleIdArr) : Collection;
 }

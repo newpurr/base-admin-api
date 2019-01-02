@@ -181,4 +181,20 @@ class RoleServiceImpl implements RoleService
     {
         return $this->repostitory->findWhereIn('id', $idArr, $columns);
     }
+    
+    /**
+     * 根据角色ID集合获取角色权限集合
+     *
+     * @param array $roleIdArr
+     *
+     * @return Collection
+     */
+    public function getPermissionCollectionByRoleIdArr(array $roleIdArr) : Collection
+    {
+        if (!$roleIdArr) {
+            return new Collection();
+        }
+    
+        return $this->repostitory->getPermissionCollectionByRoleIdArr($roleIdArr);
+    }
 }
