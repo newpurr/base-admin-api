@@ -4,6 +4,14 @@ use Illuminate\Routing\Router;
 /** @var \Illuminate\Routing\Router $router */
 $router = app(Router::class);
 
+/*
+|--------------------------------------------------------------------------
+| 系统管理API
+|--------------------------------------------------------------------------
+|
+| 这里放置的系统管理相关API
+|
+*/
 // 健康检查
 $router->get('/system/health', function () {
     if (PHP_SAPI === 'cli' && extension_loaded('swoole')) {
@@ -16,6 +24,15 @@ $router->get('/system/health', function () {
     
     return json_success_response($response, $msg);
 })->middleware('auth:admin_api')->name('system.health');
+
+// 同步路由数据到权限表
+$router->get('/system/sync-route', function () {
+    Artisan::call('base-admin:sync-route');
+    
+    return json_success_response([]);
+})->middleware('auth:admin_api')->name('system.sync-route');
+
+
 
 /*
 |--------------------------------------------------------------------------

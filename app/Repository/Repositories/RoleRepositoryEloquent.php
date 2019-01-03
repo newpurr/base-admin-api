@@ -102,8 +102,7 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
     {
         /** @var Collection $collectioon */
         $collectioon = $this->with('permissions')->findWhereIn('id', $roleIdArr, ['id']);
-    
-        // dd($collectioon->toArray());
+        
         if ($collectioon->isEmpty()) {
             throw new ModelNotFoundException('无此角色');
         }
@@ -114,6 +113,6 @@ class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
             $newCollection = $newCollection->merge($roleModel->permissions);
         });
         
-        return $newCollection;
+        return $newCollection->unique();
     }
 }

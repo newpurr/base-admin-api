@@ -205,7 +205,7 @@ class UserServiceImpl implements UserService
      *
      * @return Collection
      */
-    public function getPermissionByRoleId(int $userId) : Collection
+    public function getPermissionByUserId(int $userId) : Collection
     {
         return $this->roleService->getPermissionCollectionByRoleIdArr(
             $this->getRoleByUserId($userId)->pluck('id')->toArray()

@@ -202,7 +202,7 @@ class UserController extends Controller
      */
     public function getPermissionByRoleId($id) : JsonResponseBodyInterface
     {
-        $roleList = $this->service->getPermissionByRoleId($id);
+        $roleList = $this->service->getPermissionByUserId($id);
         
         return json_success_response([
             'permission_list' => $roleList

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Constant\Permission\Type;
 use App\Models\Permission;
 use Illuminate\Foundation\Console\RouteListCommand;
+use Illuminate\Support\Facades\Artisan;
 use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 class SyncRouteToPermission extends RouteListCommand
@@ -14,14 +15,14 @@ class SyncRouteToPermission extends RouteListCommand
      *
      * @var string
      */
-    protected $name = 'sync-route:send';
+    protected $name = 'base-admin:sync-route';
     
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = '同步路由数据到用户权限表';
+    protected $description = '同步路由数据到权限表';
     
     /**
      * Execute the console command.
@@ -31,7 +32,8 @@ class SyncRouteToPermission extends RouteListCommand
     public function handle()
     {
         $this->syncPermission();
-        $this->info('Route has send!');
+        
+        $this->info('Execute successfully!');
     }
     
     /**
@@ -73,6 +75,9 @@ class SyncRouteToPermission extends RouteListCommand
             $permissionModel->parent_id   = $parModel->id;
             $permissionModel->save();
         }
+        
+        // 给超级管理员分配所有权限
+        Artisan::call('base-admin:ass-all-per');
         
         return true;
     }
