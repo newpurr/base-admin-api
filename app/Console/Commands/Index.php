@@ -47,10 +47,12 @@ LOGO;
      */
     public function handle()
     {
-        $this->line(static::$logo);
+        $this->info(static::$logo);
         $this->comment('');
         $this->comment('可用的命令:');
+        $this->comment('');
         $this->getCommands();
+        $this->comment('');
     }
     /**
      * get all admin commands.
@@ -68,7 +70,7 @@ LOGO;
         $width = $this->getColumnWidth($commands);
         /** @var Command $command */
         foreach ($commands as $command) {
-            $this->line(sprintf(" %-{$width}s %s", $command->getName(), $command->getDescription()));
+            $this->info(sprintf(" %-{$width}s %s", $command->getName(), $command->getDescription()));
         }
     }
     

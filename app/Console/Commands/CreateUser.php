@@ -21,7 +21,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $description = '创建一个管理员用户';
+    protected $description = '创建一个系统用户';
     
     /**
      * Execute the console command.
