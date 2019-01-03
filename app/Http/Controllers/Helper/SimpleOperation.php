@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Helper;
 
 use App\Exceptions\ParamterErrorException;
+use App\Services\Contracts\BaseServiceInterface;
+use App\Services\Helper\BatchChangeState;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 use Validator;
@@ -15,6 +17,8 @@ use Validator;
  * @author  luotao
  * @version 1.0
  * @package App\Http\Controllers\Helper
+ *
+ * @property BaseServiceInterface|BatchChangeState $service
  */
 trait SimpleOperation
 {
