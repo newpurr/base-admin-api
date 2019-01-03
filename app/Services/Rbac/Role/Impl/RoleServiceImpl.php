@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * Role角色实现类
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Rbac\Role\Impl
  */

@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
  *
  * 用户权限缓存实现
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Admin\UserPermission\Impl
  */

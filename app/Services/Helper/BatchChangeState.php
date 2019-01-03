@@ -12,7 +12,7 @@ use SuperHappysir\Support\Constant\Enum\StateEnum;
  *
  * 批量启用禁用trait
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Helper
  */

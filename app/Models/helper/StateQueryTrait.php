@@ -10,7 +10,7 @@ use SuperHappysir\Support\Constant\Enum\StateEnum;
  *
  * state query trait
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Models\helper
  * @method static \Illuminate\Database\Eloquent\Builder|$this deleted()

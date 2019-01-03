@@ -7,7 +7,7 @@ use App\Repository\Contracts\BaseRepostitory;
 /**
  * Class BaseService
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Base
  */

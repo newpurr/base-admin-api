@@ -9,6 +9,15 @@ use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
+/**
+ * Class Permission
+ *
+ * 权限控制器
+ *
+ * @author  SuperHappysir
+ * @version 1.0
+ * @package App\Http\Controllers\Rbac\Permission
+ */
 class Permission extends Controller
 {
     /**
@@ -34,7 +43,7 @@ class Permission extends Controller
     {
         $paginate = $this->permissionService->paginate((int) \request('limit', 15));
         
-        return json_success_response($paginate);
+        return build_successful_body($paginate);
     }
     
     
@@ -49,7 +58,7 @@ class Permission extends Controller
             $request->only(['name','path','method','description','per_type','state'])
         );
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -70,7 +79,7 @@ class Permission extends Controller
             throw new NotFoundException();
         }
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -86,7 +95,7 @@ class Permission extends Controller
             $id
         );
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -98,7 +107,7 @@ class Permission extends Controller
     {
         $this->permissionService->softDelete($id);
         
-        return json_success_response();
+        return build_successful_body();
     }
     
     /**
@@ -115,7 +124,7 @@ class Permission extends Controller
         
         $affectedRows = $this->permissionService->batchDisabled(explode(',', $ids));
         
-        return json_success_response([
+        return build_successful_body([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -134,7 +143,7 @@ class Permission extends Controller
         
         $affectedRows = $this->permissionService->batchEnabled(explode(',', $ids));
         
-        return json_success_response([
+        return build_successful_body([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -148,7 +157,7 @@ class Permission extends Controller
     {
         $frontEndPathArr = $this->permissionService->getTheFrontEndPath();
     
-        return json_success_response([
+        return build_successful_body([
             'frontend_path_arr' => $frontEndPathArr
         ]);
     }

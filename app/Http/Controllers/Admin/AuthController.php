@@ -26,10 +26,10 @@ class AuthController extends Controller
         $credentials['password'] = request('password');
         
         if (!$token = auth('admin_api')->attempt($credentials)) {
-            return json_error_response(JsonResponseCode::UNAUTHORIZED, '账号或密码错误!');
+            return build_wrong_body(JsonResponseCode::UNAUTHORIZED, '账号或密码错误!');
         }
         
-        return json_success_response(
+        return build_successful_body(
             $this->respondWithToken($token)
         );
     }
@@ -40,7 +40,7 @@ class AuthController extends Controller
      */
     public function user() : JsonResponseBodyInterface
     {
-        return json_success_response(auth('admin_api')->user());
+        return build_successful_body(auth('admin_api')->user());
     }
     
     /**
@@ -51,7 +51,7 @@ class AuthController extends Controller
     {
         auth('admin_api')->logout();
     
-        return json_success_response([], 'Successfully logged out');
+        return build_successful_body([], 'Successfully logged out');
     }
     
     /**
@@ -60,7 +60,7 @@ class AuthController extends Controller
      */
     public function refresh() : JsonResponseBodyInterface
     {
-        return json_success_response(
+        return build_successful_body(
             $this->respondWithToken(auth('admin_api')->refresh())
         );
     }

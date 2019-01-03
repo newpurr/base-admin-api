@@ -14,7 +14,7 @@ use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
  *
  * 统一文件上传类
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Http\Controllers\Util
  */
@@ -31,7 +31,7 @@ class FileManager extends Controller
     {
         $allFiles = $request->allFiles();
         if (!$allFiles) {
-            return json_error_response('error', 'no file');
+            return build_wrong_body('error', 'no file');
         }
         
         $result = [];
@@ -54,6 +54,6 @@ class FileManager extends Controller
             $result[$key] = $attr;
         }
         
-        return json_success_response($result);
+        return build_successful_body($result);
     }
 }

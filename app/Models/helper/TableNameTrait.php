@@ -7,7 +7,7 @@ namespace App\Models\helper;
  *
  * table name trait
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Models\helper
  */

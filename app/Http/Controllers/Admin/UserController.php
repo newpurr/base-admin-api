@@ -15,7 +15,7 @@ use Validator;
  *
  * 管理员控制器
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Http\Controllers\Admin
  */
@@ -46,7 +46,7 @@ class UserController extends Controller
     {
         $paginate = $this->service->paginate((int) \request('limit', 15));
         
-        return json_success_response($paginate);
+        return build_successful_body($paginate);
     }
     
     
@@ -61,7 +61,7 @@ class UserController extends Controller
             $request->only(['account','nickname','mobile','password','state'])
         );
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -89,7 +89,7 @@ class UserController extends Controller
             throw new NotFoundException();
         }
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -105,7 +105,7 @@ class UserController extends Controller
             $id
         );
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -117,7 +117,7 @@ class UserController extends Controller
     {
         $this->service->softDelete($id);
         
-        return json_success_response();
+        return build_successful_body();
     }
     
     /**
@@ -134,7 +134,7 @@ class UserController extends Controller
         
         $affectedRows = $this->service->batchDisabled(explode(',', $ids));
         
-        return json_success_response([
+        return build_successful_body([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -157,7 +157,7 @@ class UserController extends Controller
         
         $affectedRows = $this->service->batchEnabled($ids);
         
-        return json_success_response([
+        return build_successful_body([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -174,7 +174,7 @@ class UserController extends Controller
     {
         $this->service->allotRole($id, $request->json('params.role_list', []));
     
-        return json_success_response();
+        return build_successful_body();
     }
     
     /**
@@ -188,7 +188,7 @@ class UserController extends Controller
     {
         $roleList = $this->service->getRoleByUserId($id);
         
-        return json_success_response([
+        return build_successful_body([
             'role_list' => $roleList
         ]);
     }
@@ -204,7 +204,7 @@ class UserController extends Controller
     {
         $roleList = $this->service->getPermissionByUserId($id);
         
-        return json_success_response([
+        return build_successful_body([
             'permission_list' => $roleList
         ]);
     }

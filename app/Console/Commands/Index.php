@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
  *
  * @copyright this Command Learn from the implementation of < https://github.com/z-song/laravel-admin/blob/master/src/Console/AdminCommand.php >
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Console\Commands
  */
@@ -41,6 +41,8 @@ _                                _           _                     _
 | |_) | (_| \__ \  __/ | (_| | (_| | | | | | | | | | | | (_| | |_) | |
 |_.__/ \__,_|___/\___|  \__,_|\__,_|_| |_| |_|_|_| |_|  \__,_| .__/|_|
                                                              |_|
+                                                             
+                                                            copyrgiht © SuperHappysir
 LOGO;
     /**
      * Execute the console command.

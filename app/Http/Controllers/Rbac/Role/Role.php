@@ -34,7 +34,7 @@ class Role extends Controller
         
         $paginate = $this->roleService->paginate((int) \request('limit', 15));
         
-        return json_success_response($paginate);
+        return build_successful_body($paginate);
     }
     
     /**
@@ -46,7 +46,7 @@ class Role extends Controller
     {
         $roleModel = $this->roleService->create($request->only(['name']));
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -67,7 +67,7 @@ class Role extends Controller
             throw new NotFoundException();
         }
         
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -80,7 +80,7 @@ class Role extends Controller
     {
         $roleModel = $this->roleService->update($request->only(['name']), $id);
 
-        return json_success_response($roleModel->toArray());
+        return build_successful_body($roleModel->toArray());
     }
     
     /**
@@ -92,7 +92,7 @@ class Role extends Controller
     {
         $this->roleService->softDelete($id);
         
-        return json_success_response();
+        return build_successful_body();
     }
     
     /**
@@ -109,7 +109,7 @@ class Role extends Controller
         
         $affectedRows = $this->roleService->batchDisabled(explode(',', $ids));
         
-        return json_success_response([
+        return build_successful_body([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -128,7 +128,7 @@ class Role extends Controller
         
         $affectedRows = $this->roleService->batchEnabled(explode(',', $ids));
         
-        return json_success_response([
+        return build_successful_body([
             'affected_rows' => $affectedRows
         ]);
     }
@@ -146,7 +146,7 @@ class Role extends Controller
     {
         $this->roleService->allotPermission($roleId, $request->json('params.permission_list', []));
         
-        return json_success_response();
+        return build_successful_body();
     }
     
     /**
@@ -160,7 +160,7 @@ class Role extends Controller
     {
         $permissionIdList = $this->roleService->getPermissionByRoleId($roleId);
         
-        return json_success_response([
+        return build_successful_body([
             'permission_list' => $permissionIdList
         ]);
     }

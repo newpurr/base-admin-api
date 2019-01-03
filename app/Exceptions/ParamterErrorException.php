@@ -10,7 +10,7 @@ use Throwable;
  *
  * 参数异常处理类
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Exceptions
  */

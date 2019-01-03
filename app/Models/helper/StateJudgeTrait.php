@@ -10,7 +10,7 @@ use SuperHappysir\Support\Constant\Enum\StateEnum;
  *
  * Judging state trait
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Models\helper
  */

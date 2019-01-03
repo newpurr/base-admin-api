@@ -10,7 +10,7 @@ use Psr\Container\NotFoundExceptionInterface;
  *
  * 资源不存在exception
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Exceptions
  */

@@ -22,14 +22,14 @@ $router->get('/system/health', function () {
         $msg = 'hello ' . config('app.name');
     }
     
-    return json_success_response($response, $msg);
+    return build_successful_body($response, $msg);
 })->middleware('auth:admin_api')->name('system.health');
 
 // 同步路由数据到权限表
 $router->get('/system/sync-route', function () {
     Artisan::call('base-admin:sync-route');
     
-    return json_success_response([]);
+    return build_successful_body([]);
 })->middleware('auth:admin_api')->name('system.sync-route');
 
 

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * 后台用户Service
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Admin\User
  */

@@ -8,6 +8,15 @@ use Illuminate\Foundation\Console\RouteListCommand;
 use Illuminate\Support\Facades\Artisan;
 use SuperHappysir\Support\Constant\Enum\StateEnum;
 
+/**
+ * Class SyncRouteToPermission
+ *
+ * 同步路由权限命令
+ *
+ * @author  SuperHappysir
+ * @version 1.0
+ * @package App\Console\Commands
+ */
 class SyncRouteToPermission extends RouteListCommand
 {
     /**
@@ -26,8 +35,6 @@ class SyncRouteToPermission extends RouteListCommand
     
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {

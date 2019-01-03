@@ -26,7 +26,7 @@ if (!function_exists('paginate_to_apidata')) {
     }
 }
 
-if (!function_exists('json_success_response')) {
+if (!function_exists('build_successful_body')) {
     /**
      * json 成功响应体
      *
@@ -35,7 +35,7 @@ if (!function_exists('json_success_response')) {
      *
      * @return \SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface
      */
-    function json_success_response($response = [], $message = '')
+    function build_successful_body($response = [], $message = '')
     {
         // 分页对象
         if ($response instanceof LengthAwarePaginator) {
@@ -53,7 +53,7 @@ if (!function_exists('json_success_response')) {
     }
 }
 
-if (!function_exists('json_error_response')) {
+if (!function_exists('build_wrong_body')) {
     /**
      * json 失败响应体
      *
@@ -62,7 +62,7 @@ if (!function_exists('json_error_response')) {
      *
      * @return \SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface
      */
-    function json_error_response(string $code, string $message)
+    function build_wrong_body(string $code, string $message)
     {
         return json_response_body($code, $message, []);
     }

@@ -5,7 +5,7 @@ namespace App\Http\Middleware\Hepler;
 /**
  * Trait ExceptUriTrait
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Http\Middleware\hepler
  */

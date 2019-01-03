@@ -22,7 +22,6 @@ class ApiAuthMiddleware
      * @var array
      */
     protected $except = [
-        'api/health',
         'api/admin/auth/login',
         'api/admin/auth/refresh'
     ];

@@ -7,6 +7,15 @@ use Hash;
 use Illuminate\Console\Command;
 use SuperHappysir\Support\Constant\Enum\StateEnum;
 
+/**
+ * Class CreateUser
+ *
+ * 后台管理员用户创建命令
+ *
+ * @author  SuperHappysir
+ * @version 1.0
+ * @package App\Console\Commands
+ */
 class CreateUser extends Command
 {
     /**

@@ -6,6 +6,15 @@ use App\Models\Permission;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Console\Command;
 
+/**
+ * Class AssignAllPermissionsToSuperRole
+ *
+ * 分配所有权限给超级管理员
+ *
+ * @author  SuperHappysir
+ * @version 1.0
+ * @package App\Console\Commands
+ */
 class AssignAllPermissionsToSuperRole extends Command
 {
     /**

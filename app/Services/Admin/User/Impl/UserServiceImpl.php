@@ -24,7 +24,7 @@ use Validator;
  *
  * 用户服务实现
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Admin\User\Impl
  */

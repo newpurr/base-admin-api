@@ -7,7 +7,7 @@ use App\Models\BaseModel;
 /**
  * interface BaseServiceInterface
  * 服务类基础接口
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Rbac\Role\Contracts
  */

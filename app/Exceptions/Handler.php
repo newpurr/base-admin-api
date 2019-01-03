@@ -33,20 +33,20 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof NotFoundExceptionInterface
             || $exception instanceof ModelNotFoundException) {
-            return $this->json(json_error_response(JsonResponseCode::NOT_FOUND, '资源不存在'));
+            return $this->json(build_wrong_body(JsonResponseCode::NOT_FOUND, '资源不存在'));
         }
         
         if ($exception instanceof CustomException) {
-            return $this->json(json_error_response($exception->getCode(), $exception->getMessage()));
+            return $this->json(build_wrong_body($exception->getCode(), $exception->getMessage()));
         }
         
         if ($exception instanceof AuthenticationException) {
-            return $this->json(json_error_response(JsonResponseCode::UNAUTHORIZED, $exception->getMessage()));
+            return $this->json(build_wrong_body(JsonResponseCode::UNAUTHORIZED, $exception->getMessage()));
         }
     
         if ($exception instanceof ValidatorException) {
             return $this->json(
-                json_error_response(JsonResponseCode::PARAMETER_ERROR, $exception->getMessageBag()->first())
+                build_wrong_body(JsonResponseCode::PARAMETER_ERROR, $exception->getMessageBag()->first())
             );
         }
     

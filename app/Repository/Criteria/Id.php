@@ -7,7 +7,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class Id
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Repository\Criteria
  */

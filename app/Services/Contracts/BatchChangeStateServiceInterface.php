@@ -7,7 +7,7 @@ namespace App\Services\Contracts;
  *
  * 批量操作接口
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Rbac\Role\Contracts
  */

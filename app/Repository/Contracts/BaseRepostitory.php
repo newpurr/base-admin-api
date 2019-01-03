@@ -7,7 +7,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 /**
  * Interface BaseRepostitory
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Repository\Contracts
  */

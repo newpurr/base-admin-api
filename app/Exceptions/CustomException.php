@@ -7,7 +7,7 @@ namespace App\Exceptions;
  *
  * 自定义异常处理类
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Exceptions
  */

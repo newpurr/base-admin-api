@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * 权限服务接口
  *
- * @author  luotao
+ * @author  SuperHappysir
  * @version 1.0
  * @package App\Services\Rbac\Role
  */
