@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exceptions\NotFoundException;
-use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helper\SimpleOperation;
 use App\Services\Admin\User\UserService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
-use Validator;
 
 /**
  * Class UserController
@@ -21,6 +20,8 @@ use Validator;
  */
 class UserController extends Controller
 {
+    use SimpleOperation;
+    
     /**
      * 权限service
      *
@@ -106,60 +107,6 @@ class UserController extends Controller
         );
         
         return build_successful_body($roleModel->toArray());
-    }
-    
-    /**
-     * Remove the specified resource from storage.
-     * @param  int $id
-     * @return JsonResponseBodyInterface
-     */
-    public function destroy($id) : JsonResponseBodyInterface
-    {
-        $this->service->softDelete($id);
-        
-        return build_successful_body();
-    }
-    
-    /**
-     * 批量禁用角色
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponseBodyInterface
-     */
-    public function batchDisabled(Request $request) : JsonResponseBodyInterface
-    {
-        $ids = $request->json('params.ids');
-        if (!$ids) {
-            throw new ParamterErrorException('请指定需要批量操作的选项ID');
-        }
-        
-        $affectedRows = $this->service->batchDisabled(explode(',', $ids));
-        
-        return build_successful_body([
-            'affected_rows' => $affectedRows
-        ]);
-    }
-    
-    /**
-     * batchEnable
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponseBodyInterface
-     */
-    public function batchEnable(Request $request) : JsonResponseBodyInterface
-    {
-        $ids       = $request->json('params');
-        $validator = Validator::make($ids, ['ids' => 'required|array'], [
-            'ids.required' => '请指定需要批量操作的选项ID',
-            'ids.array'    => 'params.ids字段必须是数组'
-        ]);
-        if ($validator->fails()) {
-            throw new ParamterErrorException($validator->errors()->first());
-        }
-        
-        $affectedRows = $this->service->batchEnabled($ids);
-        
-        return build_successful_body([
-            'affected_rows' => $affectedRows
-        ]);
     }
     
     /**

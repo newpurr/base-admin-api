@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\Rbac\Role;
 
 use App\Exceptions\NotFoundException;
-use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helper\SimpleOperation;
 use App\Services\Rbac\Role\RoleService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
 
 class Role extends Controller
 {
+    use SimpleOperation;
+    
     /**
      * 角色service
      */
-    private $roleService;
+    private $service;
     
     /**
      * Role constructor.
@@ -22,7 +24,7 @@ class Role extends Controller
      */
     public function __construct(RoleService $roleService)
     {
-        $this->roleService = $roleService;
+        $this->service = $roleService;
     }
     
     /**
@@ -32,7 +34,7 @@ class Role extends Controller
     public function index() : JsonResponseBodyInterface
     {
         
-        $paginate = $this->roleService->paginate((int) \request('limit', 15));
+        $paginate = $this->service->paginate((int) \request('limit', 15));
         
         return build_successful_body($paginate);
     }
@@ -44,7 +46,7 @@ class Role extends Controller
      */
     public function store(Request $request) : JsonResponseBodyInterface
     {
-        $roleModel = $this->roleService->create($request->only(['name']));
+        $roleModel = $this->service->create($request->only(['name']));
         
         return build_successful_body($roleModel->toArray());
     }
@@ -59,7 +61,7 @@ class Role extends Controller
      */
     public function show($id)
     {
-        $roleModel = $this->roleService->find($id, [
+        $roleModel = $this->service->find($id, [
             'id',
             'name'
         ]);
@@ -78,59 +80,9 @@ class Role extends Controller
      */
     public function update(Request $request, $id) : JsonResponseBodyInterface
     {
-        $roleModel = $this->roleService->update($request->only(['name']), $id);
+        $roleModel = $this->service->update($request->only(['name']), $id);
 
         return build_successful_body($roleModel->toArray());
-    }
-    
-    /**
-     * Remove the specified resource from storage.
-     * @param  int $id
-     * @return JsonResponseBodyInterface
-     */
-    public function destroy($id) : JsonResponseBodyInterface
-    {
-        $this->roleService->softDelete($id);
-        
-        return build_successful_body();
-    }
-    
-    /**
-     * 批量禁用角色
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponseBodyInterface
-     */
-    public function batchDisabled(Request $request) : JsonResponseBodyInterface
-    {
-        $ids = $request->json('params.ids');
-        if (!$ids) {
-            throw new ParamterErrorException('请指定需要批量操作的选项ID');
-        }
-        
-        $affectedRows = $this->roleService->batchDisabled(explode(',', $ids));
-        
-        return build_successful_body([
-            'affected_rows' => $affectedRows
-        ]);
-    }
-    
-    /**
-     * batchEnable
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponseBodyInterface
-     */
-    public function batchEnable(Request $request) : JsonResponseBodyInterface
-    {
-        $ids = $request->json('params.ids');
-        if (!$ids) {
-            throw new ParamterErrorException('请指定需要批量操作的选项ID');
-        }
-        
-        $affectedRows = $this->roleService->batchEnabled(explode(',', $ids));
-        
-        return build_successful_body([
-            'affected_rows' => $affectedRows
-        ]);
     }
     
     /**
@@ -144,7 +96,7 @@ class Role extends Controller
      */
     public function allotPermission(Request $request, int $roleId) : JsonResponseBodyInterface
     {
-        $this->roleService->allotPermission($roleId, $request->json('params.permission_list', []));
+        $this->service->allotPermission($roleId, $request->json('params.permission_list', []));
         
         return build_successful_body();
     }
@@ -158,7 +110,7 @@ class Role extends Controller
      */
     public function getPermissionByRoleId($roleId) : JsonResponseBodyInterface
     {
-        $permissionIdList = $this->roleService->getPermissionByRoleId($roleId);
+        $permissionIdList = $this->service->getPermissionByRoleId($roleId);
         
         return build_successful_body([
             'permission_list' => $permissionIdList

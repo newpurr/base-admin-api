@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Rbac\Permission;
 use App\Exceptions\NotFoundException;
 use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helper\SimpleOperation;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Http\Request;
 use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
@@ -20,11 +21,13 @@ use SuperHappysir\Support\Utils\Response\JsonResponseBodyInterface;
  */
 class Permission extends Controller
 {
+    use SimpleOperation;
+    
     /**
      * 权限service
      * @var PermissionService
      */
-    private $permissionService;
+    private $service;
     
     /**
      * Permission constructor.
@@ -32,7 +35,7 @@ class Permission extends Controller
      */
     public function __construct(PermissionService $permissionService)
     {
-        $this->permissionService = $permissionService;
+        $this->service = $permissionService;
     }
     
     /**
@@ -41,7 +44,7 @@ class Permission extends Controller
      */
     public function index() : JsonResponseBodyInterface
     {
-        $paginate = $this->permissionService->paginate((int) \request('limit', 15));
+        $paginate = $this->service->paginate((int) \request('limit', 15));
         
         return build_successful_body($paginate);
     }
@@ -54,7 +57,7 @@ class Permission extends Controller
      */
     public function store(Request $request) : JsonResponseBodyInterface
     {
-        $roleModel = $this->permissionService->create(
+        $roleModel = $this->service->create(
             $request->only(['name','path','method','description','per_type','state'])
         );
         
@@ -71,7 +74,7 @@ class Permission extends Controller
      */
     public function show($id)
     {
-        $roleModel = $this->permissionService->find($id, [
+        $roleModel = $this->service->find($id, [
             'id',
             'name'
         ]);
@@ -90,62 +93,12 @@ class Permission extends Controller
      */
     public function update(Request $request, $id) : JsonResponseBodyInterface
     {
-        $roleModel = $this->permissionService->update(
+        $roleModel = $this->service->update(
             $request->only(['name','path','method','description','per_type','state']),
             $id
         );
         
         return build_successful_body($roleModel->toArray());
-    }
-    
-    /**
-     * Remove the specified resource from storage.
-     * @param  int $id
-     * @return JsonResponseBodyInterface
-     */
-    public function destroy($id) : JsonResponseBodyInterface
-    {
-        $this->permissionService->softDelete($id);
-        
-        return build_successful_body();
-    }
-    
-    /**
-     * 批量禁用角色
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponseBodyInterface
-     */
-    public function batchDisabled(Request $request) : JsonResponseBodyInterface
-    {
-        $ids = $request->json('params.ids');
-        if (!$ids) {
-            throw new ParamterErrorException('请指定需要批量操作的选项ID');
-        }
-        
-        $affectedRows = $this->permissionService->batchDisabled(explode(',', $ids));
-        
-        return build_successful_body([
-            'affected_rows' => $affectedRows
-        ]);
-    }
-    
-    /**
-     * batchEnable
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponseBodyInterface
-     */
-    public function batchEnable(Request $request) : JsonResponseBodyInterface
-    {
-        $ids = $request->json('params.ids');
-        if (!$ids) {
-            throw new ParamterErrorException('请指定需要批量操作的选项ID');
-        }
-        
-        $affectedRows = $this->permissionService->batchEnabled(explode(',', $ids));
-        
-        return build_successful_body([
-            'affected_rows' => $affectedRows
-        ]);
     }
     
     /**
@@ -155,7 +108,7 @@ class Permission extends Controller
      */
     public function theFrontEndPath() : JsonResponseBodyInterface
     {
-        $frontEndPathArr = $this->permissionService->getTheFrontEndPath();
+        $frontEndPathArr = $this->service->getTheFrontEndPath();
     
         return build_successful_body([
             'frontend_path_arr' => $frontEndPathArr
