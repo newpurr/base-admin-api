@@ -2,14 +2,11 @@
 
 namespace App\Repository\Repositories;
 
-use App\Constant\Permission\Type;
 use App\Models\Permission;
 use App\Repository\Contracts\PermissionRepository;
 use App\Repository\Helper\BatchOperation;
 use App\Repository\Validators\PermissionValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
-use SuperHappysir\Support\Constant\Enum\DeletedStateEnum;
-use SuperHappysir\Support\Constant\Enum\StateEnum;
 
 /**
  * Class PermissionRepositoryEloquent.
@@ -41,19 +38,5 @@ class PermissionRepositoryEloquent extends BaseRepository implements PermissionR
     public function validator()
     {
         return PermissionValidator::class;
-    }
-    
-    /**
-     * 获取所有前端path
-     *
-     * @return array
-     */
-    public function getTheFrontEndPath() : array
-    {
-        return $this->model->whereState(StateEnum::ENABLED)
-                           ->whereIsDeleted(DeletedStateEnum::NORMAL)
-                           ->wherePerType(Type::MENU)
-                           ->pluck('path')
-                           ->toArray();
     }
 }

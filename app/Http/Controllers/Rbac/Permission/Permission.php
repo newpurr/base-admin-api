@@ -102,16 +102,16 @@ class Permission extends Controller
     }
     
     /**
-     * 前端所有path数组
+     * 批量创建前端路由权限
+     *
+     * @param \Illuminate\Http\Request $request
      *
      * @return JsonResponseBodyInterface
      */
-    public function theFrontEndPath() : JsonResponseBodyInterface
+    public function createTheFrontEndPathPermission(Request $request) : JsonResponseBodyInterface
     {
-        $frontEndPathArr = $this->service->getTheFrontEndPath();
+        $this->service->createTheFrontEndPathPermission($request->input('permissions'));
     
-        return build_successful_body([
-            'frontend_path_arr' => $frontEndPathArr
-        ]);
+        return build_successful_body();
     }
 }

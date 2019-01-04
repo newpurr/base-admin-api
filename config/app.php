@@ -169,7 +169,9 @@ return [
         
         ServicesServiceProvider::class,
         RepositoryServiceProvider::class,
-        CriteriaServiceProvider::class
+        CriteriaServiceProvider::class,
+
+        Felixkiss\UniqueWithValidator\ServiceProvider::class
     ],
     
     /*

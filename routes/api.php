@@ -101,9 +101,9 @@ $router->group([
 $router->group([
     'middleware' => 'auth:admin_api'
 ], function (Router $router) {
-    // 所有前端权限
-    $router->get('permission/frontend/path', 'Rbac\Permission\Permission@theFrontEndPath')
-           ->name('permission.theFrontEndPath');
+    // 批量创建前端路由权限
+    $router->post('permission/frontend/path', 'Rbac\Permission\Permission@createTheFrontEndPathPermission')
+           ->name('permission.createTheFrontEndPathPermission');
     
     // 权限批量启用
     $router->post('permission/_bulk/batchEnable', 'Rbac\Permission\Permission@batchEnable')

@@ -18,3 +18,4 @@ _ide_helper.php
 /.env.testing
 /composer.lock
 /install.md
+/package-lock.json

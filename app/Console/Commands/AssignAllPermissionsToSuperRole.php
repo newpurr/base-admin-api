@@ -56,7 +56,7 @@ class AssignAllPermissionsToSuperRole extends Command
     public function handle()
     {
         $permissionIdArr = Permission::pluck('id')->toArray();
-    
+        
         $this->roleService->allotPermission(1, $permissionIdArr);
         
         $this->info('Execute successfully!');

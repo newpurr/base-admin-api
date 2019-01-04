@@ -2,16 +2,20 @@
 
 namespace App\Services\Rbac\Permission\Impl;
 
+use App\Exceptions\ParamterErrorException;
 use App\Models\Permission;
 use App\Repository\Contracts\PermissionRepository;
 use App\Repository\Criteria\Id;
 use App\Repository\Criteria\IsDeletedCriteria;
 use App\Repository\Criteria\StateCriteria;
 use App\Repository\Criteria\Permission\Type;
+use App\Repository\Validators\PermissionValidator;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Artisan;
+use Validator;
 
 class PermisssionServiceImpl implements PermissionService
 {
@@ -82,16 +86,6 @@ class PermisssionServiceImpl implements PermissionService
     }
     
     /**
-     * 获取所有前端路径path
-     *
-     * @return array
-     */
-    public function getTheFrontEndPath() : array
-    {
-        return $this->repostitory->getTheFrontEndPath();
-    }
-    
-    /**
      * 通过权限ID获取权限信息
      *
      * @param array $idArr   权限ID数组
@@ -103,4 +97,58 @@ class PermisssionServiceImpl implements PermissionService
     {
         return $this->repostitory->findWhereIn('id', $idArr, $columns);
     }
-}
+    
+    /**
+     * 批量创建前端路由权限
+     *
+     * @param array $inputPermissionArr
+     *
+     * @return bool
+     */
+    public function createTheFrontEndPathPermission(array $inputPermissionArr) : bool
+    {
+        if (!$inputPermissionArr) {
+            return true;
+        }
+        
+        // 检测数据是否符合要求
+        $inputPathCollection = collect($inputPermissionArr);
+        $inputPathCollection->each(function ($permissionMap) {
+            if (!$permissionMap['name']) {
+                throw new ParamterErrorException('数据格式错误,部分数据缺失 name 属性');
+            }
+            if (!$permissionMap['path']) {
+                throw new ParamterErrorException('数据格式错误,部分数据缺失 path 属性');
+            }
+        });
+        
+        // 过滤已存在的权限数据,生成待插入的数据数组
+        $pathArr = $inputPathCollection->pluck('path')->toArray();
+        if (!$pathArr) {
+            throw new ParamterErrorException('数据格式错误');
+        }
+        /** @var Collection $existPermissionCollection */
+        $existPermissionCollection = $this->repostitory->findWhereIn('path', $pathArr, ['path', 'per_type']);
+        $existPermissionCollection = $existPermissionCollection->filter(function(Permission $permission) {
+            return $permission->per_type === \App\Constant\Permission\Type::MENU;
+        });
+        $existPermissionPath = $existPermissionCollection->pluck('path')->toArray();
+        $insertPermissionArr = $inputPathCollection->filter(function ($permissionMap) use ($existPermissionPath) {
+            return !in_array($permissionMap['path'], $existPermissionPath, true);
+        })->toArray();
+        
+        if (!$insertPermissionArr) {
+            return true;
+        }
+        
+        // 批量插入
+        $status = $this->repostitory->insert($insertPermissionArr);
+    
+        if ($status) {
+            // 给超级管理员分配所有权限
+            Artisan::call('base-admin:ass-all-per');
+        }
+        
+        return $status;
+    }
+};

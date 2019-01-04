@@ -18,11 +18,11 @@ class PermissionValidator extends LaravelValidator
     protected $rules = [
         ValidatorInterface::RULE_CREATE => [
             // bail在某个属性第一次验证失败后停止运行验证规则
-            'name' => 'bail|required|unique:permissions|between:2,10',
-            'path' => 'bail|required|unique:permissions',
+            'name' => 'bail|required|between:2,10',
+            'path' => 'bail|required|unique_with:permissions, per_type',
         ],
         ValidatorInterface::RULE_UPDATE => [
-            'name' => 'unique:permissions|between:2,10',
+            'name' => 'between:2,10',
             'path' => 'bail|required|unique:permissions',
         ],
     ];

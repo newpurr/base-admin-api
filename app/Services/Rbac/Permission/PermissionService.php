@@ -18,13 +18,6 @@ use Illuminate\Database\Eloquent\Collection;
 interface PermissionService extends BatchChangeState, BaseService
 {
     /**
-     * 获取所有前端路径path
-     *
-     * @return array
-     */
-    public function getTheFrontEndPath() : array;
-    
-    /**
      * 通过权限ID获取权限信息
      *
      * @param array $idArr   权限ID数组
@@ -33,4 +26,13 @@ interface PermissionService extends BatchChangeState, BaseService
      * @return Collection
      */
     public function getPermissionCollectionByIdArr(array $idArr, $columns = ['*']) : Collection;
+    
+    /**
+     * 批量创建前端路由权限
+     *
+     * @param array $pathArr
+     *
+     * @return bool
+     */
+    public function createTheFrontEndPathPermission(array $pathArr) : bool;
 }
