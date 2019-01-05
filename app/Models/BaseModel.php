@@ -52,11 +52,4 @@ abstract class BaseModel extends Model
      * @var array
      */
     protected $hidden  = ['pivot'];
-    
-    /**
-     * 禁止自动维护时间
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 }

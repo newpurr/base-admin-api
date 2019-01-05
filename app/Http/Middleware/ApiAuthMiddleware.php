@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Exceptions\NotAllowedException;
 use App\Http\Middleware\Hepler\ExceptUriTrait;
 use App\Services\Admin\UserPermission\UserPermissionService;
 use Closure;
@@ -44,6 +45,7 @@ class ApiAuthMiddleware
      *
      * @return mixed
      * @throws \Illuminate\Auth\AuthenticationException
+     * @throws \App\Exceptions\NotAllowedException
      */
     public function handle($request, Closure $next)
     {
@@ -56,7 +58,7 @@ class ApiAuthMiddleware
             }
             
             if (!$this->userPermissionService->assertHasPermission($request, $userModel)) {
-                throw new AuthenticationException('无权操作');
+                throw new NotAllowedException();
             }
         }
         

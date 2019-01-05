@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\helper\TableNameTrait;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -18,9 +20,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|RolePermission query()
  * @mixin \Eloquent
  */
-class AssignedRoles extends BaseModel
+class AssignedRoles extends Model
 {
+    use TableNameTrait;
+    
     protected $table = 'assigned_roles';
+    
+    /**
+     * 禁止自动维护时间
+     *
+     * @var bool
+     */
+    public $timestamps = false;
     
     /**
      * role

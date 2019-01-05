@@ -28,6 +28,13 @@ class JsonResponseCode
     public const UNAUTHORIZED = 401;
     
     /**
+     * 未授权
+     *
+     * @var int
+     */
+    public const NOT_ALLOWED = 403;
+    
+    /**
      * 资源不存在
      *
      * @var int
@@ -56,6 +63,7 @@ class JsonResponseCode
     protected const MAPPING = [
         self::SUCCESS         => '请求成功',
         self::UNAUTHORIZED    => '请先登录',
+        self::NOT_ALLOWED     => '未授权',
         self::NOT_FOUND       => '资源不存在',
         self::SERVER_ERROR    => '服务器繁忙',
         self::PARAMETER_ERROR => '参数错误',

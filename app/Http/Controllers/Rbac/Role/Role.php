@@ -96,7 +96,7 @@ class Role extends Controller
      */
     public function allotPermission(Request $request, int $roleId) : JsonResponseBodyInterface
     {
-        $this->service->allotPermission($roleId, $request->json('params.permission_list', []));
+        $this->service->allotPermission($roleId, $request->json('permission_list', []));
         
         return build_successful_body();
     }

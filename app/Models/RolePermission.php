@@ -25,6 +25,13 @@ class RolePermission extends Model
     use TableNameTrait;
     
     /**
+     * 禁止自动维护时间
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+    
+    /**
      * table name
      *
      * @var string
