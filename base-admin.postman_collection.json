@@ -1070,7 +1070,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"测试权限\",\n    \"path\": \"/cs\",\n    \"method\": \"GET\",\n    \"description\": \"jastdsssss\",\n    \"per_type\": \"1\"\n}"
+							"raw": "{\n    \"name\": \"测试权限\",\n    \"path\": \"/cs\",\n    \"method\": \"GET\",\n    \"description\": \"jastdsssss\",\n    \"permission_type\": \"1\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/api/permission",
@@ -1113,7 +1113,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"测试权限9\",\n    \"path\": \"/cs1\",\n    \"method\": \"GET\",\n    \"description\": \"dsadsadsadsad\",\n    \"per_type\": \"1\"\n}"
+							"raw": "{\n    \"name\": \"测试权限9\",\n    \"path\": \"/cs1\",\n    \"method\": \"GET\",\n    \"description\": \"dsadsadsadsad\",\n    \"permission_type\": \"1\"\n}"
 						},
 						"url": {
 							"raw": "{{host}}/api/permission/555",

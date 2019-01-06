@@ -60,7 +60,7 @@ class SyncRouteToPermission extends RouteListCommand
                 $parModel              = Permission::firstOrNew([
                     'path'     => $flag,
                     'name'     => $flag,
-                    'per_type' => Type::API,
+                    'permission_type' => Type::API,
                 ]);
                 $parModel->description = __('route.' . $flag);
                 $parModel->state       = StateEnum::ENABLED;
@@ -77,7 +77,7 @@ class SyncRouteToPermission extends RouteListCommand
             ]);
             $permissionModel->name        = $route['name'];
             $permissionModel->description = __('route.' . $route['name']);
-            $permissionModel->per_type    = Type::API;
+            $permissionModel->permission_type    = Type::API;
             $permissionModel->state       = StateEnum::ENABLED;
             $permissionModel->parent_id   = $parModel->id;
             $permissionModel->save();

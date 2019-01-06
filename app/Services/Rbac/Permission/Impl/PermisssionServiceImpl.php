@@ -128,9 +128,9 @@ class PermisssionServiceImpl implements PermissionService
             throw new ParamterErrorException('数据格式错误');
         }
         /** @var Collection $existPermissionCollection */
-        $existPermissionCollection = $this->repostitory->findWhereIn('path', $pathArr, ['path', 'per_type']);
+        $existPermissionCollection = $this->repostitory->findWhereIn('path', $pathArr, ['path', 'permission_type']);
         $existPermissionCollection = $existPermissionCollection->filter(function(Permission $permission) {
-            return $permission->per_type === \App\Constant\Permission\Type::MENU;
+            return $permission->permission_type === \App\Constant\Permission\Type::MENU;
         });
         $existPermissionPath = $existPermissionCollection->pluck('path')->toArray();
         $insertPermissionArr = $inputPathCollection->filter(function ($permissionMap) use ($existPermissionPath) {

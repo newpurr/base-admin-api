@@ -21,12 +21,12 @@ class Type implements CriteriaInterface
      */
     public function apply($model, RepositoryInterface $repository)
     {
-        $type = request('per_type', null);
+        $type = request('permission_type', null);
     
         if (null === $type) {
             return $model;
         }
         
-        return $model->whereIn('per_type', explode(',', $type));
+        return $model->whereIn('permission_type', explode(',', $type));
     }
 }

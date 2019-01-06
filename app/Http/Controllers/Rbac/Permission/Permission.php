@@ -58,7 +58,7 @@ class Permission extends Controller
     public function store(Request $request) : JsonResponseBodyInterface
     {
         $roleModel = $this->service->create(
-            $request->only(['name','path','method','description','per_type','state'])
+            $request->only(['name','path','method','description','permission_type','state'])
         );
         
         return build_successful_body($roleModel->toArray());
@@ -94,7 +94,7 @@ class Permission extends Controller
     public function update(Request $request, $id) : JsonResponseBodyInterface
     {
         $roleModel = $this->service->update(
-            $request->only(['name','path','method','description','per_type','state']),
+            $request->only(['name','path','method','description','permission_type','state']),
             $id
         );
         

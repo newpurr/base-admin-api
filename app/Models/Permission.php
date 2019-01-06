@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string                                        $path        权限path
  * @property string                                        $method      请求方法
  * @property string                                        $description 描述
- * @property int                                           $per_type    权限类型 1-API 2-菜单/页面 3-按钮
+ * @property int                                           $permission_type    权限类型 1-API 2-菜单/页面 3-按钮
  * @property int                                           $parent_id   父级ID
  * @property int                                           $is_deleted  是否删除:0-未删除 1-已删除
  * @property int                                           $state       启用状态 1-启用 2-禁用
