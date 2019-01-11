@@ -60,5 +60,7 @@ class AssignAllPermissionsToSuperRole extends Command
         $this->roleService->allotPermission(1, $permissionIdArr);
         
         $this->info('Execute successfully!');
+        
+        return null;
     }
 }

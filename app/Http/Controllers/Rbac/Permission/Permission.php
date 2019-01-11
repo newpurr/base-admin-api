@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Rbac\Permission;
 
 use App\Exceptions\NotFoundException;
-use App\Exceptions\ParamterErrorException;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helper\SimpleOperation;
 use App\Services\Rbac\Permission\PermissionService;

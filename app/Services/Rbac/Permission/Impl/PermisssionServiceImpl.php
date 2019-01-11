@@ -7,15 +7,13 @@ use App\Models\Permission;
 use App\Repository\Contracts\PermissionRepository;
 use App\Repository\Criteria\Id;
 use App\Repository\Criteria\IsDeletedCriteria;
-use App\Repository\Criteria\StateCriteria;
 use App\Repository\Criteria\Permission\Type;
-use App\Repository\Validators\PermissionValidator;
+use App\Repository\Criteria\StateCriteria;
 use App\Services\Helper\BatchChangeState;
 use App\Services\Rbac\Permission\PermissionService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Artisan;
-use Validator;
 
 class PermisssionServiceImpl implements PermissionService
 {
@@ -151,4 +149,4 @@ class PermisssionServiceImpl implements PermissionService
         
         return $status;
     }
-};
+}
