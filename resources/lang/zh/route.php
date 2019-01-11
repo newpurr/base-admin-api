@@ -4,8 +4,8 @@ return [
     //===============系统管理=================
     'system'                                     => '系统管理',
     'system.health'                              => '服务健康',
-    'system.sync-route'                          => '同步路由',
-    
+    'system.sync-route'                          => '同步后端路由',
+
     //===============管理员管理===============
     'admin'                                      => '管理员管理',
     'admin.index'                                => '分页列表',
@@ -22,7 +22,7 @@ return [
     'admin.auth.logout'                          => '退出',
     'admin.auth.refresh'                         => '刷新登陆',
     'admin.auth.user'                            => '当前用户',
-    
+
     //================权限管理================
     'permission'                                 => '权限管理',
     'permission.index'                           => '分页列表',
@@ -32,8 +32,8 @@ return [
     'permission.destroy'                         => '删除权限',
     'permission.batchEnable'                     => '批量启用',
     'permission.batchDisabled'                   => '批量禁用',
-    'permission.createTheFrontEndPathPermission' => '批量创建前端路由权限',
-    
+    'permission.createTheFrontEndPathPermission' => '同步前端路由',
+
     //================角色管理================
     'roles'                                      => '角色管理',
     'roles.index'                                => '分页列表',
