@@ -7,7 +7,7 @@ return [
     'system.sync-route'                          => '同步后端路由',
 
     //===============管理员管理===============
-    'admin'                                      => '管理员管理',
+    'admin'                                      => '系统用户',
     'admin.index'                                => '分页列表',
     'admin.show'                                 => '用户详情',
     'admin.store'                                => '创建用户',
