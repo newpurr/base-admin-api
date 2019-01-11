@@ -31,7 +31,7 @@ class RolePermissionChangedListener
      *
      * @return void
      */
-    public function handle(RolePermissionChanged $rolePermissionChanged)
+    public function handle(RolePermissionChanged $rolePermissionChanged) : void
     {
         $roleModel = $rolePermissionChanged->getRole();
         

@@ -51,5 +51,5 @@ interface BaseServiceInterface
      * @param int $id
      * @return bool
      */
-    public function softDelete(int $id);
+    public function softDelete(int $id) : bool;
 }

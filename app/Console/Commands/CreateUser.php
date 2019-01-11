@@ -51,5 +51,7 @@ class CreateUser extends Command
         ]);
         
         $this->info('The administrator was created successfully');
+    
+        return null;
     }
 }

@@ -15,8 +15,8 @@ class RoleNameLikeCriteria implements CriteriaInterface
     /**
      * Apply criteria in query repository
      *
-     * @param \App\Models\Role $model
-     * @param RepositoryInterface   $repository
+     * @param \App\Models\Role    $model
+     * @param RepositoryInterface $repository
      *
      * @return mixed
      */

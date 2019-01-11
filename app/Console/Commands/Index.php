@@ -47,7 +47,7 @@ LOGO;
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle() : void
     {
         $this->info(static::$logo);
         $this->comment('');
@@ -56,12 +56,13 @@ LOGO;
         $this->getCommands();
         $this->comment('');
     }
+    
     /**
      * get all admin commands.
      *
      * @return void
      */
-    protected function getCommands()
+    protected function getCommands() : void
     {
         $commands = collect(Artisan::all())->mapWithKeys(function ($command, $key) {
             if (Str::startsWith($key, 'base-admin:')) {
