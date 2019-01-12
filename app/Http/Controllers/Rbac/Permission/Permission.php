@@ -93,7 +93,7 @@ class Permission extends Controller
     public function update(Request $request, $id) : JsonResponseBodyInterface
     {
         $roleModel = $this->service->update(
-            $request->only(['name','path','method','description','permission_type','state']),
+            $request->only(['name','path','method','description','permission_type','state', 'parent_id']),
             $id
         );
         

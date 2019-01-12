@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Psr\Container\NotFoundExceptionInterface;
+use function Psy\debug;
 
 class Handler extends ExceptionHandler
 {
@@ -31,6 +32,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // if we are in the development environment
+        // and debug mode is turned on, we will log mysql by default
+        if (config('app.debug') && config('app.env') === 'local') {
+            logger('[SQL]:', \DB::connection()->getQueryLog());
+        }
+        
         if ($exception instanceof NotFoundExceptionInterface
             || $exception instanceof ModelNotFoundException) {
             return $this->json(build_wrong_body(JsonResponseCode::NOT_FOUND, '资源不存在'));

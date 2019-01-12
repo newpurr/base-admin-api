@@ -21,6 +21,7 @@ class PermisssionServiceImpl implements PermissionService
     
     /**
      * PermisssionServiceImpl constructor.
+     *
      * @param PermissionRepository $permissionRepository
      */
     public function __construct(PermissionRepository $permissionRepository)
@@ -30,8 +31,10 @@ class PermisssionServiceImpl implements PermissionService
     
     /**
      * 获取分页列表
+     *
      * @param int   $pageSize
      * @param array $columns
+     *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function paginate(int $pageSize, $columns = ['*']) : LengthAwarePaginator
@@ -53,7 +56,7 @@ class PermisssionServiceImpl implements PermissionService
      *
      * @return \App\Models\Permission|null
      */
-    public function find(int $id, $columns = ['*' ]) : ?Permission
+    public function find(int $id, $columns = ['*']) : ?Permission
     {
         return $this->repostitory->find($id, $columns);
     }
@@ -91,7 +94,7 @@ class PermisssionServiceImpl implements PermissionService
      *
      * @return Collection
      */
-    public function getPermissionCollectionByIdArr(array $idArr, $columns = [ '*' ]) : Collection
+    public function getPermissionCollectionByIdArr(array $idArr, $columns = ['*']) : Collection
     {
         return $this->repostitory->findWhereIn('id', $idArr, $columns);
     }
@@ -127,11 +130,11 @@ class PermisssionServiceImpl implements PermissionService
         }
         /** @var Collection $existPermissionCollection */
         $existPermissionCollection = $this->repostitory->findWhereIn('path', $pathArr, ['path', 'permission_type']);
-        $existPermissionCollection = $existPermissionCollection->filter(function(Permission $permission) {
+        $existPermissionCollection = $existPermissionCollection->filter(function (Permission $permission) {
             return $permission->permission_type === \App\Constant\Permission\Type::MENU;
         });
-        $existPermissionPath = $existPermissionCollection->pluck('path')->toArray();
-        $insertPermissionArr = $inputPathCollection->filter(function ($permissionMap) use ($existPermissionPath) {
+        $existPermissionPath       = $existPermissionCollection->pluck('path')->toArray();
+        $insertPermissionArr       = $inputPathCollection->filter(function ($permissionMap) use ($existPermissionPath) {
             return !in_array($permissionMap['path'], $existPermissionPath, true);
         })->toArray();
         
@@ -141,7 +144,7 @@ class PermisssionServiceImpl implements PermissionService
         
         // 批量插入
         $status = $this->repostitory->insert($insertPermissionArr);
-    
+        
         if ($status) {
             // 给超级管理员分配所有权限
             Artisan::call('base-admin:ass-all-per');
