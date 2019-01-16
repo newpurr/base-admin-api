@@ -1,5 +1,7 @@
-[TOC]
+## base-admin-api
+[![Build Status](https://travis-ci.org/michaelliao/openweixin.svg?branch=master)](https://travis-ci.org/michaelliao/openweixin)
 
+[TOC]
 ### 介绍
 `base-admin-api`是基于 `larave` + `swoole` 开发的管理后台API接口,在享受laravel优雅的开发模式的同时使用swoole加速,让编码变成一种享受。
 
