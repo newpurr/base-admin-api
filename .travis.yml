@@ -5,7 +5,7 @@ php:
   - 7.2
 
 before_script:
-  - printf 'yes\nyes\nyes\nyes\nyes\nyes\n' | pecl install swoole
+  - printf 'yes\nno\nno\nno\nno\nno\n' | pecl install swoole
   - echo "extension=swoole.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install --prefer-dist --optimize-autoloader --quiet
 
