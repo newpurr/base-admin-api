@@ -1,5 +1,5 @@
 ## base-admin-api
-[![Build Status](https://travis-ci.org/michaelliao/openweixin.svg?branch=master)](https://www.travis-ci.org/SuperHappysir/base-admin-api)
+[![Build Status](https://www.travis-ci.org/SuperHappysir/base-admin-api.svg?branch=master)](https://www.travis-ci.org/SuperHappysir/base-admin-api)
 
 [TOC]
 ### 介绍
