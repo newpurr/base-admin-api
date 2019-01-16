@@ -5,8 +5,8 @@ php:
   - 7.2
 
 before_script:
-  - printf 'yes\nno\nyes\nno\nno\nno\n' | pecl install swoole
+  - printf 'yes\nyes\nyes\nyes\nyes\nyes\n' | pecl install swoole
   - echo "extension=swoole.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - composer install
+  - composer install --prefer-dist --optimize-autoloader --quiet
 
 script: ./vendor/bin/phpunit -c phpunit.xml
