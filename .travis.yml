@@ -1,8 +1,10 @@
 language: php
 
 php:
+  - 7.1
   - 7.2
-  - nightly
 
-install:
-  - composer install --prefer-dist --optimize-autoloader --quiet
+before_script:
+  - composer install
+
+script: ./vendor/bin/phpunit -c phpunit.xml
