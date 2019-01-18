@@ -26,7 +26,7 @@ $router->get('/system/health', function () {
 })->middleware('auth:admin_api')->name('system.health');
 
 // 同步路由数据到权限表
-$router->get('/system/sync-route', function () {
+$router->post('/system/sync-route', function () {
     Artisan::call('base-admin:sync-route');
     
     return build_successful_body([]);
