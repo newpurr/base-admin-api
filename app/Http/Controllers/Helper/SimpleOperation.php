@@ -45,7 +45,7 @@ trait SimpleOperation
      */
     public function batchDisabled(Request $request) : JsonResponseBodyInterface
     {
-        $ids       = $request->json('params');
+        $ids       = $request->json('params', []);
         $validator = Validator::make($ids, ['ids' => 'required|array'], [
             'ids.required' => '请指定需要批量操作的选项ID',
             'ids.array'    => 'params.ids字段必须是数组'
@@ -54,7 +54,7 @@ trait SimpleOperation
             throw new ParamterErrorException($validator->errors()->first());
         }
         
-        $affectedRows = $this->service->batchDisabled($ids);
+        $affectedRows = $this->service->batchDisabled($ids['ids']);
         
         return build_successful_body([
             'affected_rows' => $affectedRows
@@ -70,7 +70,7 @@ trait SimpleOperation
      */
     public function batchEnable(Request $request) : JsonResponseBodyInterface
     {
-        $ids       = $request->json('params');
+        $ids       = $request->json('params', []);
         $validator = Validator::make($ids, ['ids' => 'required|array'], [
             'ids.required' => '请指定需要批量操作的选项ID',
             'ids.array'    => 'params.ids字段必须是数组'
@@ -79,7 +79,7 @@ trait SimpleOperation
             throw new ParamterErrorException($validator->errors()->first());
         }
         
-        $affectedRows = $this->service->batchEnabled($ids);
+        $affectedRows = $this->service->batchEnabled($ids['ids']);
         
         return build_successful_body([
             'affected_rows' => $affectedRows

@@ -109,7 +109,7 @@ class Permission extends Controller
      */
     public function createTheFrontEndPathPermission(Request $request) : JsonResponseBodyInterface
     {
-        $this->service->createTheFrontEndPathPermission($request->input('permissions'));
+        $this->service->createTheFrontEndPathPermission($request->input('permissions', []));
     
         return build_successful_body();
     }
