@@ -9,15 +9,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * App\Permission
  *
- * @property int                                           $id          自增主键
- * @property string                                        $name        权限名称
- * @property string                                        $path        权限path
- * @property string                                        $method      请求方法
- * @property string                                        $description 描述
+ * @property int                                           $id                 自增主键
+ * @property string                                        $name               权限名称
+ * @property string                                        $path               权限path
+ * @property string                                        $method             请求方法
+ * @property string                                        $description        描述
  * @property int                                           $permission_type    权限类型 1-API 2-菜单/页面 3-按钮
- * @property int                                           $parent_id   父级ID
- * @property int                                           $is_deleted  是否删除:0-未删除 1-已删除
- * @property int                                           $state       启用状态 1-启用 2-禁用
+ * @property int                                           $parent_id          父级ID
+ * @property int                                           $is_deleted         是否删除:0-未删除 1-已删除
+ * @property int                                           $state              启用状态 1-启用 2-禁用
  * @property \Carbon\Carbon                                $created_at
  * @property \Carbon\Carbon|null                           $updated_at
  * @property Permission                                    $parentPermission
@@ -51,6 +51,36 @@ class Permission extends BaseModel
     use StateJudgeTrait;
     
     protected $table = 'permissions';
+    
+    /**
+     * 是否是API权限
+     *
+     * @return bool
+     */
+    public function isApi() : bool
+    {
+        return $this->permission_type === \App\Constant\Permission\Type::API;
+    }
+    
+    /**
+     * 是否是MENU权限
+     *
+     * @return bool
+     */
+    public function isMenu() : bool
+    {
+        return $this->permission_type === \App\Constant\Permission\Type::MENU;
+    }
+    
+    /**
+     * 是否是BUTTON权限
+     *
+     * @return bool
+     */
+    public function isButton() : bool
+    {
+        return $this->permission_type === \App\Constant\Permission\Type::BUTTON;
+    }
     
     /**
      * 父权限模型

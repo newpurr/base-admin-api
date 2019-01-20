@@ -131,7 +131,7 @@ class PermisssionServiceImpl implements PermissionService
         /** @var Collection $existPermissionCollection */
         $existPermissionCollection = $this->repostitory->findWhereIn('path', $pathArr, ['path', 'permission_type']);
         $existPermissionCollection = $existPermissionCollection->filter(function (Permission $permission) {
-            return $permission->permission_type === \App\Constant\Permission\Type::MENU;
+            return !$permission->isApi();
         });
         $existPermissionPath       = $existPermissionCollection->pluck('path')->toArray();
         $insertPermissionArr       = $inputPathCollection->filter(function ($permissionMap) use ($existPermissionPath) {
