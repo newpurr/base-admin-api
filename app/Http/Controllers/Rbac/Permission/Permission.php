@@ -75,7 +75,8 @@ class Permission extends Controller
     {
         $roleModel = $this->service->find($id, [
             'id',
-            'name'
+            'name',
+            'permission_type'
         ]);
         if (!$roleModel) {
             throw new NotFoundException();
