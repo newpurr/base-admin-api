@@ -29,7 +29,7 @@ class Install extends Command
      */
     public function handle()
     {
-        if ($this->option('show')) {
+        if ($this->option('show') || file_exists('./install.lock')) {
             $this->displaySuccess();
         
             return;
@@ -47,6 +47,8 @@ class Install extends Command
         
         $this->seed();
     
+        file_put_contents('./install.lock', '');
+        
         $this->displaySuccess();
     }
     
@@ -107,9 +109,14 @@ class Install extends Command
         // 创建数据库
         $this->info('');
         $this->info('正在创建数据库...');
+        $dbname = config('database.connections.mysql.database', 'admin_base_com');
         Artisan::call('base-admin:create-db', [
-            'dbname' => config('database.connections.mysql.database')
+            'dbname' => $dbname
         ]);
+        $path = $this->envPath();
+        
+        file_put_contents($path, str_replace('DB_DATABASE=', 'DB_DATABASE='.$dbname, file_get_contents($path)));
+        
         $this->info('数据库创建成功.');
     }
     
