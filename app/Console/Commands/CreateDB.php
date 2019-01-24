@@ -28,7 +28,7 @@ class CreateDB extends Command
      */
     public function handle()
     {
-        $schemaName = $this->argument('dbname') ? : config('database.connections.mysql.database', 'admin_base_com');
+        $schemaName = $this->argument('dbname');
         $charset    = config('database.connections.mysql.charset', 'utf8mb4');
         $collation  = config('database.connections.mysql.collation', 'utf8mb4_unicode_ci');
         
