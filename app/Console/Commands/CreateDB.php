@@ -12,8 +12,7 @@ class CreateDB extends Command
      *
      * @var string
      */
-    protected $signature = 'base-admin:create-db
-                                                {dbname : 请输入数据库名称}';
+    protected $signature = 'base-admin:create-db {dbname : 请输入数据库名称}';
     
     /**
      * The console command description.
