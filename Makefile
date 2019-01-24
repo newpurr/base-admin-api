@@ -11,7 +11,7 @@ install:
 	# 复制env文件
 	@$(copy-env); \
 	# 安装依赖库
-    @composer install -vvv; \
+	@composer install -vvv; \
     # 安装base-admin-api
 	@php artisan base-admin:install
 
