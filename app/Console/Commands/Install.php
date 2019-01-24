@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class Install extends Command
 {
@@ -27,26 +28,28 @@ class Install extends Command
      */
     public function handle()
     {
+        $this->output->progressStart(6);
+        
         // 1.替换数据库信息
-        $host = $this->ask('What is your mysql host?', config('database.connections.mysql.host', 'localhost'));
+        $host = $this->ask('What is your mysql host?', config('database.connections.mysql.host'));
         
         $port = $this->ask('What is your port of mysql?', config('database.connections.mysql.port', '3306'));
         
         $database = $this->ask('What is your database?',
-            config('database.connections.mysql.database', 'admin_base_com'));
+            config('database.connections.mysql.database'));
         
-        $user = $this->ask('What is your username of mysql?', config('database.connections.mysql.username', 'root'));
+        $user = $this->ask('What is your username of mysql?', config('database.connections.mysql.username'));
         
-        $pass = $this->ask('What is your password of mysql?', config('database.connections.mysql.password', '123456'));
+        $pass = $this->ask('What is your password of mysql?', config('database.connections.mysql.password'));
         
         $path = $this->envPath();
         
         file_put_contents($path, str_replace([
-            'DB_HOST=' . config('database.connections.mysql.host', 'localhost'),
-            'DB_PORT=' . config('database.connections.mysql.port', '3306'),
-            'DB_DATABASE=' . config('database.connections.mysql.database', 'admin_base_com'),
-            'DB_USERNAME=' . config('database.connections.mysql.username', 'root'),
-            'DB_PASSWORD=' . config('database.connections.mysql.password', '123456'),
+            'DB_HOST=' . config('database.connections.mysql.host'),
+            'DB_PORT=' . config('database.connections.mysql.port'),
+            'DB_DATABASE=' . config('database.connections.mysql.database'),
+            'DB_USERNAME=' . config('database.connections.mysql.username'),
+            'DB_PASSWORD=' . config('database.connections.mysql.password'),
         ], [
             'DB_HOST=' . $host,
             'DB_PORT=' . $port,
@@ -54,20 +57,42 @@ class Install extends Command
             'DB_USERNAME=' . $user,
             'DB_PASSWORD=' . $pass
         ], file_get_contents($path)));
+        $this->info('db config Successful setup.');
     
         // 2.生成app key
+        $this->output->progressAdvance();
+        $this->info('');
+        $this->info('app key is being generated...');
         Artisan::call('config:cache');
         Artisan::call('key:generate');
+        $this->info('app key Successful setup.');
     
         // 3.生成jwt secret
+        $this->output->progressAdvance();
+        $this->info('');
+        $this->info('jwt secret is being generated...');
         Artisan::call('config:cache');
         Artisan::call('jwt:secret');
+        $this->info('jwt secret Successful setup.');
         
         // 4.迁移表结构
-        Artisan::call('artisan migrate');
+        $this->output->progressAdvance();
+        $this->info('');
+        $this->info('performing migration...');
+        Artisan::call('migrate');
+        $this->info('database migration succeeded');
         
         // 5.填充数据
-        Artisan::call('php artisan db:seed');
+        $this->output->progressAdvance();
+        $this->info('');
+        $this->info('filling data...');
+        Artisan::call('db:seed');
+        $this->output->progressAdvance();
+        $this->info('data is successfully populated...');
+    
+        $this->output->progressFinish();
+        $this->info('');
+        $this->info('It\'s been installed successfully. Enjoy it.');
     }
     
     /**
