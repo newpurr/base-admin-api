@@ -111,7 +111,7 @@ class Install extends Command
         $this->info('正在创建数据库...');
         $dbname = config('database.connections.mysql.database');
         Artisan::call('base-admin:create-db', [
-            'dbname' => $dbname ?? 'admin_base_com'
+            'dbname' => $dbname ?: 'admin_base_com'
         ]);
         $path = $this->envPath();
         
