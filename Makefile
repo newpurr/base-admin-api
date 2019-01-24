@@ -7,7 +7,7 @@ all: install
 	@echo
 
 # install
-install:ph
+install:
 	# 复制env文件
 	@$(copy-env); \
 	# 安装依赖库
@@ -18,6 +18,10 @@ install:ph
 	@php artisan key:generate; \
     # 生成jwt secretphp
 	@php artisan jwt:secret
+
+mysql:
+	# 请创建数据库
+	mysql -uroot -p
 
 # 复制env文件
 define copy-env
