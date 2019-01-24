@@ -28,7 +28,7 @@ class Install extends Command
      */
     public function handle()
     {
-        $this->output->progressStart(6);
+        set_time_limit(120);
         
         // 1.替换数据库信息
         $host = $this->ask('What is your mysql host?', config('database.connections.mysql.host'));
@@ -60,7 +60,6 @@ class Install extends Command
         $this->info('db config Successful setup.');
     
         // 2.生成app key
-        $this->output->progressAdvance();
         $this->info('');
         $this->info('app key is being generated...');
         Artisan::call('config:cache');
@@ -68,7 +67,6 @@ class Install extends Command
         $this->info('app key Successful setup.');
     
         // 3.生成jwt secret
-        $this->output->progressAdvance();
         $this->info('');
         $this->info('jwt secret is being generated...');
         Artisan::call('config:cache');
@@ -76,21 +74,17 @@ class Install extends Command
         $this->info('jwt secret Successful setup.');
         
         // 4.迁移表结构
-        $this->output->progressAdvance();
         $this->info('');
         $this->info('performing migration...');
         Artisan::call('migrate');
         $this->info('database migration succeeded');
         
         // 5.填充数据
-        $this->output->progressAdvance();
         $this->info('');
         $this->info('filling data...');
         Artisan::call('db:seed');
-        $this->output->progressAdvance();
         $this->info('data is successfully populated...');
     
-        $this->output->progressFinish();
         $this->info('');
         $this->info('It\'s been installed successfully. Enjoy it.');
     }
