@@ -22,42 +22,21 @@
 
 ### 基础安装
 
-1. clone 项目
+1. clone 项目并安装
 
     ```shell
     git clone https://github.com/SuperHappysir/base-admin-api.git
-    
+
     cd base-admin-api
-    
-    composer install -vvv
-    cp .env.example .env
+
+    make
     ```
+2. 运行项目
 
-2. 生成app key 
-
-     ```shell
-     php artisan config:cache
-     php artisan key:generate
-     ```
-
-3. 生成jwt secret
-
-     `php artisan jwt:secret`
-
-4. 表迁移 
-     1. 在.env配置自己的数据库链接
-     2. 创建数据库(您需要手动创建您配置的数据库,`php artisan migrate`不会自动创建数据库)
-     3. 执行迁移`php artisan migrate`
-
-5. 填充数据 
-
-     `php artisan db:seed`
-
-6. 运行项目
- 
     1. nginx反向代理
-    
+
         > 配置nginx vhost
+
         ```nginx
         server
         {
@@ -82,7 +61,8 @@
         }
         ```
         > 启动/重启nginx
-        
+
         `nginx` / `nginx -s reload`
     2. 启动swoole服务 `php artisan swoole:http start`
+    3. 前台访问`http://yourhost/api/system/health`,能正常返回json即代表安装成功
 
