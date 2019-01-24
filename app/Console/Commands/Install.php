@@ -69,7 +69,7 @@ class Install extends Command
         // 3.生成jwt secret
         $this->info('');
         $this->info('jwt secret is being generated...');
-        Artisan::call('jwt:secret --f');
+        Artisan::call('jwt:secret', ['--force' => true]);
         $this->info('jwt secret Successful setup.');
         
         // 4.迁移表结构
