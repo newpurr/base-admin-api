@@ -31,7 +31,7 @@ class Install extends Command
     {
         if ($this->option('show') || file_exists('./install.lock')) {
             $this->displaySuccess();
-        
+            
             return;
         }
         
@@ -46,7 +46,7 @@ class Install extends Command
         $this->migrate();
         
         $this->seed();
-    
+        
         file_put_contents('./install.lock', '');
         
         $this->displaySuccess();
@@ -113,9 +113,6 @@ class Install extends Command
         Artisan::call('base-admin:create-db', [
             'dbname' => $dbname ?: 'admin_base_com'
         ]);
-        $path = $this->envPath();
-        
-        file_put_contents($path, str_replace('DB_DATABASE=', 'DB_DATABASE='.$dbname, file_get_contents($path)));
         
         $this->info('数据库创建成功.');
     }
@@ -215,7 +212,7 @@ server
 2) 重启nginx: nginx -s reload
 EOL
         );
-    
+        
         $this->info('3) 启动swoole服务: php artisan swoole:http start');
         $this->info('4) 前台访问: 通过您设置的域名即可访问到服务');
         $this->comment('--------------------------------------------------------------------------------');

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Connectors\ConnectionFactory;
 
 class CreateDB extends Command
 {
@@ -34,8 +34,17 @@ class CreateDB extends Command
         
         $query = "CREATE DATABASE IF NOT EXISTS $schemaName CHARACTER SET $charset COLLATE $collation;";
         
-        DB::statement($query);
-    
+        /** @var ConnectionFactory $factory */
+        $factory = app('db.factory');
+        $factory->make([
+            'driver' => config('database.connections.mysql.driver'),
+            'host' => config('database.connections.mysql.host'),
+            'port' => config('database.connections.mysql.port'),
+            'database' => '',
+            'username' => config('database.connections.mysql.username'),
+            'password' => config('database.connections.mysql.password')
+        ])->statement($query);
+        
         $this->info('数据库创建成功');
     }
 }
