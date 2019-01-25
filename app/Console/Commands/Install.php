@@ -48,6 +48,8 @@ class Install extends Command
         $this->seed();
         
         file_put_contents('./install.lock', '');
+    
+        Artisan::call('config:cache');
         
         $this->displaySuccess();
     }
