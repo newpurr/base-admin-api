@@ -9,7 +9,8 @@ use Illuminate\Support\Str;
 /**
  * Class Index
  *
- * @copyright this Command Learn from the implementation of < https://github.com/z-song/laravel-admin/blob/master/src/Console/AdminCommand.php >
+ * @copyright this Command Learn from the implementation of
+ * < https://github.com/z-song/laravel-admin/blob/master/src/Console/AdminCommand.php >
  *
  * @author  SuperHappysir
  * @version 1.0
