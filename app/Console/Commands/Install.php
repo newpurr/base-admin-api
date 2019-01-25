@@ -78,6 +78,8 @@ class Install extends Command
      */
     private function setConfig() : void
     {
+        Artisan::call('config:cache');
+        
         // 替换数据库信息
         $host = $this->ask('What is your mysql host?', config('database.connections.mysql.host'));
         
@@ -100,7 +102,6 @@ class Install extends Command
             'DB_USERNAME=' . $user,
             'DB_PASSWORD=' . $pass
         ], file_get_contents($path)));
-        Artisan::call('config:cache');
         $this->info('保存设置成功.');
     }
     
@@ -143,6 +144,7 @@ class Install extends Command
         $this->info('');
         $this->info('正在生成jwt secret...');
         Artisan::call('jwt:secret', ['--force' => true]);
+        Artisan::call('config:cache');
         $this->info('jwt secret生成成功.');
     }
     
