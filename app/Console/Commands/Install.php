@@ -100,6 +100,7 @@ class Install extends Command
             'DB_USERNAME=' . $user,
             'DB_PASSWORD=' . $pass
         ], file_get_contents($path)));
+        Artisan::call('config:cache');
         $this->info('保存设置成功.');
     }
     
