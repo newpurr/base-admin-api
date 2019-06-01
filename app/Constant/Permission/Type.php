@@ -2,11 +2,10 @@
 
 namespace App\Constant\Permission;
 
-use SuperHappysir\Support\Constant\Enum\Util\MappingHelper;
+use SuperHappysir\Support\Constant\Enum\Lib\BaseEnum;
 
-class Type
+class Type extends BaseEnum
 {
-    use MappingHelper;
     
     /**
      * 接口
@@ -34,7 +33,7 @@ class Type
      *
      * @var array
      */
-    protected const MAPPING = [
+    protected static $translations = [
         self::API    => '接口',
         self::MENU   => '菜单',
         self::BUTTON => '按钮'

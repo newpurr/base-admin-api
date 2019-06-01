@@ -2,17 +2,15 @@
 
 namespace App\Constant;
 
-use SuperHappysir\Support\Constant\Enum\Util\MappingHelper;
+use SuperHappysir\Support\Constant\Enum\Lib\BaseEnum;
 
 /**
  * Class JsonResponseCode Json响应状态码常量
  *
  * @package App\Constant
  */
-class JsonResponseCode
+class JsonResponseCode extends BaseEnum
 {
-    use MappingHelper;
-    
     /**
      * 请求成功
      *
@@ -60,7 +58,7 @@ class JsonResponseCode
      *
      * @var array
      */
-    protected const MAPPING = [
+    protected static $translations = [
         self::SUCCESS         => '请求成功',
         self::UNAUTHORIZED    => '请先登录',
         self::NOT_ALLOWED     => '未授权',

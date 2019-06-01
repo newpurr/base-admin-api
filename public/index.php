@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -19,7 +20,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -50,9 +51,7 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 /** @var Illuminate\Contracts\Http\Kernel $kernel */
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
-$response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
+$response = $kernel->handle($request = Illuminate\Http\Request::capture());
 
 $response->send();
 

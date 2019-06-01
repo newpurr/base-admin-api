@@ -3,6 +3,7 @@
 namespace App\Services\Contracts;
 
 use App\Models\BaseModel;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 /**
  * interface BaseServiceInterface
@@ -36,7 +37,7 @@ interface BaseServiceInterface
      * @param array $columns
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate(int $pageSize, $columns = ['*']) : \Illuminate\Contracts\Pagination\LengthAwarePaginator;
+    public function paginate(int $pageSize, $columns = ['*']) : LengthAwarePaginator;
     
     /**
      * 更新一个模型
